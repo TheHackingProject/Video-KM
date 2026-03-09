@@ -25,10 +25,10 @@
             "state": {
               "type": "excalidraw",
               "state": {
-                "file": "Excalidraw/Element.md"
+                "file": "Excalidraw/Monorepo.md"
               },
               "icon": "excalidraw-icon",
-              "title": "Element"
+              "title": "Monorepo"
             }
           }
         ],
@@ -195,10 +195,10 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "e09e65cf5cdfb296",
+  "active": "c56467b30667daf6",
   "lastOpenFiles": [
     "Excalidraw/Skills IA.md",
-    "Excalidraw/Element.md",
+    "Excalidraw/Monorepo.md",
     "Excalidraw"
   ]
 }
