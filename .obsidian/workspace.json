@@ -23,12 +23,14 @@
             "id": "c56467b30667daf6",
             "type": "leaf",
             "state": {
-              "type": "excalidraw",
+              "type": "markdown",
               "state": {
-                "file": "Excalidraw/Skills IA.md"
+                "file": "Readme.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "excalidraw-icon",
-              "title": "Skills IA"
+              "icon": "lucide-file",
+              "title": "Readme"
             }
           }
         ],
@@ -105,7 +107,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Excalidraw/Skills IA.md",
+                "file": "Readme.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +117,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Skills IA"
+              "title": "Backlinks for Readme"
             }
           },
           {
@@ -195,10 +197,11 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "c56467b30667daf6",
+  "active": "e09e65cf5cdfb296",
   "lastOpenFiles": [
-    "Excalidraw/Monorepo.md",
     "Excalidraw/Skills IA.md",
+    "Readme.md",
+    "Excalidraw/Monorepo.md",
     "Excalidraw"
   ]
 }
