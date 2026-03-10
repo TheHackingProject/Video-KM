@@ -169,16 +169,17 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Excalidraw/Element.md",
+                "file": "Readme.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Element"
+              "title": "Outline of Readme"
             }
           }
-        ]
+        ],
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -197,7 +198,7 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "e09e65cf5cdfb296",
+  "active": "c56467b30667daf6",
   "lastOpenFiles": [
     "Excalidraw/Skills IA.md",
     "Readme.md",
