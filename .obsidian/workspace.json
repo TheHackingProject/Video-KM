@@ -25,10 +25,10 @@
             "state": {
               "type": "excalidraw",
               "state": {
-                "file": "Excalidraw/Monorepo.md"
+                "file": "Excalidraw/Skills IA.md"
               },
               "icon": "excalidraw-icon",
-              "title": "Monorepo"
+              "title": "Skills IA"
             }
           }
         ],
@@ -105,7 +105,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Excalidraw/Monorepo.md",
+                "file": "Excalidraw/Skills IA.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +115,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Monorepo"
+              "title": "Backlinks for Skills IA"
             }
           },
           {
@@ -195,10 +195,10 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "e09e65cf5cdfb296",
+  "active": "c56467b30667daf6",
   "lastOpenFiles": [
-    "Excalidraw/Skills IA.md",
     "Excalidraw/Monorepo.md",
+    "Excalidraw/Skills IA.md",
     "Excalidraw"
   ]
 }
