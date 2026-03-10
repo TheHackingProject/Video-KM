@@ -1,76 +1,95 @@
-# Runbook : Monorepo (Turborepo)
+---
+title: "Monorepo (Turborepo) Runbook"
+type: runbook
+status: published
+area: development
+tags:
+  - "#documentation"
+  - "#runbook"
+  - "#monorepo"
+  - "#turborepo"
+  - "#bun"
+created: "2026-03-10"
+updated: "2026-03-10"
+related:
+  - "00-architecture.md"
+  - "01-index.md"
+  - "dependencies-submodules.md"
+---
 
-Résumé de l’installation et de l’utilisation du monorepo Video-AI avec Turborepo.
+# Runbook: Monorepo (Turborepo)
+
+Installation and usage summary for the Video-AI monorepo with Turborepo.
 
 ## Stack
 
-- **Turborepo** : orchestration des tâches (build, lint, dev) avec cache et parallélisme
-- **Package manager** : Bun
-- **Workspaces** : `apps/*`, `packages/*`
+- **Turborepo**: task orchestration (build, lint, dev) with caching and parallelism
+- **Package manager**: Bun
+- **Workspaces**: `apps/*`, `packages/*`
 
 ## Structure
 
 ```
 Video-AI/
 ├── apps/
-│   ├── docs/       # App Next.js (docs)
-│   └── web/        # App Next.js (web)
+│   ├── docs/       # Next.js app (docs)
+│   └── web/        # Next.js app (web)
 ├── packages/
-│   ├── ui/                 # @repo/ui – composants React partagés
+│   ├── ui/                 # @repo/ui – shared React components
 │   ├── eslint-config/      # @repo/eslint-config
-│   └── typescript-config/   # @repo/typescript-config
+│   └── typescript-config/  # @repo/typescript-config
 ├── turbo.json
 ├── package.json
 └── ...
 ```
 
-## Installation (nouveau clone)
+## Installation (fresh clone)
 
-À la racine du repo :
+From the repo root:
 
 ```bash
-# Cloner avec les submodules (KM/Docs, KM/Course/*)
-git clone --recurse-submodules <url-du-repo>
+# Clone with submodules (KM/Docs, KM/Course/*)
+git clone --recurse-submodules <repo-url>
 cd Video-AI
 
-# Installer les dépendances (Bun)
+# Install dependencies (Bun)
 bun install
 ```
 
-Si le repo a déjà été cloné sans submodules :
+If the repo was already cloned without submodules:
 
 ```bash
 git submodule update --init --recursive
 bun install
 ```
 
-## Scripts racine
+## Root scripts
 
-| Script         | Commande              | Rôle                                      |
-|----------------|------------------------|-------------------------------------------|
-| Build          | `bun run build`        | Build tous les apps/packages (Turbo)      |
-| Dev            | `bun run dev`         | Lance les serveurs de dev (Turbo)         |
-| Lint           | `bun run lint`        | Lint tous les packages (Turbo)            |
-| Check-types    | `bun run check-types` | Vérification TypeScript (Turbo)          |
-| Format         | `bun run format`      | Prettier (à migrer vers Biome si besoin)  |
+| Script      | Command               | Purpose                                  |
+|-------------|------------------------|------------------------------------------|
+| Build       | `bun run build`        | Build all apps/packages (Turbo)          |
+| Dev         | `bun run dev`          | Start dev servers (Turbo)                 |
+| Lint        | `bun run lint`        | Lint all packages (Turbo)                 |
+| Check-types | `bun run check-types`  | TypeScript check (Turbo)                  |
+| Format      | `bun run format`       | Prettier (migrate to Biome if needed)    |
 
-## Utilisation courante
+## Common usage
 
-- **Tout builder** : `bun run build` ou `turbo build`
-- **Développer une app** : `turbo dev --filter=docs` ou `turbo dev --filter=web`
-- **Builder un package** : `turbo build --filter=docs`
-- **Lancer tout en dev** : `turbo dev`
+- **Build everything**: `bun run build` or `turbo build`
+- **Develop one app**: `turbo dev --filter=docs` or `turbo dev --filter=web`
+- **Build one package**: `turbo build --filter=docs`
+- **Run all in dev**: `turbo dev`
 
-## Configuration Turbo (`turbo.json`)
+## Turbo configuration (`turbo.json`)
 
-- `build` : dépend de `^build` (build des dépendances d’abord), outputs `.next/**`
-- `lint` : dépend de `^lint`
-- `check-types` : dépend de `^check-types`
-- `dev` : `persistent: true`, `cache: false`
+- `build`: depends on `^build` (build dependencies first), outputs `.next/**`
+- `lint`: depends on `^lint`
+- `check-types`: depends on `^check-types`
+- `dev`: `persistent: true`, `cache: false`
 
-Les tâches sont exécutées dans l’ordre du graphe de dépendances et en cache quand les entrées n’ont pas changé.
+Tasks run in dependency graph order and are cached when inputs are unchanged.
 
-## Références
+## References
 
 - [Turborepo – Getting started](https://turborepo.dev/docs/getting-started)
 - [Turborepo – Add to existing repository](https://turborepo.dev/docs/getting-started/add-to-existing-repository)

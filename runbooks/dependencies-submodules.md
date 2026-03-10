@@ -1,56 +1,76 @@
-# Runbook : Dépendances et dépôts GitHub (submodules)
+---
+title: "Dependencies and GitHub Repositories (Submodules) Runbook"
+type: runbook
+status: published
+area: development
+tags:
+  - "#documentation"
+  - "#runbook"
+  - "#git"
+  - "#submodules"
+  - "#dependencies"
+created: "2026-03-10"
+updated: "2026-03-10"
+related:
+  - "00-architecture.md"
+  - "01-index.md"
+  - "monorepo.md"
+---
 
-Comment intégrer d’autres dépôts GitHub dans Video-AI via Git submodules.
+# Runbook: Dependencies and GitHub Repositories (Submodules)
 
-## Principe
+How to integrate other GitHub repositories into Video-AI via Git submodules.
 
-Un **submodule** est un dépôt Git cloné dans un sous-dossier du repo. Le repo parent enregistre uniquement l’**URL** et le **commit** du submodule (pas les fichiers). Chaque submodule reste un repo Git indépendant.
+## Principle
 
-## Submodules actuels (Video-AI)
+A **submodule** is a Git repository cloned into a subdirectory of the parent repo. The parent stores only the submodule **URL** and **commit** (not its files). Each submodule remains an independent Git repository.
 
-Définis dans `.gitmodules` à la racine :
+## Current submodules (Video-AI)
 
-| Chemin            | URL (dépôt GitHub)                              |
-|-------------------|--------------------------------------------------|
-| `KM/Docs`         | https://github.com/TheHackingProject/Video-KM.git |
-| `KM/Course/Intro` | https://github.com/TheHackingProject/course-intro.git |
+Defined in `.gitmodules` at the root:
+
+| Path                  | GitHub URL                                              |
+|-----------------------|---------------------------------------------------------|
+| `KM/Docs`             | https://github.com/TheHackingProject/Video-KM.git       |
+| `KM/Course/Intro`     | https://github.com/TheHackingProject/course-intro.git   |
 | `KM/Course/Fullstack` | https://github.com/TheHackingProject/course-fullstack.git |
-| `KM/Course/React` | https://github.com/TheHackingProject/next-react.git |
+| `KM/Course/React`     | https://github.com/TheHackingProject/next-react.git     |
+| `packages/skills/Remotion` | https://github.com/remotion-dev/skills.git         |
 
-## Ajouter un nouveau submodule
+## Adding a new submodule
 
-À la **racine** du repo Video-AI, avec un **chemin relatif** et l’URL en `.git` :
+From the **root** of the Video-AI repo, using a **relative path** and URL with `.git`:
 
 ```bash
-cd /chemin/vers/Video-AI
-git submodule add https://github.com/org/repo.git KM/NomDuDossier
+cd /path/to/Video-AI
+git submodule add https://github.com/org/repo.git KM/FolderName
 ```
 
-Exemple (Video-KM dans `KM/Docs`) :
+Example (Video-KM in `KM/Docs`):
 
 ```bash
 git submodule add https://github.com/TheHackingProject/Video-KM.git KM/Docs
 ```
 
-- Le dossier cible ne doit **pas exister** ou doit être **vide**.
-- Utiliser un chemin **relatif** (ex. `KM/Docs`) pour que le repo reste portable.
+- The target folder must **not exist** or must be **empty**.
+- Use a **relative path** (e.g. `KM/Docs`) so the repo stays portable.
 
-## Cloner le repo avec les submodules
+## Cloning the repo with submodules
 
 ```bash
 git clone --recurse-submodules https://github.com/.../Video-AI.git
 cd Video-AI
 ```
 
-Si le repo a déjà été cloné **sans** submodules :
+If the repo was already cloned **without** submodules:
 
 ```bash
 git submodule update --init --recursive
 ```
 
-## Mettre à jour un submodule
+## Updating a submodule
 
-Entrer dans le dossier du submodule, puis utiliser Git normalement :
+Enter the submodule directory, then use Git as usual:
 
 ```bash
 cd KM/Docs
@@ -62,35 +82,35 @@ git add KM/Docs
 git commit -m "chore: update submodule KM/Docs"
 ```
 
-Enregistrer le nouveau commit dans le repo parent (comme ci-dessus) pour que l’équipe et la CI utilisent la même version.
+Record the new commit in the parent repo (as above) so the team and CI use the same version.
 
-## Comprendre un diff "Subproject commit"
+## Understanding a "Subproject commit" diff
 
-Un diff sur un submodule affiche uniquement le **changement de commit** pointé :
+A diff on a submodule shows only the **commit reference change**:
 
 ```
 -Subproject commit 28e1c0e...
 +Subproject commit 67b8acf...
 ```
 
-C’est normal : le parent ne versionne pas le contenu du submodule, seulement la référence au commit.
+This is expected: the parent does not version submodule content, only the commit reference.
 
-## Commandes utiles
+## Useful commands
 
-| Action                    | Commande |
-|---------------------------|----------|
-| Ajouter un submodule      | `git submodule add <url> <path>` |
-| Clone avec submodules     | `git clone --recurse-submodules <url>` |
-| Init/update submodules    | `git submodule update --init --recursive` |
-| Statut des submodules     | `git submodule status` |
-| Mettre à jour tous        | `git submodule update --remote --merge` |
+| Action                 | Command                                      |
+|------------------------|----------------------------------------------|
+| Add a submodule        | `git submodule add <url> <path>`             |
+| Clone with submodules  | `git clone --recurse-submodules <url>`       |
+| Init/update submodules | `git submodule update --init --recursive`    |
+| Submodule status       | `git submodule status`                       |
+| Update all             | `git submodule update --remote --merge`      |
 
-## Intégration avec le monorepo
+## Integration with the monorepo
 
-- Les submodules sous `KM/` sont des **contenus/docs** (Video-KM, cours). Ils ne sont pas des workspaces Bun (`apps/*`, `packages/*`).
-- Pour utiliser un dépôt externe comme **package** du monorepo : l’ajouter en submodule dans `packages/` (avec un `package.json`), puis l’inclure dans les workspaces si besoin, ou le référencer via `"dep": "file:./packages/..."` dans les apps.
+- Submodules under `KM/` are **content/docs** (Video-KM, courses). They are not Bun workspaces (`apps/*`, `packages/*`).
+- To use an external repo as a **package** in the monorepo: add it as a submodule under `packages/` (with a `package.json`), then include it in workspaces if needed, or reference it via `"dep": "file:./packages/..."` in apps.
 
-## Références
+## References
 
-- [Git – Submodules](https://git-scm.com/book/fr/v2/Utilitaires-Git-Sous-modules)
-- [Turborepo – Add to existing repository](https://turborepo.dev/docs/getting-started/add-to-existing-repository) (workspaces vs contenu externe)
+- [Git – Submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules)
+- [Turborepo – Add to existing repository](https://turborepo.dev/docs/getting-started/add-to-existing-repository) (workspaces vs external content)
