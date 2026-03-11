@@ -4,14 +4,16 @@ type: documentation
 status: published
 area: documentation
 tags:
-  - "#documentation"
-  - "#knowledge-base"
-  - "#cursor"
-created: "2026-03-10"
-updated: "2026-03-10"
+  - documentation
+  - knowledge-base
+  - cursor
+created: 2026-03-10
+updated: 2026-03-11
 related:
-  - "00-architecture.md"
-  - "01-index.md"
+  - "[[00-architecture]]"
+  - "[[01-index]]"
+  - "[[runbooks/monorepo]]"
+  - "[[runbooks/storybook]]"
 ---
 
 # KM/Docs – Knowledge Base

@@ -4,17 +4,19 @@ type: runbook
 status: published
 area: development
 tags:
-  - "#documentation"
-  - "#runbook"
-  - "#monorepo"
-  - "#turborepo"
-  - "#bun"
-created: "2026-03-10"
-updated: "2026-03-10"
+  - documentation
+  - runbook
+  - monorepo
+  - turborepo
+  - bun
+created: 2026-03-10
+updated: 2026-03-11
 related:
-  - "00-architecture.md"
-  - "01-index.md"
-  - "dependencies-submodules.md"
+  - "[[00-architecture]]"
+  - "[[01-index]]"
+  - "[[runbooks/dependencies-submodules]]"
+  - "[[runbooks/bun-biome]]"
+  - "[[runbooks/storybook]]"
 ---
 
 # Runbook: Monorepo (Turborepo)

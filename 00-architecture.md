@@ -4,17 +4,18 @@ type: documentation
 status: published
 area: architecture
 tags:
-  - "#documentation"
-  - "#architecture"
-  - "#monorepo"
-  - "#turborepo"
-  - "#submodules"
-created: "2026-03-10"
-updated: "2026-03-10"
+  - documentation
+  - architecture
+  - monorepo
+  - turborepo
+  - submodules
+created: 2026-03-10
+updated: 2026-03-11
 related:
-  - "01-index.md"
-  - "runbooks/monorepo.md"
-  - "runbooks/dependencies-submodules.md"
+  - "[[01-index]]"
+  - "[[runbooks/monorepo]]"
+  - "[[runbooks/dependencies-submodules]]"
+  - "[[runbooks/storybook]]"
 ---
 
 # 00 – Architecture Video-AI
@@ -27,9 +28,13 @@ Overview of the monorepo architecture, structure and repository links.
 Video-AI/
 ├── apps/
 │   ├── docs/              # Next.js app (docs)
-│   └── web/                # Next.js app (web)
+│   ├── web/               # Next.js app (web)
+│   └── storybook/         # Storybook – component library docs
 ├── packages/
 │   ├── ui/                 # @repo/ui – shared React components
+│   │   └── src/
+│   │       ├── *.tsx           # Components
+│   │       └── *.stories.tsx   # Storybook stories (colocated)
 │   ├── eslint-config/      # @repo/eslint-config
 │   ├── typescript-config/  # @repo/typescript-config
 │   └── skills/
@@ -38,10 +43,15 @@ Video-AI/
 │   ├── Docs/               # submodule – Project documentation
 │   │   ├── 00-architecture.md   # ← this file
 │   │   ├── 01-index.md         # Index & links
+│   │   ├── Templates/          # Obsidian templates
+│   │   │   ├── frontmatter-doc.md
+│   │   │   ├── frontmatter-runbook.md
+│   │   │   └── frontmatter-adr.md
 │   │   └── runbooks/
 │   │       ├── monorepo.md
 │   │       ├── dependencies-submodules.md
-│   │       └── bun-biome.md
+│   │       ├── bun-biome.md
+│   │       └── storybook.md
 │   └── Course/
 │       ├── Intro/          # submodule
 │       ├── Fullstack/      # submodule

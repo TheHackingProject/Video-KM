@@ -4,17 +4,17 @@ type: runbook
 status: published
 area: development
 tags:
-  - "#documentation"
-  - "#runbook"
-  - "#git"
-  - "#submodules"
-  - "#dependencies"
-created: "2026-03-10"
-updated: "2026-03-10"
+  - documentation
+  - runbook
+  - git
+  - submodules
+  - dependencies
+created: 2026-03-10
+updated: 2026-03-11
 related:
-  - "00-architecture.md"
-  - "01-index.md"
-  - "monorepo.md"
+  - "[[00-architecture]]"
+  - "[[01-index]]"
+  - "[[runbooks/monorepo]]"
 ---
 
 # Runbook: Dependencies and GitHub Repositories (Submodules)
