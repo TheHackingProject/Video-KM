@@ -16,6 +16,7 @@ related:
   - "[[runbooks/monorepo]]"
   - "[[runbooks/dependencies-submodules]]"
   - "[[runbooks/storybook]]"
+  - "[[runbooks/remotion]]"
 ---
 
 # 00 – Architecture Video-AI
@@ -29,12 +30,29 @@ Video-AI/
 ├── apps/
 │   ├── docs/              # Next.js app (docs)
 │   ├── web/               # Next.js app (web)
-│   └── storybook/         # Storybook – component library docs
+│   ├── storybook/         # Storybook – component library docs
+│   └── remotion/          # Remotion Studio – video generation
+│       ├── src/
+│       │   ├── Root.tsx        # Remotion entry point
+│       │   └── Composition.tsx # Video compositions
+│       ├── remotion.config.ts  # Remotion configuration
+│       └── skills/             # Agent skills (symlinked)
 ├── packages/
 │   ├── ui/                 # @repo/ui – shared React components
 │   │   └── src/
 │   │       ├── *.tsx           # Components
-│   │       └── *.stories.tsx   # Storybook stories (colocated)
+│   │       ├── *.stories.tsx   # Storybook stories (colocated)
+│   │       └── lib/
+│   │           └── remotion/   # Remotion component library
+│   │               ├── text/       # Typewriter, WordByWord, etc.
+│   │               ├── code/       # CodeBlock, Terminal, DiffView
+│   │               ├── audio/      # Spectrum, Waveform, AudioBar
+│   │               ├── 3d/         # RotatingObject, FloatingText
+│   │               ├── ui/         # Button, Card, Badge (animated)
+│   │               ├── diagrams/   # FlowChart, Tree, Timeline
+│   │               ├── characters/ # Avatar, SpeakingHead
+│   │               ├── transitions/# FadeSlide, ZoomBlur, Wipe
+│   │               └── hooks/      # useTypewriter, useSpringAnimation
 │   ├── eslint-config/      # @repo/eslint-config
 │   ├── typescript-config/  # @repo/typescript-config
 │   └── skills/

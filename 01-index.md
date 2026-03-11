@@ -16,6 +16,7 @@ related:
   - "[[runbooks/dependencies-submodules]]"
   - "[[runbooks/bun-biome]]"
   - "[[runbooks/storybook]]"
+  - "[[runbooks/remotion]]"
 ---
 
 # 01 – Documentation Index
@@ -32,6 +33,7 @@ Index of project documentation resources.
 - [**dependencies-submodules**](./runbooks/dependencies-submodules.md) – Submodules, integrating GitHub repositories
 - [**bun-biome**](./runbooks/bun-biome.md) – Bun, Biome (lint/format), CLI gotcha
 - [**storybook**](./runbooks/storybook.md) – Storybook, component library documentation
+- [**remotion**](./runbooks/remotion.md) – Remotion Studio, video generation, compositions
 
 ## Templates
 
