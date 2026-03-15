@@ -1,6 +1,7 @@
 ---
 title: "Storybook Runbook"
 type: runbook
+diataxis: how-to
 status: published
 area: development
 tags:

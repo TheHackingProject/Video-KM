@@ -1,6 +1,7 @@
 ---
 title: "Runbook – Remotion"
 type: runbook
+diataxis: how-to
 status: published
 area: video
 tags:

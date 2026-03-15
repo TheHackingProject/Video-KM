@@ -1,6 +1,7 @@
 ---
 title: "Monorepo (Turborepo) Runbook"
 type: runbook
+diataxis: how-to
 status: published
 area: development
 tags:

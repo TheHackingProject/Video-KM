@@ -1,6 +1,8 @@
 ---
 title: "{{title}}"
 type: documentation
+# diataxis: tutorial | how-to | reference | explanation (choose one)
+diataxis: 
 status: draft
 area: 
 tags:

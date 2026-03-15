@@ -1,6 +1,7 @@
 ---
 title: "Bun and Biome Runbook"
 type: runbook
+diataxis: how-to
 status: published
 area: development
 tags:

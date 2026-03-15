@@ -1,6 +1,7 @@
 ---
 title: "Dependencies and GitHub Repositories (Submodules) Runbook"
 type: runbook
+diataxis: how-to
 status: published
 area: development
 tags:

@@ -1,6 +1,7 @@
 ---
 title: "Video-AI Monorepo Architecture"
 type: documentation
+diataxis: reference
 status: published
 area: architecture
 tags:

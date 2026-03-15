@@ -1,6 +1,7 @@
 ---
 title: "{{title}} Runbook"
 type: runbook
+diataxis: how-to
 status: draft
 area: development
 tags:

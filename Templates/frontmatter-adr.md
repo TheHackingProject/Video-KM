@@ -1,6 +1,7 @@
 ---
 title: "ADR-{{date:YYYY-MM-DD}}: {{title}}"
 type: adr
+diataxis: explanation
 status: proposed
 area: architecture
 tags:
