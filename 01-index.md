@@ -36,6 +36,7 @@ Index of project documentation resources.
 - [**video-ai-overview**](./reference/video-ai-overview.md) – What Video-AI is, who it’s for, where it fits (reference)
 - [**video-lifecycle**](./reference/video-lifecycle.md) – Full lifecycle: idea → script → composition → review → render → THP → feedback → iteration (reference)
 - [**video-ai-vision**](./explanation/video-ai-vision.md) – Long-term vision, v1/v2/v3, pedagogy (explanation)
+- [**video-ai-preparation**](./video-ai-preparation/README.md) – Preparation (formats, shortlist, pilot outline) – write before code
 
 ## Runbooks (procedures)
 

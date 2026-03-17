@@ -48,8 +48,8 @@ flowchart LR
 
 | Step | Description |
 |------|-------------|
-| **Idea** | Identify need: new lesson, update, or improvement. Linked to THP module/lesson. |
-| **Script** | Outline or script (text, structure). Defines intent before implementation. |
+| **Idea** | Identify need: new lesson, update, or improvement. Linked to THP module/lesson. Design and format: see [video-ai-preparation/](../video-ai-preparation/README.md) (formats, shortlist, pilot outline). |
+| **Script** | Outline or script (text, structure). Defines intent before implementation. Write in or link from [video-ai-preparation/](../video-ai-preparation/) (e.g. pilot-outline.md). |
 | **Composition** | Implement in Remotion: create or edit composition(s) in this repo. |
 | **Review** | Code review + pedagogical review (content, pacing, alignment with course). |
 | **Render** | Export video asset(s) (e.g. via Remotion CLI or future rendering pipeline). |
@@ -70,7 +70,8 @@ flowchart LR
 
 | Phase | Location | Notes |
 |-------|----------|--------|
-| Script | Outside repo or in `KM/` (e.g. course content) | Scripts can live in THP/course docs; repo focuses on composition + render. |
+| Idea / Script / Format design | `KM/Docs/video-ai-preparation/` | Formats (01), component shortlist (02), pilot outline. Write before code. |
+| Script | Outside repo or in `KM/` (e.g. course content) | Scripts can live in THP/course docs or in video-ai-preparation/pilot-outline.md. |
 | Composition | `apps/remotion/src/remotion/compositions/` | One or more compositions per video/lesson; register in `Root.tsx`. |
 | Primitives/blocks | `packages/remotion-lib/src/` | Reusable building blocks used by compositions. |
 | Review | PRs, branch workflow | Same as rest of repo; branch per feature/video, PR with code + pedagogical check. |

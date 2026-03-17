@@ -15,6 +15,7 @@ related:
   - "[[00-architecture]]"
   - "[[reference/video-ai-overview]]"
   - "[[reference/video-lifecycle]]"
+  - "[[video-ai-preparation/README]]"
   - "[[explanation/video-ai-vision]]"
   - "[[runbooks/remotion]]"
 ---
@@ -40,6 +41,7 @@ For full scope and audience, see [reference/video-ai-overview](reference/video-a
 ## 02 – Key context
 
 - **Video lifecycle**: From idea to prod and back: idea → script → composition → review → render → THP integration → feedback → iteration. Full detail (steps, who does what, where in repo): [reference/video-lifecycle](reference/video-lifecycle.md).
+- **Preparation (write before code)**: Formats and pilot outlines live in [video-ai-preparation/](video-ai-preparation/README.md).
 - **Monorepo**: Turborepo; apps live under `apps/` (e.g. `apps/remotion`), shared packages under `packages/` (e.g. `packages/remotion-lib`, `packages/ui`).
 - **Remotion**: Used to author video compositions. Compositions are registered in `apps/remotion/src/remotion/Root.tsx` and live under `apps/remotion/src/remotion/compositions/`. Rendered outputs are consumed by the THP app.
 - **Three levels**: Static UI (`packages/ui`), animated building blocks (`packages/remotion-lib`, and currently `packages/ui/src/lib/remotion`), and compositions (`apps/remotion`). See [00-architecture](00-architecture.md) and [runbooks/remotion](remotion.md).
@@ -49,6 +51,8 @@ For full scope and audience, see [reference/video-ai-overview](reference/video-a
 ## 03 – Development workflow
 
 **Goal**: Add or edit a THP course video.
+
+Before building new components or compositions, define formats and component plans in [video-ai-preparation/01-video-formats](video-ai-preparation/01-video-formats.md) and [video-ai-preparation/02-component-shortlist](video-ai-preparation/02-component-shortlist.md).
 
 1. **Clone and install**  
    From repo root: `git clone --recurse-submodules <repo-url>`, then `bun install`.
