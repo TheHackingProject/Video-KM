@@ -14,6 +14,7 @@ updated: 2026-03-12
 related:
   - "[[00-architecture]]"
   - "[[reference/video-ai-overview]]"
+  - "[[reference/video-lifecycle]]"
   - "[[explanation/video-ai-vision]]"
   - "[[runbooks/remotion]]"
 ---
@@ -38,6 +39,7 @@ For full scope and audience, see [reference/video-ai-overview](reference/video-a
 
 ## 02 – Key context
 
+- **Video lifecycle**: From idea to prod and back: idea → script → composition → review → render → THP integration → feedback → iteration. Full detail (steps, who does what, where in repo): [reference/video-lifecycle](reference/video-lifecycle.md).
 - **Monorepo**: Turborepo; apps live under `apps/` (e.g. `apps/remotion`), shared packages under `packages/` (e.g. `packages/remotion-lib`, `packages/ui`).
 - **Remotion**: Used to author video compositions. Compositions are registered in `apps/remotion/src/remotion/Root.tsx` and live under `apps/remotion/src/remotion/compositions/`. Rendered outputs are consumed by the THP app.
 - **Three levels**: Static UI (`packages/ui`), animated building blocks (`packages/remotion-lib`, and currently `packages/ui/src/lib/remotion`), and compositions (`apps/remotion`). See [00-architecture](00-architecture.md) and [runbooks/remotion](remotion.md).

@@ -13,6 +13,7 @@ updated: 2026-03-11
 related:
   - "[[00-architecture]]"
   - "[[reference/video-ai-overview]]"
+  - "[[reference/video-lifecycle]]"
   - "[[explanation/video-ai-vision]]"
   - "[[runbooks/video-ai-development]]"
   - "[[runbooks/monorepo]]"
@@ -33,6 +34,7 @@ Index of project documentation resources.
 ## Video-AI project
 
 - [**video-ai-overview**](./reference/video-ai-overview.md) – What Video-AI is, who it’s for, where it fits (reference)
+- [**video-lifecycle**](./reference/video-lifecycle.md) – Full lifecycle: idea → script → composition → review → render → THP → feedback → iteration (reference)
 - [**video-ai-vision**](./explanation/video-ai-vision.md) – Long-term vision, v1/v2/v3, pedagogy (explanation)
 
 ## Runbooks (procedures)
