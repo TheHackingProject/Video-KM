@@ -27,30 +27,48 @@ Procedures for using Remotion to create videos with React.
 
 Remotion is a framework for creating videos programmatically using React components. Videos are rendered frame-by-frame, with each frame being a React component.
 
-## Architecture
+## Architecture (target)
+
+**Reusable animated components** (target: `packages/remotion-lib`; current usage: `packages/ui/src/lib/remotion`):
+
+- `packages/remotion-lib/src/` — primitives, blocks, sections (target for new animated components).
+- `packages/ui/src/lib/remotion/` — current Remotion components (text, code, audio, 3d, ui, diagrams, characters, transitions, hooks); will migrate to remotion-lib over time.
+
+**Remotion app** (`apps/remotion`):
 
 ```
-apps/remotion/                    # Remotion application
+apps/remotion/
 ├── src/
-│   ├── Root.tsx                  # Entry point (registers compositions)
-│   └── Composition.tsx           # Video compositions
-├── remotion.config.ts            # Remotion configuration
+│   ├── index.ts                  # Registers RemotionRoot from remotion/Root
+│   ├── index.css
+│   └── remotion/
+│       ├── Root.tsx               # Registers all compositions
+│       └── compositions/
+│           ├── demos/             # Demo compositions
+│           ├── marketing/
+│           ├── onboarding/
+│           └── social/
+├── remotion.config.ts
 ├── skills/                       # Agent skills (remotion-best-practices)
 └── package.json
-
-packages/ui/src/lib/remotion/     # Reusable Remotion components
-├── text/                         # Typewriter, WordByWord, TextReveal, GlitchText
-├── code/                         # CodeBlock, Terminal, DiffView
-├── audio/                        # Spectrum, Waveform, AudioBar
-├── 3d/                           # RotatingObject, FloatingText, ParticleField
-├── ui/                           # Button, Card, Badge, ProgressBar, SceneHeader
-├── diagrams/                     # FlowChart, Tree, Timeline, ComparisonTable
-├── characters/                   # Avatar, SpeakingHead, Silhouette
-├── transitions/                  # FadeSlide, ZoomBlur, Wipe
-├── hooks/                        # useTypewriter, useSpringAnimation, useAudioData
-├── theme.ts                      # Default theme configuration
-└── index.ts                      # Exports all components
 ```
+
+See [00-architecture](00-architecture.md#ui-vs-remotion) for detailed rules.
+
+## Contribution workflow
+
+1. **Static UI component** → create in `packages/ui`, document in Storybook.
+2. **Animated component** → create in `packages/remotion-lib` (primitives, blocks, or sections).
+3. **Composition** → create in `apps/remotion/src/remotion/compositions/` (e.g. demos, marketing, onboarding, social), register in `remotion/Root.tsx`.
+4. New animated components go in `@repo/remotion-lib`, not in `apps/remotion/src/components` or mixed into static UI.
+
+## Where to put what (three-level workflow)
+
+| Level | Where | Notes |
+|-------|--------|--------|
+| **UI** | `packages/ui` | Document in Storybook. No `useCurrentFrame`. |
+| **Animated** | `packages/remotion-lib` | Primitives, blocks, sections. Frame-aware. |
+| **Composition** | `apps/remotion/src/remotion/compositions/` | `<Composition>` components; register in `Root.tsx`. |
 
 ## Stack
 
@@ -115,38 +133,39 @@ export const MyComposition: React.FC = () => {
 
 ### Register composition
 
+Place compositions under `src/remotion/compositions/` and register them in `src/remotion/Root.tsx`:
+
 ```tsx
-// src/Root.tsx
+// src/remotion/Root.tsx
 import { Composition } from "remotion";
-import { MyComposition } from "./MyComposition";
+import { MyComposition } from "./compositions/demos";
 
 export const RemotionRoot: React.FC = () => {
   return (
-    <>
-      <Composition
-        id="MyVideo"
-        component={MyComposition}
-        durationInFrames={30 * 10} // 10 seconds at 30fps
-        fps={30}
-        width={1920}
-        height={1080}
-      />
-    </>
+    <Composition
+      id="MyVideo"
+      component={MyComposition}
+      durationInFrames={30 * 10}
+      fps={30}
+      width={1920}
+      height={1080}
+    />
   );
 };
 ```
 
-## Using the Component Library
+## Using the component library
 
-Import components from `@repo/ui/remotion`:
+In **compositions**, import frame-aware components from `@repo/remotion-lib` (when available) or `@repo/ui/remotion`. Do not import frame-aware components from static `packages/ui`.
 
 ```tsx
-import { 
-  Typewriter, 
-  CodeBlock, 
+import { AbsoluteFill } from "remotion";
+import {
+  Typewriter,
+  CodeBlock,
   FadeSlide,
   Button,
-  Card 
+  Card,
 } from "@repo/ui/remotion";
 
 export const MyScene: React.FC = () => {
