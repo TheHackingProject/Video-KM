@@ -25,7 +25,8 @@ Project documentation and runbooks for Video-AI.
 
 - [**00-architecture**](00-architecture.md) – Monorepo structure and repository links
 - [**01-index**](01-index.md) – Full documentation index
-- [**Runbooks**](runbooks/) – Procedures (monorepo, submodules, bun-biome)
+- [**Video-AI**](reference/video-ai-overview.md) – Overview · [vision](explanation/video-ai-vision.md) · [development runbook](runbooks/video-ai-development.md)
+- [**Runbooks**](runbooks/) – Procedures (monorepo, remotion, video-ai-development, [GitHub MCP projects](runbooks/github-mcp-projects.md), etc.)
 
 ## Doc classification (Diataxis)
 

@@ -12,6 +12,9 @@ created: 2026-03-10
 updated: 2026-03-11
 related:
   - "[[00-architecture]]"
+  - "[[reference/video-ai-overview]]"
+  - "[[explanation/video-ai-vision]]"
+  - "[[runbooks/video-ai-development]]"
   - "[[runbooks/monorepo]]"
   - "[[runbooks/dependencies-submodules]]"
   - "[[runbooks/bun-biome]]"
@@ -27,6 +30,11 @@ Index of project documentation resources.
 
 - [**00-architecture**](./00-architecture.md) – Directory tree, locations, repository links
 
+## Video-AI project
+
+- [**video-ai-overview**](./reference/video-ai-overview.md) – What Video-AI is, who it’s for, where it fits (reference)
+- [**video-ai-vision**](./explanation/video-ai-vision.md) – Long-term vision, v1/v2/v3, pedagogy (explanation)
+
 ## Runbooks (procedures)
 
 - [**monorepo**](./runbooks/monorepo.md) – Turborepo, structure, scripts, usage
@@ -34,6 +42,7 @@ Index of project documentation resources.
 - [**bun-biome**](./runbooks/bun-biome.md) – Bun, Biome (lint/format), CLI gotcha
 - [**storybook**](./runbooks/storybook.md) – Storybook, component library documentation
 - [**remotion**](./runbooks/remotion.md) – Remotion Studio, video generation, compositions
+- [**video-ai-development**](./runbooks/video-ai-development.md) – Video-AI Development Runbook (purpose, workflow, conventions, quality)
 
 ## Templates
 
