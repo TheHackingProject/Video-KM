@@ -13,7 +13,9 @@ updated: 2026-03-11
 related:
   - "[[00-architecture]]"
   - "[[reference/video-lifecycle]]"
+  - "[[reference/tools/README]]"
   - "[[explanation/video-ai-vision]]"
+  - "[[research/README]]"
   - "[[runbooks/video-ai-development]]"
   - "[[runbooks/monorepo]]"
   - "[[runbooks/dependencies-submodules]]"
@@ -38,6 +40,15 @@ Index of project documentation resources.
 - [**video-ai-vision**](./explanation/video-ai-vision.md) – Long-term vision, v1/v2/v3, pedagogy (explanation)
 - [**video-ai-preparation**](./video-ai-preparation/video-ai-preparation.md) – Preparation (formats, shortlist, pilot outline) – write before code
 
+## Research
+
+Exploratory notes, evaluations, and POCs. **Not canonical**; see [reference/tools](./reference/tools/README.md) for stable tool reference. New tools and patterns start in research/; promote to reference/tools/ only once adopted or officially recommended.
+
+- [**research/**](./research/README.md) – Overview and rules
+- [**openclaw**](./research/openclaw.md) · [**mastra**](./research/mastra.md) · [**trigger-dev**](./research/trigger-dev.md) · [**inngest**](./research/inngest.md)
+
+**Reference (tools):** [reference/tools/](./reference/tools/README.md) – Stable tool reference (one file per adopted tool); promoted from research when decided.
+
 ## Runbooks (procedures)
 
 - [**monorepo**](./runbooks/monorepo.md) – Turborepo, structure, scripts, usage
@@ -54,6 +65,7 @@ Obsidian templates for new documentation files (Settings → Templates → folde
 - [**frontmatter-doc**](./Templates/frontmatter-doc.md) – Standard documentation
 - [**frontmatter-runbook**](./Templates/frontmatter-runbook.md) – Runbook/procedure
 - [**frontmatter-adr**](./Templates/frontmatter-adr.md) – Architecture Decision Record
+- [**frontmatter-research-topic**](./Templates/frontmatter-research-topic.md) – Research topic (one file per tool/subject)
 - [**pilot-outline**](./Templates/pilot-outline.md) – Video-AI pilot video outline (script, scenes, components)
 
 ## External links

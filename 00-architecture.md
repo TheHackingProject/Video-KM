@@ -74,7 +74,19 @@ Video-AI/
 │   │   │   ├── frontmatter-doc.md
 │   │   │   ├── frontmatter-runbook.md
 │   │   │   ├── frontmatter-adr.md
+│   │   │   ├── frontmatter-research-topic.md   # Research topic (one file per tool/subject)
 │   │   │   └── pilot-outline.md   # Video-AI pilot outline template
+│   │   ├── reference/            # Canonical reference
+│   │   │   ├── video-lifecycle.md
+│   │   │   └── tools/            # Stable tool reference (promoted from research)
+│   │   │       └── README.md
+│   │   ├── explanation/
+│   │   ├── research/             # Exploratory notes, evaluations, POCs (not canonical)
+│   │   │   ├── README.md
+│   │   │   ├── openclaw.md
+│   │   │   ├── mastra.md
+│   │   │   ├── trigger-dev.md
+│   │   │   └── inngest.md
 │   │   ├── video-ai-preparation/  # Video-AI formats, shortlist, pilot outlines (write before code)
 │   │   │   ├── README.md
 │   │   │   ├── video-ai-preparation.md   # Single doc: formats, component shortlist, pilot outline
@@ -94,6 +106,11 @@ Video-AI/
 ```
 
 Some paths (e.g. `packages/remotion-lib`, `apps/remotion/src/remotion`, `packages/ui` `src/components/`) describe the target architecture; code may be migrated gradually. Before adding Remotion components or compositions, define formats and script in [video-ai-preparation](video-ai-preparation/video-ai-preparation.md); see [reference/video-lifecycle](reference/video-lifecycle.md).
+
+## Research vs reference (tools)
+
+- **research/** — Exploratory notes, evaluations, comparisons, POCs. Status `draft` or `evaluating`; **not canonical**. Do not treat as specification or ADR unless promoted.
+- **reference/tools/** — One page per **adopted** tool or stable pattern: what it is, when to use / when to avoid, links to ADR or runbooks. When a tool is decided, create `reference/tools/<outil>.md` (optionally link back to `research/<outil>.md` as "History & evaluation"); do not duplicate the full evaluation.
 
 ## UI vs Remotion
 
