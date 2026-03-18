@@ -21,6 +21,8 @@ related:
 
 # Runbook – Remotion
 
+Before creating compositions or new animated components, define formats and script in [video-ai-preparation](../video-ai-preparation/video-ai-preparation.md); see [video-lifecycle](../reference/video-lifecycle.md).
+
 Procedures for using Remotion to create videos with React.
 
 ## Overview

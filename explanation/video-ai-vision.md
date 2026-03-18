@@ -13,14 +13,13 @@ tags:
 created: 2026-03-12
 updated: 2026-03-12
 related:
-  - "[[reference/video-ai-overview]]"
   - "[[reference/video-lifecycle]]"
   - "[[runbooks/video-ai-development]]"
 ---
 
 # Video-AI Vision
 
-Explanation: why Video-AI exists and where it is heading (long-term).
+Explanation: why Video-AI exists and where it is heading (long-term). This page explains the **why** and the **trajectory**; for the **what** and **how** (exact sequence, where it lives), see [video-lifecycle](reference/video-lifecycle.md).
 
 ## Long-term vision (v1 → v2 → v3)
 
@@ -30,7 +29,7 @@ Explanation: why Video-AI exists and where it is heading (long-term).
 
 ## Video lifecycle (summary)
 
-From idea to production and back: **idea → script → composition → review → render → THP integration → feedback → iteration**. Roles (pedagogy, dev, IA, platform) and where each step lives in the repo are detailed in [reference/video-lifecycle](reference/video-lifecycle.md).
+From idea to production and back: **idea** → **preparation** (formats, script) → **components** (remotion-lib) → **composition** → review → render → THP integration → feedback → iteration. Full detail: [reference/video-lifecycle](reference/video-lifecycle.md).
 
 ## Pedagogical positioning
 
@@ -47,6 +46,5 @@ A dedicated runbook for the feedback loop and AI workflows will be added when th
 
 ## See also
 
-- [reference/video-ai-overview](reference/video-ai-overview.md) – What Video-AI is and for whom.
-- [reference/video-lifecycle](reference/video-lifecycle.md) – Full video lifecycle (steps, roles, where in repo).
+- [reference/video-lifecycle](reference/video-lifecycle.md) – Full video lifecycle (steps, roles, where in repo); canonical reference for what and how.
 - [runbooks/video-ai-development](runbooks/video-ai-development.md) – How to develop and evolve Video-AI day to day.

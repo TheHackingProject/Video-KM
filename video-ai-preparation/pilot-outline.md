@@ -1,48 +1,22 @@
 ---
-title: "Pilot Video Outline"
+title: "Pilot outline – use template"
 type: documentation
-status: draft
+status: published
 area: video-ai
 tags:
   - video-ai
   - pilot
-  - thp
-created: 2026-03-12
-updated: 2026-03-12
+  - template
 related:
-  - "[[video-ai-preparation/01-video-formats]]"
-  - "[[video-ai-preparation/02-component-shortlist]]"
+  - "[[Templates/pilot-outline]]"
+  - "[[video-ai-preparation/video-ai-preparation]]"
 ---
 
-# Pilot Video Outline
+# Pilot outline
 
-First pilot video: anchor on a real THP course extract. Fill in below when the extract is chosen.
+The **pilot video outline** is a template. It lives in the doc Templates folder so you can use it from Obsidian (Settings → Templates) or copy it by hand.
 
----
+- **Template**: [Templates/pilot-outline](../Templates/pilot-outline.md)
+- **Usage**: Copy the template (e.g. to `video-ai-preparation/pilot-01-<name>-outline.md`), fill it in with a real THP extract, then implement in Remotion once the checklist is done.
 
-## Pilot metadata
-
-- **Title**: [to be set]
-- **Format**: Concept intro | Code demo guided
-- **Source**: [THP module/lesson or link to course content]
-
----
-
-## Script
-
-[Paste or link the script here. Keep it short for the first pilot.]
-
----
-
-## Scene breakdown
-
-1. [Scene 1: e.g. title card]
-2. [Scene 2: …]
-3. [Scene 3: …]
-…
-
----
-
-## Components needed
-
-From [02-component-shortlist](02-component-shortlist.md), list which P0/P1 components this pilot will use. Adjust the shortlist if the pilot reveals gaps.
+See [video-ai-preparation](video-ai-preparation.md#video-formats) and [Component shortlist](video-ai-preparation.md#component-shortlist) for format and component context.

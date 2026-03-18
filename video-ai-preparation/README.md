@@ -11,6 +11,4 @@ tags:
 
 # Video-AI Preparation
 
-This folder is for **designing video formats and the first pilot videos** before any Remotion code is written. No Remotion components or compositions should be added until at least one format is described here (see [01-video-formats](01-video-formats.md)).
-
-See also: [reference/video-ai-overview](../reference/video-ai-overview.md), [explanation/video-ai-vision](../explanation/video-ai-vision.md), [runbooks/video-ai-development](../runbooks/video-ai-development.md).
+Write before code: formats, shortlist, and pilot outline live here. Read in order: [Formats](video-ai-preparation.md#video-formats) → [Component shortlist](video-ai-preparation.md#component-shortlist) → [Pilot outline](video-ai-preparation.md#pilot-outline). Full workflow: [video-lifecycle](reference/video-lifecycle.md).

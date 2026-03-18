@@ -13,9 +13,8 @@ created: 2026-03-12
 updated: 2026-03-12
 related:
   - "[[00-architecture]]"
-  - "[[reference/video-ai-overview]]"
   - "[[reference/video-lifecycle]]"
-  - "[[video-ai-preparation/README]]"
+  - "[[video-ai-preparation/video-ai-preparation]]"
   - "[[explanation/video-ai-vision]]"
   - "[[runbooks/remotion]]"
 ---
@@ -34,14 +33,14 @@ Video-AI produces and evolves **pedagogical web development videos** for The Hac
 - **v2**: Feedback and AI-driven improvement of existing videos.
 - **v3**: Guided autonomous regeneration of content within team-defined guardrails.
 
-For full scope and audience, see [reference/video-ai-overview](reference/video-ai-overview.md). For long-term vision and v1/v2/v3, see [explanation/video-ai-vision](explanation/video-ai-vision.md).
+For full scope and audience, see [reference/video-lifecycle](reference/video-lifecycle.md#role-and-audience). For long-term vision and v1/v2/v3, see [explanation/video-ai-vision](explanation/video-ai-vision.md).
 
 ---
 
 ## 02 – Key context
 
 - **Video lifecycle**: From idea to prod and back: idea → script → composition → review → render → THP integration → feedback → iteration. Full detail (steps, who does what, where in repo): [reference/video-lifecycle](reference/video-lifecycle.md).
-- **Preparation (write before code)**: Formats and pilot outlines live in [video-ai-preparation/](video-ai-preparation/README.md).
+- **Preparation (write before code)**: Formats and pilot outlines live in [video-ai-preparation](video-ai-preparation/video-ai-preparation.md).
 - **Monorepo**: Turborepo; apps live under `apps/` (e.g. `apps/remotion`), shared packages under `packages/` (e.g. `packages/remotion-lib`, `packages/ui`).
 - **Remotion**: Used to author video compositions. Compositions are registered in `apps/remotion/src/remotion/Root.tsx` and live under `apps/remotion/src/remotion/compositions/`. Rendered outputs are consumed by the THP app.
 - **Three levels**: Static UI (`packages/ui`), animated building blocks (`packages/remotion-lib`, and currently `packages/ui/src/lib/remotion`), and compositions (`apps/remotion`). See [00-architecture](00-architecture.md) and [runbooks/remotion](remotion.md).
@@ -52,7 +51,7 @@ For full scope and audience, see [reference/video-ai-overview](reference/video-a
 
 **Goal**: Add or edit a THP course video.
 
-Before building new components or compositions, define formats and component plans in [video-ai-preparation/01-video-formats](video-ai-preparation/01-video-formats.md) and [video-ai-preparation/02-component-shortlist](video-ai-preparation/02-component-shortlist.md).
+Before building new components or compositions, define formats and component plans in [video-ai-preparation](video-ai-preparation/video-ai-preparation.md#video-formats) and [component shortlist](video-ai-preparation/video-ai-preparation.md#component-shortlist).
 
 1. **Clone and install**  
    From repo root: `git clone --recurse-submodules <repo-url>`, then `bun install`.

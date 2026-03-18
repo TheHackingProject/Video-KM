@@ -73,7 +73,12 @@ Video-AI/
 │   │   ├── Templates/          # Obsidian templates
 │   │   │   ├── frontmatter-doc.md
 │   │   │   ├── frontmatter-runbook.md
-│   │   │   └── frontmatter-adr.md
+│   │   │   ├── frontmatter-adr.md
+│   │   │   └── pilot-outline.md   # Video-AI pilot outline template
+│   │   ├── video-ai-preparation/  # Video-AI formats, shortlist, pilot outlines (write before code)
+│   │   │   ├── README.md
+│   │   │   ├── video-ai-preparation.md   # Single doc: formats, component shortlist, pilot outline
+│   │   │   └── pilot-outline.md   # Pointer to Templates/pilot-outline.md
 │   │   └── runbooks/
 │   │       ├── monorepo.md
 │   │       ├── dependencies-submodules.md
@@ -88,7 +93,7 @@ Video-AI/
 └── .gitmodules
 ```
 
-Some paths (e.g. `packages/remotion-lib`, `apps/remotion/src/remotion`, `packages/ui` `src/components/`) describe the target architecture; code may be migrated gradually.
+Some paths (e.g. `packages/remotion-lib`, `apps/remotion/src/remotion`, `packages/ui` `src/components/`) describe the target architecture; code may be migrated gradually. Before adding Remotion components or compositions, define formats and script in [video-ai-preparation](video-ai-preparation/video-ai-preparation.md); see [reference/video-lifecycle](reference/video-lifecycle.md).
 
 ## UI vs Remotion
 

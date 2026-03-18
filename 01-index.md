@@ -12,7 +12,6 @@ created: 2026-03-10
 updated: 2026-03-11
 related:
   - "[[00-architecture]]"
-  - "[[reference/video-ai-overview]]"
   - "[[reference/video-lifecycle]]"
   - "[[explanation/video-ai-vision]]"
   - "[[runbooks/video-ai-development]]"
@@ -27,16 +26,17 @@ related:
 
 Index of project documentation resources.
 
+**Linking**: Point to sections (anchors) of living docs; when changing file structure, prefer adding anchors and updating links over duplicating content. Example: do not create a separate quick-reference file (e.g. `video-ai-lifecycle-quick.md`); add an anchor or a short paragraph in the canonical reference page and link to it.
+
 ## Architecture & structure
 
 - [**00-architecture**](./00-architecture.md) – Directory tree, locations, repository links
 
 ## Video-AI project
 
-- [**video-ai-overview**](./reference/video-ai-overview.md) – What Video-AI is, who it’s for, where it fits (reference)
-- [**video-lifecycle**](./reference/video-lifecycle.md) – Full lifecycle: idea → script → composition → review → render → THP → feedback → iteration (reference)
+- [**video-lifecycle**](./reference/video-lifecycle.md) – Canonical reference: role, lifecycle, where it lives (idea → preparation → components → scene → review → render → THP → feedback → iteration)
 - [**video-ai-vision**](./explanation/video-ai-vision.md) – Long-term vision, v1/v2/v3, pedagogy (explanation)
-- [**video-ai-preparation**](./video-ai-preparation/README.md) – Preparation (formats, shortlist, pilot outline) – write before code
+- [**video-ai-preparation**](./video-ai-preparation/video-ai-preparation.md) – Preparation (formats, shortlist, pilot outline) – write before code
 
 ## Runbooks (procedures)
 
@@ -54,6 +54,7 @@ Obsidian templates for new documentation files (Settings → Templates → folde
 - [**frontmatter-doc**](./Templates/frontmatter-doc.md) – Standard documentation
 - [**frontmatter-runbook**](./Templates/frontmatter-runbook.md) – Runbook/procedure
 - [**frontmatter-adr**](./Templates/frontmatter-adr.md) – Architecture Decision Record
+- [**pilot-outline**](./Templates/pilot-outline.md) – Video-AI pilot video outline (script, scenes, components)
 
 ## External links
 

@@ -22,6 +22,22 @@ related:
 
 Reference: full lifecycle of a course video from idea to production and exploitable feedback.
 
+**When to read this / Not for**
+
+- **When to read this**: You need the exact sequence (idea → preparation → components → scene → …), where each step lives in the repo, or who does what.
+- **Not for**: Long-term "why" and v1/v2/v3 trajectory → see [video-ai-vision](explanation/video-ai-vision.md).
+- **Not for (situation)**: If you're in the middle of debugging a specific Remotion error, go to the [Remotion runbook](runbooks/remotion.md) instead.
+
+**Canonical reference**: If in doubt, this page wins over any summary elsewhere. Other docs may summarize or show variants; this one is the canonical sequence. Links from other docs should point to this page or to sections (anchors) of living docs, not to removed files. When changing file structure, prefer adding anchors and updating links instead of duplicating sections. Example: do not create a separate quick-reference file (e.g. `video-ai-lifecycle-quick.md`); add an anchor or paragraph in this page and link to it.
+
+## Role and audience {#role-and-audience}
+
+- **Role**: Video-AI is the monorepo and tooling used to produce and evolve pedagogical videos for The Hacking Project (THP). Pipeline: Remotion compositions → render → THP platform.
+- **Primary audience**: THP learners (web development courses).
+- **Secondary**: THP team and contributors who create or improve course videos.
+- **Types of videos**: Concept explanations, code demos, recaps (web dev courses).
+- **Where used**: Videos are consumed by the THP learning platform; this repo focuses on authoring and rendering the assets.
+
 ## Lifecycle overview
 
 ```mermaid
@@ -44,13 +60,17 @@ flowchart LR
   T3 -.->|"prioritize"| I2
 ```
 
+## Workflow summary
+
+In practice: **idea** and **script** are prepared in [video-ai-preparation](../video-ai-preparation/video-ai-preparation.md) (formats, shortlist, pilot outline). From the script you derive which **components** to build or reuse (`packages/remotion-lib`), then you assemble the **scene** in `apps/remotion`. After review and render, THP integration and feedback feed **iteration** back to script or composition.
+
 ## Steps
 
 | Step | Description |
 |------|-------------|
-| **Idea** | Identify need: new lesson, update, or improvement. Linked to THP module/lesson. Design and format: see [video-ai-preparation/](../video-ai-preparation/README.md) (formats, shortlist, pilot outline). |
+| **Idea** | Identify need: new lesson, update, or improvement. Linked to THP module/lesson. Design and format: see [video-ai-preparation](../video-ai-preparation/video-ai-preparation.md) (formats, shortlist, pilot outline). |
 | **Script** | Outline or script (text, structure). Defines intent before implementation. Write in or link from [video-ai-preparation/](../video-ai-preparation/) (e.g. pilot-outline.md). |
-| **Composition** | Implement in Remotion: create or edit composition(s) in this repo. |
+| **Composition** | Script (and pilot outline) drives which components to use or create. Implement or reuse primitives in `packages/remotion-lib`, then assemble the scene in `apps/remotion` (create or edit compositions; register in `Root.tsx`). |
 | **Review** | Code review + pedagogical review (content, pacing, alignment with course). |
 | **Render** | Export video asset(s) (e.g. via Remotion CLI or future rendering pipeline). |
 | **THP integration** | Publish asset to platform; link video to course/lesson in THP app. |
@@ -70,8 +90,8 @@ flowchart LR
 
 | Phase | Location | Notes |
 |-------|----------|--------|
-| Idea / Script / Format design | `KM/Docs/video-ai-preparation/` | Formats (01), component shortlist (02), pilot outline. Write before code. |
-| Script | Outside repo or in `KM/` (e.g. course content) | Scripts can live in THP/course docs or in video-ai-preparation/pilot-outline.md. |
+| Idea / Script / Format design | `KM/Docs/video-ai-preparation/` | [video-ai-preparation.md](../video-ai-preparation/video-ai-preparation.md) (formats, shortlist, pilot outline). Template: [Templates/pilot-outline.md](../Templates/pilot-outline.md); copy per pilot. Write before code. |
+| Script | Outside repo or in `KM/` (e.g. course content) | Scripts can live in THP/course docs or in a copy of the pilot-outline template (from `Templates/`) in video-ai-preparation or elsewhere. |
 | Composition | `apps/remotion/src/remotion/compositions/` | One or more compositions per video/lesson; register in `Root.tsx`. |
 | Primitives/blocks | `packages/remotion-lib/src/` | Reusable building blocks used by compositions. |
 | Review | PRs, branch workflow | Same as rest of repo; branch per feature/video, PR with code + pedagogical check. |
