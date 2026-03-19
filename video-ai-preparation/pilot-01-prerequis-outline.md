@@ -114,6 +114,8 @@ D’après le [Component shortlist](video-ai-preparation.md#component-shortlist)
 
 **Implémentation** : Composition `Pilot01Prerequis` dans `apps/remotion/src/remotion/compositions/serie-01/`, enregistrée dans `Root.tsx` (id `Pilot01Prerequis`, 5400 frames, 30 fps, 1920×1080).
 
+**Retour 1 (2026-03)** : « Pas assez vivant, terminal pas animé. » → Scènes pwd/ls utilisent désormais le composant [Terminal](packages/ui/src/lib/remotion/code/Terminal.tsx) de `@repo/ui/remotion` (typewriter, ligne par ligne). Animations renforcées : FadeIn + translateY sur TitleCard, SectionIntro, ConceptSlide ; startFrame correct par séquence. Ton/script : voir [reference/thp-tone-and-theme](../reference/thp-tone-and-theme.md).
+
 ---
 
 ## Review et rendu (après implémentation)
