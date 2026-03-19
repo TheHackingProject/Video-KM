@@ -22,3 +22,4 @@ Content here can be opinionated, incomplete, or contradicted later; do not treat
 
 - **Index**: [01-index](../01-index.md)
 - **Template** for new topics: [Templates/frontmatter-research-topic](../Templates/frontmatter-research-topic.md)
+- **Synthèse workflow** (Inngest, Trigger.dev, Mastra, OpenClaw – quoi intégrer, quand) : [workflow-tools-synthesis](workflow-tools-synthesis.md)

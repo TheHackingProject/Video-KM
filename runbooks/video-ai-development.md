@@ -72,6 +72,33 @@ Do not duplicate full Remotion command reference here; link to the Remotion runb
 
 ---
 
+## 03b – Procédure détaillée (nouvelle vidéo)
+
+**Fichier de référence pour la procédure** : cette section. À **mettre à jour au fil des retours** (voir [07 – Amélioration du process](#07--amélioration-du-process)). Ordre contractuel :
+
+1. **Préparation (write before code)**  
+   - Définir ou réutiliser la série dans [video-ai-preparation](../video-ai-preparation/serie-01-git-github.md) (ou équivalent).  
+   - Pour chaque vidéo : copier le [template pilot outline](../Templates/pilot-outline.md) dans `video-ai-preparation/`, remplir **métadonnées** (titre, format, durée, idée unique), **script** (hook → concept → recap pour Format 1 ; intro → étapes → recap pour Format 2), **découpage de scènes** (durée + composants par scène).  
+   - Référence formats et shortlist : [video-ai-preparation](../video-ai-preparation/video-ai-preparation.md).
+
+2. **Composants statiques (UI + Storybook)**  
+   - Créer dans `packages/ui/src/` les composants **statiques** nécessaires (ex. TitleCard, SectionIntro, ConceptSlide ou briques réutilisables).  
+   - Ajouter les stories colocated (`*.stories.tsx`) et valider dans Storybook (`bun run dev --filter=storybook`).  
+   - Règle : pas de `useCurrentFrame` ni de timing Remotion dans `packages/ui` ; voir [00-architecture](00-architecture.md#ui-vs-remotion).
+
+3. **Composants animés (remotion-lib)**  
+   - Dans `packages/remotion-lib/src/`, créer les composants **animés** qui utilisent `@repo/ui` et ajoutent le timing (useCurrentFrame, Sequence, interpolate).  
+   - Exporter depuis `packages/remotion-lib/src/index.ts` (primitives, blocks, sections).
+
+4. **Composition Remotion**  
+   - Créer ou modifier une composition sous `apps/remotion/src/remotion/compositions/` qui enchaîne les scènes selon l’outline (durées, props).  
+   - Enregistrer dans `apps/remotion/src/remotion/Root.tsx`.
+
+5. **Review et rendu**  
+   - Vérifier en Remotion Studio ; checklist qualité [06](#06--quality-review-and-deployment). Rendu : [runbooks/remotion](remotion.md).
+
+---
+
 ## 04 – Conventions for video courses
 
 - **Structure**: Prefer a clear flow: intro → concept explanation → code demo → recap.
@@ -102,3 +129,11 @@ Do not duplicate full Remotion command reference here; link to the Remotion runb
 
 - **Deployment**  
   - Rendered assets are published or deployed according to THP platform process (e.g. upload to CDN, trigger app update). Rendering and ops procedures will be documented in a future `video-ai-rendering.md` runbook when applicable.
+
+---
+
+## 07 – Amélioration du process
+
+- **Où documenter la procédure** : cette section et surtout [03b – Procédure détaillée](#03b--procédure-détaillée-nouvelle-vidéo) sont le **fichier dédié** à la procédure. Pas de document séparé : le runbook Video-AI Development est la source de vérité.
+- **Quand mettre à jour** : dès qu’une étape change (ex. nouvel outil, nouvel ordre UI → Remotion, nouveau template d’outline), mettre à jour la section 03b et, si besoin, [reference/video-lifecycle](reference/video-lifecycle.md) pour rester cohérent.
+- **Comment** : éditer ce runbook directement ; indiquer en 03b les changements notables (ex. « depuis 2026-03 : composants statiques d’abord dans Storybook ») si utile pour la traçabilité.
