@@ -82,7 +82,8 @@ Do not duplicate full Remotion command reference here; link to the Remotion runb
    - Référence formats et shortlist : [video-ai-preparation](../video-ai-preparation/video-ai-preparation.md).
 
 2. **Composants statiques (UI + Storybook)**  
-   - Créer dans `packages/ui/src/` les composants **statiques** nécessaires (ex. TitleCard, SectionIntro, ConceptSlide ou briques réutilisables).  
+   - Créer dans `packages/ui/src/` les composants **statiques** nécessaires (ex. TitleCard, SectionIntro, ConceptSlide, CodeBlockStatic ou briques réutilisables).  
+   - Pour Format 2 (code demo) avec **terminal** : prévoir un bloc code/terminal statique (ex. CodeBlockStatic avec style terminal) ; les steps « commande + sortie » sont gérés en scène par CodeAlongStep en remotion-lib.  
    - Ajouter les stories colocated (`*.stories.tsx`) et valider dans Storybook (`bun run dev --filter=storybook`).  
    - Règle : pas de `useCurrentFrame` ni de timing Remotion dans `packages/ui` ; voir [00-architecture](00-architecture.md#ui-vs-remotion).
 
@@ -137,3 +138,6 @@ Do not duplicate full Remotion command reference here; link to the Remotion runb
 - **Où documenter la procédure** : cette section et surtout [03b – Procédure détaillée](#03b--procédure-détaillée-nouvelle-vidéo) sont le **fichier dédié** à la procédure. Pas de document séparé : le runbook Video-AI Development est la source de vérité.
 - **Quand mettre à jour** : dès qu’une étape change (ex. nouvel outil, nouvel ordre UI → Remotion, nouveau template d’outline), mettre à jour la section 03b et, si besoin, [reference/video-lifecycle](reference/video-lifecycle.md) pour rester cohérent.
 - **Comment** : éditer ce runbook directement ; indiquer en 03b les changements notables (ex. « depuis 2026-03 : composants statiques d’abord dans Storybook ») si utile pour la traçabilité.
+
+- **Retours pilots** (à compléter après chaque livraison) :  
+  - **Pilot 01 (Pré-requis terminal, 2026-03)** : [outline](../video-ai-preparation/pilot-01-prerequis-outline.md). Composants ajoutés : TitleCard, SectionIntro, ConceptSlide, CodeBlockStatic (UI) ; FadeIn, TitleCardAnimated, SectionIntroAnimated, ConceptSlideAnimated, CodeBlockWithHighlight, CodeAlongStep (remotion-lib). Composition `Pilot01Prerequis` dans `apps/remotion/.../serie-01/`. Enseignement : Format 2 avec terminal = CodeAlongStep avec steps `{ label, code }` ; pas de composant Terminal dédié pour ce pilote (CodeBlockStatic suffit avec style terminal).

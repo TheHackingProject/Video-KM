@@ -35,7 +35,7 @@ Base de travail pour la première série de vidéos. **Une idée = un clip** (Fo
 
 | # | Une idée par clip | Format | Durée cible | Outline |
 |---|-------------------|--------|-------------|---------|
-| 1 | **Pré-requis** : terminal & bases (pour suivre les démos) | 2 – Code demo guided | 2–5 min | *à créer* |
+| 1 | **Pré-requis** : terminal & bases (pour suivre les démos) | 2 – Code demo guided | 2–5 min | [pilot-01-prerequis-outline](pilot-01-prerequis-outline.md) |
 | 2 | **Git vs GitHub** : Git = outil local (machine à voyager dans le temps) · GitHub = hébergement + collaboration | 1 – Concept intro | 30–60 s | [pilot-02-git-vs-github-outline](pilot-02-git-vs-github-outline.md) |
 | 3 | **Commit** : une sauvegarde datée du projet | 1 – Concept intro | 30–60 s | *à créer* |
 | 4 | **Branch** : une ligne de travail parallèle (et en une phrase : GitFlow = une façon d’utiliser les branches, ou clip dédié plus tard) | 1 – Concept intro | 30–60 s | *à créer* |
