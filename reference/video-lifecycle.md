@@ -102,3 +102,15 @@ In practice: **idea** and **script** are prepared in [video-ai-preparation](../v
 - [explanation/video-ai-vision](explanation/video-ai-vision.md) – Long-term vision and v1/v2/v3.
 - [runbooks/video-ai-development](runbooks/video-ai-development.md) – Day-to-day development workflow (section 02 links here for lifecycle).
 - [runbooks/remotion](runbooks/remotion.md) – Remotion usage and commands.
+
+## Platform roadmap (v1.1 feedback)
+
+After the v1 read-only catalogue/API release, v1.1 introduces structured feedback primitives:
+
+- `feedback_threads` linked to each published video
+- `feedback_comments` with optional `timestamp_seconds` for timecoded comments
+- future endpoints under API:
+  - `GET /videos/:slug/comments`
+  - `POST /videos/:slug/comments`
+
+This roadmap is prepared in schema and runbooks, but can stay feature-flagged until moderation/auth rules are decided.

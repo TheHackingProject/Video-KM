@@ -252,3 +252,21 @@ Voir l’index interne : `packages/skills/README.md`.
 4. **Templates** : [Templates/pilot-outline](../Templates/pilot-outline.md) et [checklist Solarpunk](../Templates/thp-solarpunk-visual-checklist.md) reprennent ces triggers ; les outlines pilotes (ex. série 01) doivent citer la phrase canonique.
 
 5. **Rappel** : **thp-video-generation** choisit *quoi* montrer (blocs THP, Storybook → démo) ; **remotion-best-practices** rappelle *comment* le framework Remotion attend que ce soit fait au niveau timing, composition et médias.
+
+---
+
+## 09 – Generic platform apps (API + frontend)
+
+Video-AI now includes a generic platform stack to expose rendered videos and prepare future feedback loops:
+
+- `apps/api` — Hono + Bun API (`/health`, `/videos`, `/videos/:slug`)
+- `apps/frontend` — Vite + React public catalogue
+- `packages/db` — PostgreSQL schema/migrations/seed
+- `packages/contracts` — shared Zod contracts between API and frontend
+
+Runbooks:
+
+- [runbooks/api](api.md)
+- [runbooks/frontend](frontend.md)
+- [runbooks/postgres-local](postgres-local.md)
+- [runbooks/deploy-selfhost-api-frontend](deploy-selfhost-api-frontend.md)

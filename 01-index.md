@@ -58,6 +58,10 @@ Exploratory notes, evaluations, and POCs. **Not canonical**; see [reference/tool
 - [**storybook**](./runbooks/storybook.md) – Storybook, component library documentation
 - [**remotion**](./runbooks/remotion.md) – Remotion Studio, video generation, compositions
 - [**video-ai-development**](./runbooks/video-ai-development.md) – Video-AI Development Runbook (purpose, workflow, conventions, quality)
+- [**api**](./runbooks/api.md) – Generic backend API (`apps/api`) with Hono/Bun
+- [**frontend**](./runbooks/frontend.md) – Generic frontend (`apps/frontend`) with Vite/React
+- [**postgres-local**](./runbooks/postgres-local.md) – Local PostgreSQL + Drizzle migrations/seed/reset
+- [**deploy-selfhost-api-frontend**](./runbooks/deploy-selfhost-api-frontend.md) – Dokploy/Coolify/VPS deploy and rollback
 
 ## Agent skills (versioned in repo)
 

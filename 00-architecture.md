@@ -33,8 +33,8 @@ Video-AI/
 ├── .cursor/
 │   └── environment.json       # Background Agents: install = submodule + bun + bootstrap (versioned)
 ├── apps/
-│   ├── docs/              # Next.js app (docs)
-│   ├── web/               # Next.js app (web)
+│   ├── api/               # Hono + Bun API (generic backend)
+│   ├── frontend/          # Vite React app (generic frontend)
 │   ├── storybook/         # Storybook – component library docs
 │   └── remotion/          # Remotion Studio – video generation
 │       ├── src/
@@ -68,6 +68,8 @@ Video-AI/
 │   │       └── index.ts
 │   ├── eslint-config/      # @repo/eslint-config
 │   ├── typescript-config/  # @repo/typescript-config
+│   ├── db/                 # @repo/db – PostgreSQL schema, migrations, seed
+│   ├── contracts/          # @repo/contracts – API schemas/types shared by API + frontend
 │   └── skills/
 │       ├── Remotion/       # submodule – remotion-dev/skills (official Remotion agent pack)
 │       ├── remotion-best-practices/  # symlink → Remotion/skills/remotion
@@ -145,7 +147,14 @@ Three levels:
 
 **Remotion agent skills** : submodule `packages/skills/Remotion`, stable path `packages/skills/remotion-best-practices` + `apps/remotion/.agents/skills/remotion-best-practices` (symlinks). See [`packages/skills/README.md`](../../../packages/skills/README.md).
 
-Workspaces include `packages/remotion-lib`. Compositions live under `apps/remotion/src/remotion`.
+Workspaces include `apps/api`, `apps/frontend`, `packages/db`, `packages/contracts`, and `packages/remotion-lib`. Compositions live under `apps/remotion/src/remotion`.
+
+## Runtime conventions (API + frontend)
+
+- API defaults to `PORT=8787`.
+- Frontend defaults to `VITE_API_BASE_URL=http://localhost:8787`.
+- Cross-origin access is controlled through `CORS_ORIGIN` in API env.
+- Database is configured through `DATABASE_URL` (local PostgreSQL or platform-managed PostgreSQL).
 
 ## Workspaces (Bun)
 

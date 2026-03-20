@@ -35,10 +35,14 @@ Installation and usage summary for the Video-AI monorepo with Turborepo.
 ```
 Video-AI/
 ├── apps/
-│   ├── docs/       # Next.js app (docs)
-│   └── web/        # Next.js app (web)
+│   ├── api/        # Hono + Bun API
+│   ├── frontend/   # Vite React frontend
+│   ├── remotion/   # Remotion Studio
+│   └── storybook/  # Storybook UI docs
 ├── packages/
 │   ├── ui/                 # @repo/ui – shared React components
+│   ├── db/                 # @repo/db – PostgreSQL schema/migrations/seed
+│   ├── contracts/          # @repo/contracts – shared API schemas/types
 │   ├── eslint-config/      # @repo/eslint-config
 │   └── typescript-config/  # @repo/typescript-config
 ├── turbo.json
@@ -86,9 +90,18 @@ bun run bootstrap:agents
 ## Common usage
 
 - **Build everything**: `bun run build` or `turbo build`
-- **Develop one app**: `turbo dev --filter=docs` or `turbo dev --filter=web`
+- **Develop API**: `bun run dev --filter=api`
+- **Develop frontend**: `bun run dev --filter=frontend`
+- **Develop Remotion**: `bun run dev --filter=remotion`
 - **Build one package**: `turbo build --filter=docs`
 - **Run all in dev**: `turbo dev`
+
+## Environment conventions (shared)
+
+- `DATABASE_URL`: PostgreSQL connection string (local/dev/prod).
+- `PORT`: API port (default: `8787`).
+- `CORS_ORIGIN`: allowed frontend origin (default: `http://localhost:5173`).
+- `VITE_API_BASE_URL`: frontend API base URL.
 
 ## Turbo configuration (`turbo.json`)
 
