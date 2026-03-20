@@ -21,6 +21,8 @@ related:
 
 Base de travail pour la première série de vidéos. **Une idée = un clip** (Format 1 : 30–60 s). Chaque ligne devient un pilote (outline dédié) quand on rédige le script et le découpage. Référence : [Formats](video-ai-preparation.md#video-formats).
 
+**Chrome partagé (pilots 01 & 02)** : taxonomie texte [§04 runbook](../runbooks/video-ai-development.md#taxonomie-texte-thp-reproductible), `solarTheme`, `SceneHeader` + `ProgressBar`, entrées **`FadeSlide`** (catalogue), `ParticleField` à densité harmonisée entre les compositions ; shell **`Serie01SceneShell`** pour factoriser header + slide (voir `apps/remotion/.../serie-01/Serie01SceneShell.tsx`).
+
 ---
 
 ## Logique pédagogique et gestion du temps

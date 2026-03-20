@@ -50,6 +50,38 @@ Outline complet pour la vidéo « Pré-requis » de la [Série 01](serie-01-git-
 
 ---
 
+## Version V0.7 (harmonisation Série 01 — §04 + chrome)
+
+**Objectifs** : (1) **7 segments** sur la timeline = **7** valeurs `SceneHeader` / `PILOT01_TOTAL_SCENES` (`TITRE`, `INTRO`, `OUVRIR`, `PWD`, `LS`, `RÉCAP`, `SUITE`) — plus de décalage « 5 phases » vs titre + CTA ; (2) **TextReveal** sur les héros titre et CTA ; **Typewriter** narration avec `SHOW_TYPEWRITER_CURSOR = false` en prod ; **WordByWord** sur **une** phrase (recap ligne 2) ; (3) entrées de scène **`FadeSlide`** (catalogue) alignées pilot 02 ; (4) shell partagé **`Serie01SceneShell`** où pertinent ; (5) **GlitchText** : non sur ce pilot pédagogique (cours calme).
+
+**Fichiers** : `pilot01-content.ts`, `Pilot01Prerequis.tsx`, `Serie01SceneShell.tsx`.
+
+**Retours** : [video-ai-development §07 — Série 01 harmonisation](../runbooks/video-ai-development.md#07--amélioration-du-process).
+
+---
+
+## Cartographie taxonomie §04 (par scène)
+
+Chaque bloc texte visible → **rôle** et **composant** ([runbook §04 — Taxonomie](../runbooks/video-ai-development.md#taxonomie-texte-thp-reproductible)). Le **Terminal** reste la source des lignes CLI (pas de `Typewriter` sur les lignes commande/sortie).
+
+| # | Beat / zone | Texte (résumé) | Rôle §04 | Composant |
+|---|-------------|----------------|----------|-----------|
+| 1 | Titre | `TITLE` | Hero titre | `TextReveal` |
+| 1 | Titre | `SUBTITLE` | Sous-titre | `Typewriter` |
+| 2 | Intro | accroche + objectif | Narration | `Typewriter` ×2 |
+| 3 | Step 1 | analogie, OS, code | Narration + code statique | `Typewriter`, `CodeBlockStatic` |
+| 4 | Step 2 | paragraphes `pwd` | Narration | `Typewriter` ×2 |
+| 4 | Step 2 | terminal | CLI | `Terminal` |
+| 5 | Step 3 | paragraphes `ls` | Narration | `Typewriter` ×2 |
+| 5 | Step 3 | terminal | CLI | `Terminal` |
+| 6 | Recap | ligne 1 | Narration | `Typewriter` |
+| 6 | Recap | ligne 2 (une phrase clef) | Emphase (≤1 phrase / scène) | `WordByWord` |
+| 6 | Recap | flux | Concept | `FlowChart` |
+| 7 | CTA | titre épisode suivant | Hero / outro | `TextReveal` |
+| 7 | CTA | sous-titre | CTA | `Typewriter` |
+
+---
+
 ## Amélioration continue — rythme & animation (post-V0.5)
 
 Objectif : réduire les **temps morts visuels** (« plein écran figé ») tout en gardant la durée cible **3600 f**.
@@ -215,7 +247,7 @@ Inspiration concrète dans le repo : [`packages/ui/src/DemoShowcaseSolarpunk.tsx
 | Élément | Usage |
 |---------|--------|
 | **Fond** | Dégradé radial ou linéaire sobre (thème cours) ; `ParticleField` **opacité basse** (ex. 0,15–0,25) pour éviter la « diapo morte » sans distraire la lecture du terminal. |
-| **En-tête de scène** | `SceneHeader` : `sceneNumber` 1…7 ou regroupement (ex. intro = 1/4, steps = 2/4…) ; `keyword` court (`OUVRIR`, `PWD`, `LS`, `RÉCAP`). |
+| **En-tête de scène** | `SceneHeader` : **`totalScenes={7}`** et `sceneNumber` **1…7** (titre + intro + 3 steps + recap + CTA) ; mots-clés : `TITRE`, `INTRO`, `OUVRIR`, `PWD`, `LS`, `RÉCAP`, `SUITE`. |
 | **Terminal** | Composant [`Terminal`](../../../packages/ui/src/lib/remotion/code/Terminal.tsx) : tableau `lines` avec `type: command | output | success` et **`delay` en frames** entre lignes ; `typeSpeed` modéré ; **prompt** lisible. |
 | **Progression pédagogique** | `ProgressBar` pendant les steps 3–5 (ex. « Étape 1/3 ») pour ancrer le rythme. |
 | **Concepts enchaînés** | Option : petit `FlowChart` horizontal « Ouvre le terminal → tape la commande → lis la réponse » sur l’intro ou le recap (même pattern que la scène *Code* du showcase). |
@@ -240,7 +272,7 @@ D’après le [Component shortlist](video-ai-preparation.md#component-shortlist)
 |-----------|----------|--------|
 | TitleCard | 1, 7 | Titre + sous-titre ; entrée fade + léger translateY. |
 | SectionIntro | 2, 6 | Accroche, objectif, recap. |
-| SceneHeader | 2–6 (optionnel) | Aligné sur DemoShowcase : contexte + keyword. |
+| SceneHeader | 1–7 | Une scène timeline = un bandeau ; voir [cartographie §04](#cartographie-taxonomie-§04-par-scène). |
 | CodeAlongStep | 3, 4, 5 | Texte court + zone terminal / visuel OS. |
 | Terminal | 4, 5 | Lignes + delays ; typewriter ; réutiliser le pattern `terminalLines` du showcase. |
 | CodeBlockWithHighlight | (fallback) | Si Terminal indisponible : style terminal. |
@@ -257,6 +289,7 @@ D’après le [Component shortlist](video-ai-preparation.md#component-shortlist)
 - [x] Liste des composants conforme au P0 shortlist ; écarts documentés (Terminal vs CodeBlock).
 - [x] Durée cible et format conformes aux [Formats](video-ai-preparation.md#video-formats).
 - [x] V0.5 : composition alignée Solarpunk + `pilot01-content.ts` + `premountFor` + Terminal delays.
+- [x] V0.7 : harmonisation Série 01 (§04, 7 scènes `SceneHeader`, `Serie01SceneShell` / `FadeSlide`, TextReveal titres + CTA, WordByWord recap L2) — lint + bundle OK ; Studio bout-en-bout = validation manuelle à chaque livraison.
 - [ ] Capture Studio : holds `pwd` / `ls` et lisibilité (mobile / scale terminal) — validation manuelle.
 
 **Implémentation** : Composition `Pilot01Prerequis` dans `apps/remotion/src/remotion/compositions/serie-01/`, enregistrée dans `Root.tsx` (id `Pilot01Prerequis`, **3600 frames**, 30 fps, 1920×1080).
@@ -269,6 +302,7 @@ D’après le [Component shortlist](video-ai-preparation.md#component-shortlist)
 - **2026-03-19 (V0.5)** : Script KM → `pilot01-content.ts` ; `solarTheme` + fond dégradé + ParticleField ; SceneHeader (5 phases) ; ProgressBar globale 3600 f ; Terminal `theme` + `delay` ; intro en deux beats ; pills OS ; Lucide (`ThpTerminal`, `ThpGitBranch`, `ThpMonitor`) ; FlowChart recap ; `TitleCard` / `SectionIntro` couleurs Solarpunk optionnelles.
 - **2026-03-20** : Apprentissages **fluidité** (typewriter intro, découpage beats, timings centralisés, holds terminal) documentés dans ce fichier et dans [video-ai-development §04/§07](../runbooks/video-ai-development.md) pour l’amélioration continue ; cible itération **V0.6+** sur la composition.
 - **2026-03-21** : **Bases reproductibles THP** — taxonomie texte (§04 runbook), règle **sous-Sequence / contenu persistant**, catalogue **démos Remotion** + **transitions** sous `solarTheme` ([solarpunk-theme-decisions](../reference/solarpunk-theme-decisions.md) décision #11, § *Catalogue démo & motion*) ; retour process [§07 Retour 3](../runbooks/video-ai-development.md#07--amélioration-du-process). Section [Version V0.6](#version-v06-timeline-texte-reproductibilité-thp) dans ce outline.
+- **2026-03-20 (itération harmonisation)** : **V0.7** — [Version V0.7](#version-v07-harmonisation-série-01--04--chrome) ; cartographie §04 ; `Serie01SceneShell` + `FadeSlide` ; curseurs typewriter masqués en prod ; recap **WordByWord** ligne 2 uniquement.
 
 ---
 

@@ -36,8 +36,22 @@ Outline complet pour la vidéo « Git vs GitHub » de la [Série 01](serie-01-gi
 
 - **Contenu** : `apps/remotion/src/remotion/compositions/serie-01/pilot02-content.ts` — CPS, pauses et `startFrame` par bloc (source de vérité des timings).
 - **Composition** : `Pilot02GitVsGithub.tsx` — id Remotion `Pilot02GitVsGithub`, **1350 frames** (45 s @ 30 fps), 1920×1080, enregistrée dans `Root.tsx`.
-- **Taxonomie texte THP ([runbook §04](../runbooks/video-ai-development.md#taxonomie-texte-thp-reproductible))** : implémentation via **`TextReveal`** (titres / impact) et **`Typewriter`** (narration, corps, callout, recap) depuis `@repo/ui/remotion`, comme [`TextDemo.tsx`](../../../apps/remotion/src/remotion/compositions/demos/TextDemo.tsx) et le pilot 01 — **pas** de simple fade sur `TitleCard` / `ConceptSlide` statiques seuls.
-- **V1 clean (série 01)** : `SceneHeader` (6 scènes, mots-clés `TITRE` → `SUITE`), `ProgressBar` footer, entrée de scène **`FadeSlide`** (catalogue `@repo/ui/remotion`), mini **`FlowChart`** 2 nœuds (Git ↔ GitHub) en fin de scène 4. Constantes Flow dans `pilot02-content.ts` (`GITHUB_FLOW_*`).
+- **Taxonomie texte THP ([runbook §04](../runbooks/video-ai-development.md#taxonomie-texte-thp-reproductible))** : implémentation via **`TextReveal`** (titres / impact) et **`Typewriter`** (narration, corps, callout, recap) depuis `@repo/ui/remotion`, comme [`TextDemo.tsx`](../../../apps/remotion/src/remotion/compositions/demos/TextDemo.tsx) — **même famille** que le [pilot 01](pilot-01-prerequis-outline.md) une fois les deux alignés sur §04 (le pilot 01 ajoute `Terminal` / `WordByWord` là où le format l’exige). **Pas** de simple fade sur `TitleCard` / `ConceptSlide` statiques seuls.
+- **V1 clean (série 01)** : `SceneHeader` (6 scènes, mots-clés `TITRE` → `SUITE`), `ProgressBar` footer, shell **`Serie01SceneShell`** (`FadeSlide` catalogue + header ; variante `layout="stack"` pour la scène GitHub + `FlowChart`), mini **`FlowChart`** 2 nœuds en fin de scène 4. Constantes Flow dans `pilot02-content.ts` (`GITHUB_FLOW_*`). **`GlitchText`** : non sur ce clip pédagogique (cours calme).
+
+---
+
+## Cartographie taxonomie §04 (par scène)
+
+| # | Contenu écran (résumé) | Rôle §04 | Composant | Notes |
+|---|------------------------|----------|-----------|--------|
+| 1 | Titre + sous-titre | Hero + sous-titre | `TextReveal`, `Typewriter` | Curseur `Typewriter` : `false` en prod. |
+| 2 | Hook | Narration | `Typewriter` | |
+| 3 | Git — titre + corps | Impact + narration | `TextReveal`, `Typewriter` | |
+| 4 | GitHub — titre + corps + callout | Impact + narration + emphase | `TextReveal`, `Typewriter` ×2 | `FlowChart` = schéma, pas taxonomie « texte ». |
+| 5 | Recap | Narration | `Typewriter` | |
+| 6 | CTA | Hero + CTA | `TextReveal`, `Typewriter` | |
+| *opt.* | Une phrase à surligner mot à mot | Emphase | `WordByWord` | **Au plus une** phrase par scène ; non utilisé en V1 — réserver si le script l’exige. |
 
 ---
 
@@ -131,6 +145,7 @@ D’après le [Component shortlist](video-ai-preparation.md#component-shortlist)
 - [x] Script et scene breakdown remplis et relus (ce document).
 - [x] Liste des composants conforme au P0 shortlist ; écarts documentés (aucun ici).
 - [x] Durée cible et format conformes aux [Formats](video-ai-preparation.md#video-formats).
+- [x] **V1 série** : `Serie01SceneShell` partagé avec pilot 01 ; `layout="stack"` scène GitHub + `FlowChart` ; lint + bundle OK — lecture Studio intégrale = validation manuelle.
 - [ ] [Checklist visuelle THP Solarpunk](../Templates/thp-solarpunk-visual-checklist.md) passée après rendu Studio.
 - [ ] **Agent** : `bun run bootstrap:agents` si besoin ; skills **thp-video-generation**, **thp-solarpunk-visual** et **remotion-best-practices** ; session avec la **phrase type** [§08](../runbooks/video-ai-development.md#08--skills-utiles-au-workflow-vidéo).
 
