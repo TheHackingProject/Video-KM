@@ -10,7 +10,7 @@ tags:
   - lifecycle
   - workflow
 created: 2026-03-12
-updated: 2026-03-12
+updated: 2026-03-20
 related:
   - "[[explanation/video-ai-vision]]"
   - "[[runbooks/video-ai-development]]"
@@ -70,7 +70,7 @@ In practice: **idea** and **script** are prepared in [video-ai-preparation](../v
 |------|-------------|
 | **Idea** | Identify need: new lesson, update, or improvement. Linked to THP module/lesson. Design and format: see [video-ai-preparation](../video-ai-preparation/video-ai-preparation.md) (formats, shortlist, pilot outline). |
 | **Script** | Outline or script (text, structure). Defines intent before implementation. Write in or link from [video-ai-preparation/](../video-ai-preparation/) (e.g. pilot-outline.md). |
-| **Composition** | Script (and pilot outline) drives which components to use or create. Implement or reuse primitives in `packages/remotion-lib`, then assemble the scene in `apps/remotion` (create or edit compositions; register in `Root.tsx`). |
+| **Composition** | Script (and pilot outline) drives which components to use or create. Implement or reuse primitives in `packages/remotion-lib`, then assemble the scene in `apps/remotion` (create or edit compositions; register in `Root.tsx`). For step-by-step animated diagrams, keep Mermaid (`.mmd`) as source, generate SVG asset, then animate reveal in Remotion. |
 | **Review** | Code review + pedagogical review (content, pacing, alignment with course). |
 | **Render** | Export video asset(s) (e.g. via Remotion CLI or future rendering pipeline). |
 | **THP integration** | Publish asset to platform; link video to course/lesson in THP app. |

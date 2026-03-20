@@ -10,7 +10,7 @@ tags:
   - development
   - workflow
 created: 2026-03-12
-updated: 2026-03-19
+updated: 2026-03-20
 related:
   - "[[00-architecture]]"
   - "[[reference/video-lifecycle]]"
@@ -94,6 +94,31 @@ Do not duplicate full Remotion command reference here; link to the Remotion runb
    - Dans `packages/remotion-lib/src/`, créer les composants **animés** qui utilisent `@repo/ui` et ajoutent le timing (useCurrentFrame, Sequence, interpolate).  
    - Exporter depuis `packages/remotion-lib/src/index.ts` (primitives, blocks, sections).
 
+3bis. **Diagrammes (vidéo très animée : révélation étape par étape)**  
+   - Source de vérité recommandée : garder les diagrammes en `.mmd` (Mermaid) dans le repo pour faciliter diff/review/versioning.  
+   - Générer un asset SVG (ou PNG) avant intégration Remotion, puis animer la révélation côté composition (séquences, opacité, masques, zoom).  
+   - Si l’animation doit être ultra-fine par noeud/liaison, prévoir un SVG structuré en groupes ou une reconstruction partielle en composants React/SVG dans Remotion.  
+   - Ce flux évite d’exécuter Mermaid au runtime du rendu vidéo et rend le pipeline plus déterministe.
+
+   **Convention d’emplacement (proposition)**  
+   - Fichiers source `.mmd` : à côté de la prépa vidéo, p.ex. `KM/Docs/video-ai-preparation/diagrams/<slug-video>/` (créer le dossier si besoin).  
+   - SVG (ou PNG) générés : là où Remotion les charge — p.ex. `apps/remotion/public/diagrams/<slug-video>/` avec [`staticFile`](https://www.remotion.dev/docs/staticfile) ou import statique selon le runbook Remotion.
+
+   **Commande type : Mermaid → SVG (CLI officiel)**  
+   Sans ajouter de dépendance au monorepo : exécuter une fois le CLI [@mermaid-js/mermaid-cli](https://github.com/mermaid-js/mermaid-cli) via `bunx` ou `npx`.
+
+   ```bash
+   # Depuis la racine du repo (chemins adaptables)
+   bunx @mermaid-js/mermaid-cli \
+     -i KM/Docs/video-ai-preparation/diagrams/mon-pilot/flow.mmd \
+     -o apps/remotion/public/diagrams/mon-pilot/flow.svg
+   ```
+
+   Variantes utiles :  
+   - PNG : remplacer l’extension de sortie par `.png`.  
+   - Fichier de config Mermaid (thème, fond) : option `-c mermaid-config.json` (voir la doc du CLI).  
+   - Thèmes / batch avancés : skill **pretty-mermaid** (skills.sh) ou équivalent — point d’entrée : `packages/skills/README.md`.
+
 4. **Composition Remotion**  
    - Créer ou modifier une composition sous `apps/remotion/src/remotion/compositions/` qui enchaîne les scènes selon l’outline (durées, props).  
    - Enregistrer dans `apps/remotion/src/remotion/Root.tsx`.
@@ -147,3 +172,13 @@ Do not duplicate full Remotion command reference here; link to the Remotion runb
   - **Pilot 01 (Pré-requis terminal, 2026-03)** : [outline](../video-ai-preparation/pilot-01-prerequis-outline.md). Composants ajoutés : TitleCard, SectionIntro, ConceptSlide, CodeBlockStatic (UI) ; FadeIn, TitleCardAnimated, SectionIntroAnimated, ConceptSlideAnimated, CodeBlockWithHighlight, CodeAlongStep (remotion-lib). Composition `Pilot01Prerequis` dans `apps/remotion/.../serie-01/`.  
   - **Retour 1 (2026-03)** : « Pas assez vivant, pas d’animations, même le terminal n’est pas animé. » → **Actions** : (1) Utiliser le composant [Terminal](packages/ui/src/lib/remotion/code/Terminal.tsx) de `@repo/ui/remotion` (typewriter, ligne par ligne) pour les scènes terminal au lieu de CodeBlockStatic. (2) Renforcer les animations (FadeIn + translateY, entrées plus dynamiques). (3) Référence ton/script : [reference/thp-tone-and-theme](reference/thp-tone-and-theme.md) (analyse cours Intro week_01) pour aligner le ton des vidéos avec THP.
   - **Thème (2026-03-19)** : THP = **Solarpunk dark** comme thème principal ; `:root` web aligné ; `defaultTheme` Remotion = `solarTheme` ; source CSS `solarpunk.tokens.css` ; icônes via `@repo/ui/icons` (Lucide) ; skill Cursor `thp-solarpunk-visual`. Détail et tableau d’amélioration continue : [solarpunk-theme-decisions](../reference/solarpunk-theme-decisions.md).
+
+## 08 – Skills utiles au workflow vidéo
+
+Le dossier `packages/skills/` sert de point d’entrée pour les skills utiles à la création vidéo.
+
+- **Présent dans le repo** : `packages/skills/Remotion` (submodule) pour les bonnes pratiques Remotion et les patterns d’animation.
+- **Option diagrammes Mermaid → SVG** : utile pour préparer des assets de diagrammes avant intégration Remotion.
+- **Option génération SVG illustratif par IA** : skill `@neversight/generate-svg` (agentskill.sh) pour logos/illustrations vectorielles à intégrer ensuite dans les scènes.
+
+Voir l’index interne : `packages/skills/README.md`.

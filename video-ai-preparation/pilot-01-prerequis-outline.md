@@ -16,13 +16,25 @@ related:
   - "[[video-ai-preparation/serie-01-git-github]]"
   - "[[reference/video-lifecycle]]"
   - "[[reference/thp-tone-and-theme]]"
+  - "[[reference/solarpunk-theme-decisions]]"
+  - "[[Templates/thp-solarpunk-visual-checklist]]"
 ---
 
 # Pilot 01 – Pré-requis : terminal et bases
 
 Outline complet pour la vidéo « Pré-requis » de la [Série 01](serie-01-git-github.md). Format 2 – Code demo guided. **Idée unique** : Savoir ouvrir le terminal et exécuter une ou deux commandes de base pour pouvoir suivre les démos Git de la série.
 
-**Références** : ton [thp-tone-and-theme](../reference/thp-tone-and-theme.md) ; formats [video-ai-preparation](video-ai-preparation.md#video-formats) ; pratiques Remotion (skill `remotion-best-practices` : `sequencing.md`, `timing.md`, `transitions.md`).
+**Références** : ton [thp-tone-and-theme](../reference/thp-tone-and-theme.md) ; formats [video-ai-preparation](video-ai-preparation.md#video-formats) ; charte [solarpunk-theme-decisions](../reference/solarpunk-theme-decisions.md) ; checklist [thp-solarpunk-visual-checklist](../Templates/thp-solarpunk-visual-checklist.md) ; pratiques Remotion (skill `remotion-best-practices` : `sequencing.md`, `timing.md`, `transitions.md`) ; skill projet `thp-solarpunk-visual` (KM ou `.cursor/skills`).
+
+---
+
+## Version V0.5 (implémentation cible)
+
+**Objectifs** : aligner la composition Remotion sur le **script** et le **kit visuel** THP Solarpunk décrits dans ce document ; icônes **Lucide** via `@repo/ui/icons` ; `premountFor` sur les séquences ; **Terminal** avec `delay` entre lignes ; **SceneHeader** + barre de progression globale ; fond **dégradé** + **ParticleField** discret ; **FlowChart** en recap ; pills **Mac / Linux / Windows**.
+
+**Fichiers** : contenu centralisé dans `apps/remotion/src/remotion/compositions/serie-01/pilot01-content.ts` ; composition `Pilot01Prerequis.tsx`.
+
+**DoD** : lecture Studio **3600 frames** ; checklist visuelle THP passée ; pas d’usage décoratif de `--error`.
 
 ---
 
@@ -214,7 +226,8 @@ D’après le [Component shortlist](video-ai-preparation.md#component-shortlist)
 - [x] Script et scene breakdown remplis et relus (ce document).
 - [x] Liste des composants conforme au P0 shortlist ; écarts documentés (Terminal vs CodeBlock).
 - [x] Durée cible et format conformes aux [Formats](video-ai-preparation.md#video-formats).
-- [ ] Storyboard ou capture Studio : vérifier holds sur `pwd` / `ls` et lisibilité mobile (scale terminal).
+- [x] V0.5 : composition alignée Solarpunk + `pilot01-content.ts` + `premountFor` + Terminal delays.
+- [ ] Capture Studio : holds `pwd` / `ls` et lisibilité (mobile / scale terminal) — validation manuelle.
 
 **Implémentation** : Composition `Pilot01Prerequis` dans `apps/remotion/src/remotion/compositions/serie-01/`, enregistrée dans `Root.tsx` (id `Pilot01Prerequis`, **3600 frames**, 30 fps, 1920×1080).
 
@@ -223,6 +236,7 @@ D’après le [Component shortlist](video-ai-preparation.md#component-shortlist)
 - **Retour 2026-03** : « Pas assez vivant, terminal pas animé. » → Terminal avec typewriter et timings ; animations d’entrée sur les cartes.
 - **2026-03-19** : Script enrichi (vulgarisation, analogies, OS explicites), breakdown + sous-beats + frames, section rythme/recherche, rendu artistique aligné `DemoShowcaseSolarpunk` et skill Remotion (`sequencing`, `timing`, `transitions`).
 - **2026-03-19 (2)** : Cible durée **120 s / 3600 frames** — scènes raccourcies (bonnes pratiques prérequis + rythme visuel) ; implémentation Remotion alignée.
+- **2026-03-19 (V0.5)** : Script KM → `pilot01-content.ts` ; `solarTheme` + fond dégradé + ParticleField ; SceneHeader (5 phases) ; ProgressBar globale 3600 f ; Terminal `theme` + `delay` ; intro en deux beats ; pills OS ; Lucide (`ThpTerminal`, `ThpGitBranch`, `ThpMonitor`) ; FlowChart recap ; `TitleCard` / `SectionIntro` couleurs Solarpunk optionnelles.
 
 ---
 
