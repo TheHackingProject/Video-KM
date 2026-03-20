@@ -37,7 +37,7 @@ Outline complet pour la vidéo « Git vs GitHub » de la [Série 01](serie-01-gi
 - **Contenu** : `apps/remotion/src/remotion/compositions/serie-01/pilot02-content.ts` — CPS, pauses et `startFrame` par bloc (source de vérité des timings).
 - **Composition** : `Pilot02GitVsGithub.tsx` — id Remotion `Pilot02GitVsGithub`, **1350 frames** (45 s @ 30 fps), 1920×1080, enregistrée dans `Root.tsx`.
 - **Taxonomie texte THP** : implémentation selon la source unique `thp-video-generation` + `library-matrix` : **`GlitchText`** (hero intro), **`TextReveal`** (sous-titre intro, titres concept/calmes, CTA), **`Typewriter`** (narration/callout), `WordByWord` optionnel pour une emphase ciblée, comme [`TextDemo.tsx`](../../../apps/remotion/src/remotion/compositions/demos/TextDemo.tsx). **Pas** de simple fade sur `TitleCard` / `ConceptSlide` statiques seuls.
-- **V1 clean (série 01)** : `SceneHeader` (6 scènes, mots-clés `TITRE` → `SUITE`), `ProgressBar` footer, shell **`Serie01SceneShell`** (`FadeSlide` catalogue + header ; variante `layout="stack"` pour la scène GitHub + `FlowChart`), mini **`FlowChart`** 2 nœuds en fin de scène 4. Constantes Flow dans `pilot02-content.ts` (`GITHUB_FLOW_*`). `GlitchText` activé sur le hero intro selon règle globale.
+- **V1 clean (série 01)** : `SceneHeader` (6 scènes, mots-clés `TITRE` → `SUITE`), `ProgressBar` footer, shell **`Serie01SceneShell`** (`transition` variée `FadeSlide`/`ZoomBlur`/`Wipe` + variante `layout="stack"` pour la scène GitHub + `FlowChart`), mini **`FlowChart`** 2 nœuds en fin de scène 4. Constantes Flow dans `pilot02-content.ts` (`GITHUB_FLOW_*`). `GlitchText` activé sur le hero intro selon règle globale.
 
 ---
 
@@ -140,7 +140,7 @@ D’après le [Component shortlist](video-ai-preparation.md#component-shortlist)
 |--------|--------|
 | **Ton** | Pédagogique, direct, rassurant (« ça va t’éviter beaucoup de confusion »). |
 | **Niveau** | Débutant ; pas de prérequis technique au-delà de « tu codes un peu ». |
-| **Visuels** | Intro hero en `GlitchText`, sous-titre en `TextReveal`, narration en `Typewriter`, `FlowChart` scène 4, chrome série harmonisé. |
+| **Visuels** | Intro hero en `GlitchText`, sous-titre en `TextReveal`, narration en `Typewriter`, `FlowChart` scène 4, transitions variées, overlays diagonaux + pattern vine très faible opacité (esprit DemoShowcase). |
 | **Voix** | Une voix ; débit modéré pour laisser le temps de lire si sous-titres. |
 | **Musique / fond** | Selon charte THP ; optionnel pour un concept intro court. |
 

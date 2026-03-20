@@ -52,7 +52,7 @@ Outline complet pour la vidéo « Pré-requis » de la [Série 01](serie-01-git-
 
 ## Version V0.8 (consolidation workflow + matrice texte)
 
-**Objectifs** : (1) imposer la source unique `thp-video-generation` + `library-matrix` ; (2) intro hero en **`GlitchText`** (règle globale) ; (3) sous-titre intro en **`TextReveal`** ; (4) ligne OS en **`WordByWord`** vert (`success`) comme repère pratique ; (5) conserver `Terminal` pour la CLI ; (6) garder 7 segments `SceneHeader` cohérents.
+**Objectifs** : (1) imposer la source unique `thp-video-generation` + `library-matrix` ; (2) intro hero en **`GlitchText`** (règle globale) ; (3) sous-titre intro en **`TextReveal`** ; (4) ligne OS en **`WordByWord`** vert (`success`) comme repère pratique ; (5) conserver `Terminal` pour la CLI ; (6) garder 7 segments `SceneHeader` cohérents ; (7) intégrer les enseignements DemoShowcase (transitions variées et couches visuelles discrètes) sans dégrader la lisibilité.
 
 **Fichiers** : `pilot01-content.ts`, `Pilot01Prerequis.tsx`, `Serie01SceneShell.tsx`.
 
