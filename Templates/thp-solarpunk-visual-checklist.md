@@ -9,7 +9,7 @@ tags:
   - solarpunk
   - qa
 created: 2026-03-19
-updated: 2026-03-23
+updated: 2026-03-20
 related:
   - "[[reference/solarpunk-theme-decisions]]"
   - "[[runbooks/video-ai-development]]"
@@ -23,11 +23,13 @@ related:
 
 ## Session agent (Cursor) — à faire quand c’est pertinent
 
-Pour que la charte **remonte** dans le contexte de l’agent et soit **exécutée** (pas seulement lue une fois) :
+Pour que la charte **et les rules Remotion** remontent dans le contexte de l’agent et soient **exécutées** (pas seulement lues une fois) :
 
-- [ ] **`thp-solarpunk-visual`** : installé sous `.cursor/skills/thp-solarpunk-visual/` depuis [meta/thp-solarpunk-visual-skill](../meta/thp-solarpunk-visual-skill.md) (symlink ou copie).
-- [ ] **`thp-video-generation`** : installé sous `.cursor/skills/thp-video-generation/` depuis `packages/skills/thp-video-generation/` — [meta/thp-video-generation-skill](../meta/thp-video-generation-skill.md).
-- [ ] **Chargement explicite** en début de session sur la composition : mentionner les deux skills dans le chat (Cursor ne garantit pas l’auto-sélection) — détail [runbook §08](../runbooks/video-ai-development.md#08--skills-utiles-au-workflow-vidéo).
+- [ ] **`bun run bootstrap:agents`** exécuté depuis la racine Video-AI si `.cursor/skills/` incomplet ou submodule Remotion non initialisé — [runbook §08](../runbooks/video-ai-development.md#08--skills-utiles-au-workflow-vidéo).
+- [ ] **`thp-solarpunk-visual`** : présent sous `.cursor/skills/thp-solarpunk-visual/` (symlink ou copie depuis [meta/thp-solarpunk-visual-skill](../meta/thp-solarpunk-visual-skill.md)).
+- [ ] **`thp-video-generation`** : présent sous `.cursor/skills/thp-video-generation/` — [meta/thp-video-generation-skill](../meta/thp-video-generation-skill.md).
+- [ ] **`remotion-best-practices`** : présent sous `.cursor/skills/remotion-best-practices/` (créé par le bootstrap ; source `packages/skills/remotion-best-practices`).
+- [ ] **Phrase type en tête de session** : coller la phrase canonique **§08 — Triggers agent** ([runbook](../runbooks/video-ai-development.md#08--skills-utiles-au-workflow-vidéo)) incluant les **trois** skills + l’ouverture des **rules** `packages/skills/remotion-best-practices/rules/*.md` selon la tâche (timing, texte, transitions, audio, etc.).
 
 ## Palette et tokens
 

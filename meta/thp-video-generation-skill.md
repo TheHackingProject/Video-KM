@@ -9,7 +9,7 @@ tags:
   - video-ai
   - thp
 created: 2026-03-21
-updated: 2026-03-23
+updated: 2026-03-20
 related:
   - "[[runbooks/video-ai-development]]"
   - "[[reference/solarpunk-theme-decisions]]"
@@ -34,3 +34,5 @@ This KM page is a **shortcut** for Obsidian and cross-links from other docs.
 - Manual: `mkdir -p .cursor/skills && ln -sf "$(pwd)/packages/skills/thp-video-generation" .cursor/skills/thp-video-generation` — puis optionnel `remotion-best-practices` comme dans [`packages/skills/README.md`](../../../packages/skills/README.md).
 
 Confirm `.cursor/skills/thp-video-generation/SKILL.md` exists. `thp-solarpunk-visual` : symlink séparé — voir [meta/thp-solarpunk-visual-skill](thp-solarpunk-visual-skill.md).
+
+**Trigger workflow (fort)** : pour toute session qui modifie une composition ou des timings, coller en tête du chat la **phrase canonique** et la **carte rules → tâche** dans [runbooks/video-ai-development §08 — Triggers agent](../runbooks/video-ai-development.md#08--skills-utiles-au-workflow-vidéo). Toujours associer ce skill à **thp-solarpunk-visual** et **remotion-best-practices** sur du code Remotion.

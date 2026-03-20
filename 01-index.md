@@ -9,7 +9,7 @@ tags:
   - runbooks
   - architecture
 created: 2026-03-10
-updated: 2026-03-22
+updated: 2026-03-20
 related:
   - "[[meta/thp-video-generation-skill]]"
   - "[[00-architecture]]"
@@ -61,8 +61,9 @@ Exploratory notes, evaluations, and POCs. **Not canonical**; see [reference/tool
 
 ## Agent skills (versioned in repo)
 
-- **THP Video generation** — source: `packages/skills/thp-video-generation/`; KM pointer: [meta/thp-video-generation-skill](meta/thp-video-generation-skill.md); see §08 in [video-ai-development](runbooks/video-ai-development.md).
-- **THP Solarpunk visual** — [meta/thp-solarpunk-visual-skill](meta/thp-solarpunk-visual-skill.md)
+- **THP Video generation** — source: `packages/skills/thp-video-generation/`; KM pointer: [meta/thp-video-generation-skill](meta/thp-video-generation-skill.md); **triggers + rules Remotion** : [video-ai-development §08](runbooks/video-ai-development.md#08--skills-utiles-au-workflow-vidéo).
+- **THP Solarpunk visual** — [meta/thp-solarpunk-visual-skill](meta/thp-solarpunk-visual-skill.md) — utiliser **avec** remotion-best-practices sur les passes Remotion.
+- **Remotion (remotion-best-practices)** — submodule `packages/skills/Remotion`, règles détaillées dans `packages/skills/remotion-best-practices/rules/` ; même contenu que le dépôt officiel Remotion Agent Skills.
 
 ## Templates
 

@@ -11,7 +11,7 @@ tags:
   - formats
   - components
 created: 2026-03-12
-updated: 2026-03-12
+updated: 2026-03-20
 related:
   - "[[reference/video-lifecycle]]"
   - "[[explanation/video-ai-vision]]"
@@ -104,5 +104,6 @@ Use the **pilot outline template** to define script and scene breakdown before i
 
 - **Template**: [Templates/pilot-outline.md](../Templates/pilot-outline.md) — copy per pilot (e.g. into this folder or a working folder).
 - **Usage**: Fill in title, format, script, scene breakdown, and components needed; only then create or edit compositions in `apps/remotion`.
+- **Agents (Cursor / multi-agent)**: before implementation passes, run `bun run bootstrap:agents` and use the **three-skill + Remotion rules** workflow in [video-ai-development §08](../runbooks/video-ai-development.md#08--skills-utiles-au-workflow-vidéo) (*Triggers agent*).
 
 See [video-lifecycle](reference/video-lifecycle.md) for where pilot outline fits in the full sequence.

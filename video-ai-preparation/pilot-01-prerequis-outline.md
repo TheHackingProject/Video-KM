@@ -10,7 +10,7 @@ tags:
   - terminal
   - serie-01
 created: 2026-03-18
-updated: 2026-03-23
+updated: 2026-03-20
 related:
   - "[[video-ai-preparation/video-ai-preparation]]"
   - "[[video-ai-preparation/serie-01-git-github]]"
@@ -28,7 +28,7 @@ Outline complet pour la vidéo « Pré-requis » de la [Série 01](serie-01-git-
 
 **Références** : ton [thp-tone-and-theme](../reference/thp-tone-and-theme.md) ; formats [video-ai-preparation](video-ai-preparation.md#video-formats) ; charte [solarpunk-theme-decisions](../reference/solarpunk-theme-decisions.md) ; checklist [thp-solarpunk-visual-checklist](../Templates/thp-solarpunk-visual-checklist.md) ; pratiques Remotion (skill `remotion-best-practices` : `sequencing.md`, `timing.md`, `transitions.md`).
 
-**Agents Cursor** : pour toute itération **script / scènes / Remotion**, charger **les deux** skills projet — [THP video generation](../meta/thp-video-generation-skill.md) (taxonomie texte, `Sequence`, choix Terminal vs snippet, démos) et [THP Solarpunk visual](../meta/thp-solarpunk-visual-skill.md) (tokens, contraste, motion). Symlink ou copie vers `.cursor/skills/` : [runbook §08](../runbooks/video-ai-development.md#08--skills-utiles-au-workflow-vidéo). Phrase type : *« Applique thp-video-generation + thp-solarpunk-visual pour ce pilot »*.
+**Agents Cursor** : pour toute itération **script / scènes / Remotion**, exécuter `bun run bootstrap:agents` si besoin, puis charger **trois** skills — [THP video generation](../meta/thp-video-generation-skill.md), [THP Solarpunk visual](../meta/thp-solarpunk-visual-skill.md) et **remotion-best-practices** (rules sous `packages/skills/remotion-best-practices/rules/`). Phrase type et tableau des rules : [runbook §08 — Triggers agent](../runbooks/video-ai-development.md#08--skills-utiles-au-workflow-vidéo).
 
 ---
 

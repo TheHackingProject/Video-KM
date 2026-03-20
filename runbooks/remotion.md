@@ -11,7 +11,7 @@ tags:
   - compositions
   - react
 created: 2026-03-11
-updated: 2026-03-23
+updated: 2026-03-20
 related:
   - "[[00-architecture]]"
   - "[[01-index]]"
@@ -29,6 +29,10 @@ Procedures for using Remotion to create videos with React.
 ## Overview
 
 Remotion is a framework for creating videos programmatically using React components. Videos are rendered frame-by-frame, with each frame being a React component.
+
+## Agent workflow (Cursor / multi-agent)
+
+Pour tout travail sur des compositions, des timings ou des médias avec un agent IA : suivre **§08** de [video-ai-development](video-ai-development.md#08--skills-utiles-au-workflow-vidéo) — en particulier **Triggers agent** : charger **thp-video-generation**, **thp-solarpunk-visual** et **remotion-best-practices**, puis ouvrir les fichiers pertinents sous `packages/skills/remotion-best-practices/rules/` (`sequencing.md`, `timing.md`, `text-animations.md`, `transitions.md`, etc.). Préparation machine : `bun run bootstrap:agents`.
 
 ## Architecture (target)
 

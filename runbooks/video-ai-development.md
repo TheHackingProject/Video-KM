@@ -10,7 +10,7 @@ tags:
   - development
   - workflow
 created: 2026-03-12
-updated: 2026-03-23
+updated: 2026-03-20
 related:
   - "[[00-architecture]]"
   - "[[reference/video-lifecycle]]"
@@ -211,3 +211,28 @@ Le dossier `packages/skills/` sert de point d’entrée pour les skills utiles �
 - **Option génération SVG illustratif par IA** : skill `@neversight/generate-svg` (agentskill.sh) pour logos/illustrations vectorielles à intégrer ensuite dans les scènes.
 
 Voir l’index interne : `packages/skills/README.md`.
+
+### Triggers agent (phrases + rules Remotion)
+
+**Objectif** : forcer le chargement conjoint du **pipeline THP** et des **rules officielles Remotion** (`remotion-best-practices`), pas seulement les skills métier.
+
+1. **Avant la session** : `bun run bootstrap:agents` (`.cursor/skills/` + submodule `packages/skills/Remotion`).
+2. **Phrase canonique (copier-coller en tête de chat)** pour toute tâche script / scènes / timings / composants Remotion :
+
+   > Applique les Agent Skills **thp-video-generation**, **thp-solarpunk-visual** et **remotion-best-practices**. Pour le détail bas niveau Remotion, charge les fichiers `rules/*.md` du skill **remotion-best-practices** selon le tableau ci-dessous (chemins sous `packages/skills/remotion-best-practices/rules/` dans le monorepo).
+
+3. **Carte rapide — type de tâche → rules à ouvrir** (en complément du [SKILL.md](../../../packages/skills/remotion-best-practices/SKILL.md) officiel) :
+
+| Besoin | Rules Remotion (extraits) |
+|--------|---------------------------|
+| Structure des séquences, rythme, ce qui reste à l’écran | `sequencing.md`, `timing.md`, `compositions.md` |
+| Texte animé, typewriter, emphase | `text-animations.md`, `animations.md` |
+| Cuts, enchaînements visuels | `transitions.md` |
+| Audio, voix, sous-titres, légendes | `audio.md`, `voiceover.md`, `subtitles.md`, `display-captions.md` |
+| Images, polices, assets | `images.md`, `fonts.md`, `assets.md` |
+| 3D / effets | `3d.md` (et démos THP / kit Solarpunk via **thp-video-generation**) |
+| Post-trait / médias externes | `ffmpeg.md`, `extract-frames.md`, `trimming.md` (si applicable) |
+
+4. **Templates** : [Templates/pilot-outline](../Templates/pilot-outline.md) et [checklist Solarpunk](../Templates/thp-solarpunk-visual-checklist.md) reprennent ces triggers ; les outlines pilotes (ex. série 01) doivent citer la phrase canonique.
+
+5. **Rappel** : **thp-video-generation** choisit *quoi* montrer (blocs THP, Storybook → démo) ; **remotion-best-practices** rappelle *comment* le framework Remotion attend que ce soit fait au niveau timing, composition et médias.
