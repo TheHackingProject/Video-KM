@@ -21,7 +21,7 @@ related:
 
 - **Entry** : [`packages/skills/thp-video-generation/SKILL.md`](../../../packages/skills/thp-video-generation/SKILL.md)
 - **Block / demo matrix** : [`packages/skills/thp-video-generation/references/library-matrix.md`](../../../packages/skills/thp-video-generation/references/library-matrix.md)
-- **Diagram pipeline (EN)** : [`packages/skills/thp-video-generation/references/diagram-asset-pipeline.md`](../../../packages/skills/thp-video-generation/references/diagram-asset-pipeline.md) — checklist versionnée par vidéo : [`KM/Docs/video-ai-preparation/diagrams/`](../video-ai-preparation/diagrams/README.md)
+- **Diagram pipeline (EN)** : [`packages/skills/thp-video-generation/references/diagram-asset-pipeline.md`](../../../packages/skills/thp-video-generation/references/diagram-asset-pipeline.md) — option Mermaid→SVG ; par défaut **schéma React** : [`SchematicFlowChartView`](../../../packages/ui/src/lib/diagrams/SchematicFlowChartView.tsx) (Storybook) + `FlowChart` dans [`DiagramsDemo`](../../../apps/remotion/src/remotion/compositions/demos/DiagramsDemo.tsx).
 - **Skills index** : [`packages/skills/README.md`](../../../packages/skills/README.md)
 
 This KM page is a **shortcut** for Obsidian and cross-links from other docs.

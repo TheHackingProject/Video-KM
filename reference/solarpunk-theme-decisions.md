@@ -48,7 +48,7 @@ Document **normatif** : décisions validées par l’équipe / produit. Pour le 
 
 Objectif : **même identité** d’une vidéo THP à l’autre — éviter les animations ou couleurs inventées hors charte.
 
-- **Source** : fichiers sous `apps/remotion/src/remotion/compositions/demos/` (ex. `TextDemo`, `DemoShowcaseSolarpunkDemo`, `TransitionsDemo`).
+- **Source** : fichiers sous `apps/remotion/src/remotion/compositions/demos/` (ex. `TextDemo`, `DemoShowcaseSolarpunkDemo`, `TransitionsDemo`, `DiagramsDemo` pour **SchematicFlowChart** — flux pédagogique texte + Lucide, sans export SVG Mermaid).
 - **Règle** : avant d’ajouter un pattern visuel nouveau, **parcourir les démos** et les composants `@repo/ui/remotion` (`FadeSlide`, `Terminal`, `FlowChart`, etc.).
 - **Transitions** : préférer les exports existants ; paramétrer avec **`solarTheme`** (couleurs, `springConfigs` du module) pour rester aligné avec [decision #9](#décisions-2026-03-19).
 - **Suivi** : consigner un retour ou une nouvelle brique dans le tableau *Amélioration continue* ci-dessous (date + lien PR / composition).
@@ -77,6 +77,7 @@ Objectif : **même identité** d’une vidéo THP à l’autre — éviter les a
 | 2026-03-19 | Lot 1 icônes | Abandonné : SVG placeholder supprimés ; **Lucide** + `@repo/ui/icons`. | Utiliser `thp-lucide.ts` dans les écrans. |
 | 2026-03-19 | Choix produit | **Icônes UI = Lucide** (`lucide-react`) + export `@repo/ui/icons` ; SVG maison = optionnel / legacy. | Utiliser Lucide dans les nouveaux écrans ; réserver le brief designer aux pictos signature. |
 | 2026-03-21 | Pilot 01 / process | Besoin de **bases reproductibles** : taxonomie texte (titre / narration / CLI), règle **Sequence = durée de vie** pour éviter disparitions, **catalogue démos** + transitions reliées à `solarTheme`. | Documenté : [video-ai-development §04/§07](../runbooks/video-ai-development.md), [remotion — Catalogue de démos](../runbooks/remotion.md#catalogue-de-démos-thp-remotion), section *Catalogue démo & motion* ci-dessus. |
+| 2026-03-23 | Diagrammes | Retrait démo **Mermaid → SVG statique** peu lisible ; **SchematicFlowChartView** (Storybook) + `FlowChart` Remotion réutilise le même rendu pro (texte, Lucide, flèches). | `packages/ui` — Storybook `THP/Diagrams/SchematicFlowChartView` ; [DiagramsDemo](../../apps/remotion/src/remotion/compositions/demos/DiagramsDemo.tsx). |
 | | | | |
 
 **Process** : en cas de changement de procédure ou de palette, mettre à jour aussi [runbook Video-AI Development §07](../runbooks/video-ai-development.md#07--amélioration-du-process) et les templates [thp-solarpunk-visual-checklist](../Templates/thp-solarpunk-visual-checklist.md) / [pilot-outline](../Templates/pilot-outline.md).

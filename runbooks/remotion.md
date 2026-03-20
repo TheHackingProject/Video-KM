@@ -11,7 +11,7 @@ tags:
   - compositions
   - react
 created: 2026-03-11
-updated: 2026-03-21
+updated: 2026-03-23
 related:
   - "[[00-architecture]]"
   - "[[01-index]]"
@@ -236,7 +236,7 @@ Les compositions dans `apps/remotion/src/remotion/compositions/demos/` servent d
 | `TextDemo` | `Typewriter`, `WordByWord`, `TextReveal` — base de la [taxonomie texte](../runbooks/video-ai-development.md#taxonomie-texte-thp-reproductible) |
 | `DemoShowcaseSolarpunkDemo` | Kit Solarpunk : palette, `Terminal`, timings |
 | `TransitionsDemo` | `FadeSlide` et transitions exportées par `@repo/ui/remotion` |
-| `CodeDemo`, `DiagramsDemo`, `UIDemo`, … | Patterns à réutiliser avant d’ajouter un one-off |
+| `CodeDemo`, `DiagramsDemo`, `UIDemo`, … | Patterns à réutiliser avant d’ajouter un one-off ; `DiagramsDemo` inclut **SchematicFlowChart** (texte + Lucide + flèches) — Storybook : `SchematicFlowChartView` |
 
 Nouveaux effets **signature** : préférer les transitions et primitives déjà exposées (`FadeSlide`, `ZoomBlur`, `Wipe`) avec **`theme={solarTheme}`** ; ajouter une démo courte + consigner la décision dans [solarpunk-theme-decisions](../reference/solarpunk-theme-decisions.md#catalogue-démo--motion-reproductibilité).
 
