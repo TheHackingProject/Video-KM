@@ -66,6 +66,8 @@ git submodule update --init --recursive
 bun install
 ```
 
+(Submodule init must include `packages/skills/Remotion` for **remotion-best-practices** symlinks to resolve; see [`packages/skills/README.md`](../../../packages/skills/README.md).)
+
 ## Root scripts
 
 | Script      | Command               | Purpose                                  |

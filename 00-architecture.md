@@ -44,7 +44,7 @@ Video-AI/
 │       │           ├── onboarding/
 │       │           └── social/
 │       ├── remotion.config.ts
-│       └── skills/             # Agent skills (symlinked)
+│       └── .agents/skills/      # symlink → packages/skills/remotion-best-practices (committed)
 ├── packages/
 │   ├── ui/                 # @repo/ui – static design system
 │   │   └── src/
@@ -65,8 +65,9 @@ Video-AI/
 │   ├── eslint-config/      # @repo/eslint-config
 │   ├── typescript-config/  # @repo/typescript-config
 │   └── skills/
-│       ├── Remotion/       # submodule – Remotion Agent Skills (remotion-dev/skills)
-│       └── thp-video-generation/  # THP Video-AI Cursor skill (versioned) — SKILL.md + references/
+│       ├── Remotion/       # submodule – remotion-dev/skills (official Remotion agent pack)
+│       ├── remotion-best-practices/  # symlink → Remotion/skills/remotion
+│       └── thp-video-generation/  # THP Video-AI skill (versioned) — SKILL.md + references/
 ├── KM/
 │   ├── Docs/               # submodule – Project documentation
 │   │   ├── 00-architecture.md   # ← this file
@@ -137,6 +138,8 @@ Three levels:
 | `KM/Course/Fullstack`     | https://github.com/TheHackingProject/course-fullstack.git | submodule |
 | `KM/Course/React`         | https://github.com/TheHackingProject/next-react.git     | submodule |
 | `packages/skills/Remotion`| https://github.com/remotion-dev/skills.git              | submodule |
+
+**Remotion agent skills** : submodule `packages/skills/Remotion`, stable path `packages/skills/remotion-best-practices` + `apps/remotion/.agents/skills/remotion-best-practices` (symlinks). See [`packages/skills/README.md`](../../../packages/skills/README.md).
 
 Workspaces include `packages/remotion-lib`. Compositions live under `apps/remotion/src/remotion`.
 

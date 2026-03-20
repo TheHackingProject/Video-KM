@@ -38,6 +38,8 @@ Defined in `.gitmodules` at the root:
 | `KM/Course/React`     | https://github.com/TheHackingProject/next-react.git     |
 | `packages/skills/Remotion` | https://github.com/remotion-dev/skills.git         |
 
+Symlinks `packages/skills/remotion-best-practices` and `apps/remotion/.agents/skills/remotion-best-practices` point into this submodule. See [`packages/skills/README.md`](../../../packages/skills/README.md).
+
 ## Adding a new submodule
 
 From the **root** of the Video-AI repo, using a **relative path** and URL with `.git`:

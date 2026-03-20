@@ -52,7 +52,7 @@ apps/remotion/
 │           ├── onboarding/
 │           └── social/
 ├── remotion.config.ts
-├── skills/                       # Agent skills (remotion-best-practices)
+├── .agents/skills/               # symlink remotion-best-practices → packages/skills (see packages/skills/README.md)
 └── package.json
 ```
 

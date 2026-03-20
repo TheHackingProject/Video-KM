@@ -26,9 +26,12 @@ related:
 
 This KM page is a **shortcut** for Obsidian and cross-links from other docs.
 
+**Remotion upstream skill** : initialize submodule **`packages/skills/Remotion`** (`git submodule update --init packages/skills/Remotion` or full `--recursive`). Symlinks: `packages/skills/remotion-best-practices` → `Remotion/skills/remotion` — see [`packages/skills/README.md`](../../../packages/skills/README.md).
+
 **Cursor** (each machine / after clone), from the **Video-AI repo root**:
 
 - Copy: `mkdir -p .cursor/skills && cp -r packages/skills/thp-video-generation .cursor/skills/`
 - Symlink: `mkdir -p .cursor/skills && ln -sf "$(pwd)/packages/skills/thp-video-generation" .cursor/skills/thp-video-generation`
+- Optional: `ln -sf "$(pwd)/packages/skills/remotion-best-practices" .cursor/skills/remotion-best-practices` (requires submodule init above)
 
 Confirm `.cursor/skills/thp-video-generation/SKILL.md` exists. Same approach as `thp-solarpunk-visual`. See `packages/skills/README.md`.
