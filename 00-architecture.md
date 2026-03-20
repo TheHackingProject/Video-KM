@@ -28,6 +28,10 @@ Overview of the monorepo architecture, structure and repository links.
 
 ```
 Video-AI/
+├── .agents/
+│   └── skills/                # remotion-best-practices → packages/skills (agents with CWD = repo root)
+├── .cursor/
+│   └── environment.json       # Background Agents: install = submodule + bun + bootstrap (versioned)
 ├── apps/
 │   ├── docs/              # Next.js app (docs)
 │   ├── web/               # Next.js app (web)

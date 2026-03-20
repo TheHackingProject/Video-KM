@@ -57,6 +57,9 @@ cd Video-AI
 
 # Install dependencies (Bun)
 bun install
+
+# Cursor Agent Skills paths (.cursor/skills) + ensure Remotion submodule for symlinks
+bun run bootstrap:agents
 ```
 
 If the repo was already cloned without submodules:
@@ -64,14 +67,16 @@ If the repo was already cloned without submodules:
 ```bash
 git submodule update --init --recursive
 bun install
+bun run bootstrap:agents
 ```
 
-(Submodule init must include `packages/skills/Remotion` for **remotion-best-practices** symlinks to resolve; see [`packages/skills/README.md`](../../../packages/skills/README.md).)
+(Submodule init must include `packages/skills/Remotion` for **remotion-best-practices** symlinks to resolve; see [`packages/skills/README.md`](../../../packages/skills/README.md). **Cursor Background Agents** use [`.cursor/environment.json`](../../../.cursor/environment.json) for a minimal `install` chain.)
 
 ## Root scripts
 
 | Script      | Command               | Purpose                                  |
 |-------------|------------------------|------------------------------------------|
+| Bootstrap agents | `bun run bootstrap:agents` | Init `packages/skills/Remotion`, link `.cursor/skills/*` |
 | Build       | `bun run build`        | Build all apps/packages (Turbo)          |
 | Dev         | `bun run dev`          | Start dev servers (Turbo)                 |
 | Lint        | `bun run lint`        | Lint all packages (Turbo)                 |

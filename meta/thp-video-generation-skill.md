@@ -30,8 +30,7 @@ This KM page is a **shortcut** for Obsidian and cross-links from other docs.
 
 **Cursor** (each machine / after clone), from the **Video-AI repo root**:
 
-- Copy: `mkdir -p .cursor/skills && cp -r packages/skills/thp-video-generation .cursor/skills/`
-- Symlink: `mkdir -p .cursor/skills && ln -sf "$(pwd)/packages/skills/thp-video-generation" .cursor/skills/thp-video-generation`
-- Optional: `ln -sf "$(pwd)/packages/skills/remotion-best-practices" .cursor/skills/remotion-best-practices` (requires submodule init above)
+- **Recommended:** `bun run bootstrap:agents` (submodule Remotion + symlinks under `.cursor/skills/` for `thp-video-generation` and `remotion-best-practices`). See [`.cursor/environment.json`](../../../.cursor/environment.json) for Background Agents.
+- Manual: `mkdir -p .cursor/skills && ln -sf "$(pwd)/packages/skills/thp-video-generation" .cursor/skills/thp-video-generation` — puis optionnel `remotion-best-practices` comme dans [`packages/skills/README.md`](../../../packages/skills/README.md).
 
-Confirm `.cursor/skills/thp-video-generation/SKILL.md` exists. Same approach as `thp-solarpunk-visual`. See `packages/skills/README.md`.
+Confirm `.cursor/skills/thp-video-generation/SKILL.md` exists. `thp-solarpunk-visual` : symlink séparé — voir [meta/thp-solarpunk-visual-skill](thp-solarpunk-visual-skill.md).
