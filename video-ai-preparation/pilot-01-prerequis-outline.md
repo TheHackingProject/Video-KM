@@ -10,7 +10,7 @@ tags:
   - terminal
   - serie-01
 created: 2026-03-18
-updated: 2026-03-19
+updated: 2026-03-23
 related:
   - "[[video-ai-preparation/video-ai-preparation]]"
   - "[[video-ai-preparation/serie-01-git-github]]"
@@ -18,13 +18,17 @@ related:
   - "[[reference/thp-tone-and-theme]]"
   - "[[reference/solarpunk-theme-decisions]]"
   - "[[Templates/thp-solarpunk-visual-checklist]]"
+  - "[[meta/thp-video-generation-skill]]"
+  - "[[meta/thp-solarpunk-visual-skill]]"
 ---
 
 # Pilot 01 – Pré-requis : terminal et bases
 
 Outline complet pour la vidéo « Pré-requis » de la [Série 01](serie-01-git-github.md). Format 2 – Code demo guided. **Idée unique** : Savoir ouvrir le terminal et exécuter une ou deux commandes de base pour pouvoir suivre les démos Git de la série.
 
-**Références** : ton [thp-tone-and-theme](../reference/thp-tone-and-theme.md) ; formats [video-ai-preparation](video-ai-preparation.md#video-formats) ; charte [solarpunk-theme-decisions](../reference/solarpunk-theme-decisions.md) ; checklist [thp-solarpunk-visual-checklist](../Templates/thp-solarpunk-visual-checklist.md) ; pratiques Remotion (skill `remotion-best-practices` : `sequencing.md`, `timing.md`, `transitions.md`) ; skill projet `thp-solarpunk-visual` (KM ou `.cursor/skills`).
+**Références** : ton [thp-tone-and-theme](../reference/thp-tone-and-theme.md) ; formats [video-ai-preparation](video-ai-preparation.md#video-formats) ; charte [solarpunk-theme-decisions](../reference/solarpunk-theme-decisions.md) ; checklist [thp-solarpunk-visual-checklist](../Templates/thp-solarpunk-visual-checklist.md) ; pratiques Remotion (skill `remotion-best-practices` : `sequencing.md`, `timing.md`, `transitions.md`).
+
+**Agents Cursor** : pour toute itération **script / scènes / Remotion**, charger **les deux** skills projet — [THP video generation](../meta/thp-video-generation-skill.md) (taxonomie texte, `Sequence`, choix Terminal vs snippet, démos) et [THP Solarpunk visual](../meta/thp-solarpunk-visual-skill.md) (tokens, contraste, motion). Symlink ou copie vers `.cursor/skills/` : [runbook §08](../runbooks/video-ai-development.md#08--skills-utiles-au-workflow-vidéo). Phrase type : *« Applique thp-video-generation + thp-solarpunk-visual pour ce pilot »*.
 
 ---
 
@@ -35,6 +39,32 @@ Outline complet pour la vidéo « Pré-requis » de la [Série 01](serie-01-git-
 **Fichiers** : contenu centralisé dans `apps/remotion/src/remotion/compositions/serie-01/pilot01-content.ts` ; composition `Pilot01Prerequis.tsx`.
 
 **DoD** : lecture Studio **3600 frames** ; checklist visuelle THP passée ; pas d’usage décoratif de `--error`.
+
+---
+
+## Version V0.6 (timeline, texte, reproductibilité THP)
+
+**Objectifs** : (1) aucun calque pédagogique ne **disparaît** avant le cut de scène — sous-`Sequence` avec durée jusqu’à la fin de la scène parente ; (2) distinguer chevauchement **voulu** vs **collision** (layout) ; (3) **taxonomie texte** : un type de rendu par rôle (`TextReveal` titre, `Typewriter` narration, `Terminal` CLI, etc.) — voir [runbook §04 — Taxonomie](../runbooks/video-ai-development.md#taxonomie-texte-thp-reproductible) ; (4) s’appuyer sur le **catalogue démos** Remotion et le thème pour les futures **transitions** ([runbook Remotion](../runbooks/remotion.md#catalogue-de-démos-thp-remotion), [solarpunk-theme-decisions — Catalogue démo & motion](../reference/solarpunk-theme-decisions.md#catalogue-démo--motion-reproductibilité)).
+
+**Retours consignés** : [video-ai-development §07 — Retour 3](../runbooks/video-ai-development.md#07--amélioration-du-process).
+
+---
+
+## Amélioration continue — rythme & animation (post-V0.5)
+
+Objectif : réduire les **temps morts visuels** (« plein écran figé ») tout en gardant la durée cible **3600 f**.
+
+| Apprentissage | Application concrète (Pilot 01 et suivants) |
+|---------------|---------------------------------------------|
+| **Beats** | Découper chaque scène en sous-séquences : **setup → reveal → hold → handoff** ; un petit mouvement ou reveal toutes les **~8–15 s** (déjà visé dans [Rythme, vulgarisation et VO](#rythme-vulgarisation-et-vo-recherche--pratique)). |
+| **Intro** | Privilégier **typewriter** (`Typewriter` dans la démo `TextDemo`) + **pauses** entre phrases plutôt qu’un bloc de texte affiché d’un coup. |
+| **Timings** | Garder CPS, delays terminal, holds de fin de beat dans **`pilot01-content.ts`** pour itérer sans multiplier les constantes dans la composition. |
+| **Séquences** | `premountFor` ; `Series` ou sous-`Sequence` avec `layout="none"` si besoin ; légers **chevauchements** (quelques frames) entre éléments. |
+| **Terminal** | Après chaque sortie, **hold** lisible avant coupure de scène (cohérent avec pauses `pwd` / `ls` dans ce document). |
+| **V0.6 — Durée de vie des calques** | Une sous-`Sequence` trop courte **démonte** le contenu : régler `durationInFrames` pour tenir jusqu’à la fin de la scène si le calque doit rester visible. |
+| **V0.6 — Identité reproductible** | Parcourir `apps/remotion/.../demos/` avant d’ajouter un effet ; nouvelles transitions = `solarTheme` + doc dans [solarpunk-theme-decisions](../reference/solarpunk-theme-decisions.md#catalogue-démo--motion-reproductibilité). |
+
+**Source de vérité process** : [runbook Video-AI Development §04 et §07](../runbooks/video-ai-development.md) ; [runbook Remotion — Pacing](../runbooks/remotion.md#pacing-et-structure-des-scènes) ; [taxonomie texte §04](../runbooks/video-ai-development.md#taxonomie-texte-thp-reproductible).
 
 ---
 
@@ -237,6 +267,8 @@ D’après le [Component shortlist](video-ai-preparation.md#component-shortlist)
 - **2026-03-19** : Script enrichi (vulgarisation, analogies, OS explicites), breakdown + sous-beats + frames, section rythme/recherche, rendu artistique aligné `DemoShowcaseSolarpunk` et skill Remotion (`sequencing`, `timing`, `transitions`).
 - **2026-03-19 (2)** : Cible durée **120 s / 3600 frames** — scènes raccourcies (bonnes pratiques prérequis + rythme visuel) ; implémentation Remotion alignée.
 - **2026-03-19 (V0.5)** : Script KM → `pilot01-content.ts` ; `solarTheme` + fond dégradé + ParticleField ; SceneHeader (5 phases) ; ProgressBar globale 3600 f ; Terminal `theme` + `delay` ; intro en deux beats ; pills OS ; Lucide (`ThpTerminal`, `ThpGitBranch`, `ThpMonitor`) ; FlowChart recap ; `TitleCard` / `SectionIntro` couleurs Solarpunk optionnelles.
+- **2026-03-20** : Apprentissages **fluidité** (typewriter intro, découpage beats, timings centralisés, holds terminal) documentés dans ce fichier et dans [video-ai-development §04/§07](../runbooks/video-ai-development.md) pour l’amélioration continue ; cible itération **V0.6+** sur la composition.
+- **2026-03-21** : **Bases reproductibles THP** — taxonomie texte (§04 runbook), règle **sous-Sequence / contenu persistant**, catalogue **démos Remotion** + **transitions** sous `solarTheme` ([solarpunk-theme-decisions](../reference/solarpunk-theme-decisions.md) décision #11, § *Catalogue démo & motion*) ; retour process [§07 Retour 3](../runbooks/video-ai-development.md#07--amélioration-du-process). Section [Version V0.6](#version-v06-timeline-texte-reproductibilité-thp) dans ce outline.
 
 ---
 

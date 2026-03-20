@@ -11,12 +11,13 @@ tags:
   - compositions
   - react
 created: 2026-03-11
-updated: 2026-03-11
+updated: 2026-03-21
 related:
   - "[[00-architecture]]"
   - "[[01-index]]"
   - "[[runbooks/monorepo]]"
   - "[[runbooks/storybook]]"
+  - "[[runbooks/video-ai-development]]"
 ---
 
 # Runbook – Remotion
@@ -219,6 +220,25 @@ For timing multiple elements:
   <MainContent />
 </Sequence>
 ```
+
+### Pacing et structure des scènes
+
+Pour les vidéos pédagogiques THP, éviter les longues plages **sans changement visible** : découper en **beats** (sous-`Sequence` ou `Series`), utiliser **typewriter / reveal** pour le narratif quand le texte doit « prendre le temps » (voir composition démo `TextDemo`), et centraliser **delays / holds** dans un module de contenu (ex. `pilot01-content.ts`). Détail opérationnel et critères de review : [runbooks/video-ai-development](../runbooks/video-ai-development.md) §04 (*Pacing, séquences et texte animé*) et §07 (*Retour 2 — fluidité*). Règles Remotion détaillées : skill **remotion-best-practices** (`sequencing.md`, `text-animations.md`, `timing.md`).
+
+**Contenu persistant** : une sous-`Sequence` trop courte **démonte** ses enfants à sa fin — un texte ou un calque peut **disparaître avant le cut** de la grande scène. Si le calque doit rester visible jusqu’à la fin de la scène parente, utiliser `durationInFrames = duréeParente - from` (voir §04 *Sous-Sequence et contenu persistant*).
+
+### Catalogue de démos THP Remotion
+
+Les compositions dans `apps/remotion/src/remotion/compositions/demos/` servent de **référence reproductible** pour l’identité THP :
+
+| Démo | Intérêt |
+|------|---------|
+| `TextDemo` | `Typewriter`, `WordByWord`, `TextReveal` — base de la [taxonomie texte](../runbooks/video-ai-development.md#taxonomie-texte-thp-reproductible) |
+| `DemoShowcaseSolarpunkDemo` | Kit Solarpunk : palette, `Terminal`, timings |
+| `TransitionsDemo` | `FadeSlide` et transitions exportées par `@repo/ui/remotion` |
+| `CodeDemo`, `DiagramsDemo`, `UIDemo`, … | Patterns à réutiliser avant d’ajouter un one-off |
+
+Nouveaux effets **signature** : préférer les transitions et primitives déjà exposées (`FadeSlide`, `ZoomBlur`, `Wipe`) avec **`theme={solarTheme}`** ; ajouter une démo courte + consigner la décision dans [solarpunk-theme-decisions](../reference/solarpunk-theme-decisions.md#catalogue-démo--motion-reproductibilité).
 
 ## Configuration
 

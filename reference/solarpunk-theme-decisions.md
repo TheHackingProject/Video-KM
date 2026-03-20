@@ -11,12 +11,13 @@ tags:
   - accessibility
   - video-ai
 created: 2026-03-19
-updated: 2026-03-19
+updated: 2026-03-23
 related:
   - "[[reference/solarpunk-theme-reflection]]"
   - "[[reference/thp-tone-and-theme]]"
   - "[[runbooks/video-ai-development]]"
   - "[[design/brief-icones-thp-pour-designer]]"
+  - "[[meta/thp-video-generation-skill]]"
 ---
 
 # Décisions thème THP Solarpunk
@@ -39,6 +40,19 @@ Document **normatif** : décisions validées par l’équipe / produit. Pour le 
 | 8 | Vidéos THP | **THP = Solarpunk** : toutes les vidéos cours / démos suivent le kit visuel (couleurs, mouvement organique, composants). |
 | 9 | Kit visuel | **Oui** : réutiliser les **mêmes** patterns (dégradés, `ParticleField`, rayons, `SceneHeader`, timings springs) sur **tous** les composants et effets animés — éviter les one-off hors charte. |
 | 10 | Iconographie | **Par défaut : Lucide** (`@repo/ui/icons`). **SVG signature** THP uniquement si commande design — dépôt vide réservé : [`assets/thp/svg/README`](../../../packages/ui/src/assets/thp/svg/README.md). Emoji possibles si le script l’exige. |
+| 11 | Motion & démos | Les **compositions démo** Remotion (`apps/remotion/.../demos/`) sont le **catalogue de patterns** motion (texte, transitions, code, diagrammes). Toute nouvelle **transition** ou effet récurrent THP doit **s’appuyer sur `solarTheme`** et, si réutilisable, vivre dans `packages/ui` / `remotion-lib` avec une **mini-démo** ; procédure : [runbooks/video-ai-development §04](../runbooks/video-ai-development.md), [Remotion — Catalogue de démos](../runbooks/remotion.md#catalogue-de-démos-thp-remotion), skill agent **THP video generation** (versionné [`packages/skills/thp-video-generation/`](../../../packages/skills/thp-video-generation/), pointeur [meta/thp-video-generation-skill](../meta/thp-video-generation-skill.md)). |
+
+---
+
+## Catalogue démo & motion (reproductibilité)
+
+Objectif : **même identité** d’une vidéo THP à l’autre — éviter les animations ou couleurs inventées hors charte.
+
+- **Source** : fichiers sous `apps/remotion/src/remotion/compositions/demos/` (ex. `TextDemo`, `DemoShowcaseSolarpunkDemo`, `TransitionsDemo`).
+- **Règle** : avant d’ajouter un pattern visuel nouveau, **parcourir les démos** et les composants `@repo/ui/remotion` (`FadeSlide`, `Terminal`, `FlowChart`, etc.).
+- **Transitions** : préférer les exports existants ; paramétrer avec **`solarTheme`** (couleurs, `springConfigs` du module) pour rester aligné avec [decision #9](#décisions-2026-03-19).
+- **Suivi** : consigner un retour ou une nouvelle brique dans le tableau *Amélioration continue* ci-dessous (date + lien PR / composition).
+- **Skill agent (pipeline vidéo, EN)** : [`packages/skills/thp-video-generation/SKILL.md`](../../../packages/skills/thp-video-generation/SKILL.md) + [`references/library-matrix.md`](../../../packages/skills/thp-video-generation/references/library-matrix.md) — choix de bloc, boucle Storybook → démo → doc ; raccourci KM [meta/thp-video-generation-skill](../meta/thp-video-generation-skill.md).
 
 ---
 
@@ -62,6 +76,7 @@ Document **normatif** : décisions validées par l’équipe / produit. Pour le 
 | 2026-03-19 | Atelier thème | Validation des 10 décisions ci-dessus ; `:root` aligné Solarpunk ; `defaultTheme` = `solarTheme`. | Poursuivre avec SVG THP + audit contrastes sur `textMuted` / code. |
 | 2026-03-19 | Lot 1 icônes | Abandonné : SVG placeholder supprimés ; **Lucide** + `@repo/ui/icons`. | Utiliser `thp-lucide.ts` dans les écrans. |
 | 2026-03-19 | Choix produit | **Icônes UI = Lucide** (`lucide-react`) + export `@repo/ui/icons` ; SVG maison = optionnel / legacy. | Utiliser Lucide dans les nouveaux écrans ; réserver le brief designer aux pictos signature. |
+| 2026-03-21 | Pilot 01 / process | Besoin de **bases reproductibles** : taxonomie texte (titre / narration / CLI), règle **Sequence = durée de vie** pour éviter disparitions, **catalogue démos** + transitions reliées à `solarTheme`. | Documenté : [video-ai-development §04/§07](../runbooks/video-ai-development.md), [remotion — Catalogue de démos](../runbooks/remotion.md#catalogue-de-démos-thp-remotion), section *Catalogue démo & motion* ci-dessus. |
 | | | | |
 
 **Process** : en cas de changement de procédure ou de palette, mettre à jour aussi [runbook Video-AI Development §07](../runbooks/video-ai-development.md#07--amélioration-du-process) et les templates [thp-solarpunk-visual-checklist](../Templates/thp-solarpunk-visual-checklist.md) / [pilot-outline](../Templates/pilot-outline.md).
@@ -70,4 +85,5 @@ Document **normatif** : décisions validées par l’équipe / produit. Pour le 
 
 ## Skill agent (Cursor)
 
-Contenu versionné : [meta/thp-solarpunk-visual-skill](../meta/thp-solarpunk-visual-skill.md) (à recopier en local vers `.cursor/skills/thp-solarpunk-visual/SKILL.md` si besoin — le dossier `.cursor/` est souvent gitignoré).
+- **Solarpunk / UI–Remotion** : [meta/thp-solarpunk-visual-skill](../meta/thp-solarpunk-visual-skill.md) (copie locale possible vers `.cursor/skills/thp-solarpunk-visual/SKILL.md` — `.cursor/` souvent gitignoré).
+- **THP video generation (pipeline)** : [meta/thp-video-generation-skill](../meta/thp-video-generation-skill.md) — source `packages/skills/thp-video-generation/` ; copie ou symlink vers `.cursor/skills/thp-video-generation/` (voir le fichier meta).

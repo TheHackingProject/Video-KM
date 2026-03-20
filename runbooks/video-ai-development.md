@@ -10,7 +10,7 @@ tags:
   - development
   - workflow
 created: 2026-03-12
-updated: 2026-03-20
+updated: 2026-03-23
 related:
   - "[[00-architecture]]"
   - "[[reference/video-lifecycle]]"
@@ -117,7 +117,9 @@ Do not duplicate full Remotion command reference here; link to the Remotion runb
    Variantes utiles :  
    - PNG : remplacer l’extension de sortie par `.png`.  
    - Fichier de config Mermaid (thème, fond) : option `-c mermaid-config.json` (voir la doc du CLI).  
-   - Thèmes / batch avancés : skill **pretty-mermaid** (skills.sh) ou équivalent — point d’entrée : `packages/skills/README.md`.
+   - **Thèmes / batch avancés** : skill Agent **pretty-mermaid** sur [skills.sh — imxv/pretty-mermaid-skills](https://skills.sh/imxv/pretty-mermaid-skills/pretty-mermaid) — installation typique : `npx skills add https://github.com/imxv/pretty-mermaid-skills --skill pretty-mermaid` ; puis scripts `render.mjs` / `batch.mjs` dans le dépôt du skill. À utiliser quand le CLI officiel suffit rarement (thèmes intégrés, rendu parallèle) ; sinon rester sur `bunx @mermaid-js/mermaid-cli` ci-dessus. Détail et comparaison : `packages/skills/README.md` (section Mermaid → SVG).
+
+   **Liste de contrôle versionnée (ordre de travail)** : pour chaque vidéo avec diagrammes, maintenir `KM/Docs/video-ai-preparation/diagrams/<slug-video>/ASSET-PIPELINE.md` (source `.mmd` → SVG sous `apps/remotion/public/diagrams/` → Storybook si nouveau bloc statique → démo Remotion si nouveau pattern → doc / matrix). Référence agent (EN) : `packages/skills/thp-video-generation/references/diagram-asset-pipeline.md`. Cela limite les sauts d’étapes côté agent et facilite la revue (« ordre respecté »).
 
 4. **Composition Remotion**  
    - Créer ou modifier une composition sous `apps/remotion/src/remotion/compositions/` qui enchaîne les scènes selon l’outline (durées, props).  
@@ -134,6 +136,27 @@ Do not duplicate full Remotion command reference here; link to the Remotion runb
 - **Structure**: Prefer a clear flow: intro → concept explanation → code demo → recap.
 - **Naming**: Use a consistent scheme, e.g. THP slug + module + lesson (e.g. `react-module-2-lesson-3-intro`). Keep composition IDs and file names aligned so they are discoverable.
 - **Remotion primitives**: Reuse building blocks from `@repo/remotion-lib` and `@repo/ui/remotion`. For a detailed list of primitives and usage, see [runbooks/remotion](remotion.md); a dedicated reference doc (e.g. `video-ai/remotion-primitives.md`) may be added later.
+- **Pacing, séquences et texte animé (THP / Remotion)** — à appliquer dès qu’une scène paraît « figée » :
+  - **Découper** chaque grande scène en **beats** (sous-`Sequence` ou `Series`) plutôt qu’un seul bloc plein écran : enchaînement **setup → reveal → hold → handoff** ; viser un **changement visible** régulier (aligné avec la section *Rythme* des outlines pilot).
+  - **Typewriter / mots / reveal** : réutiliser les patterns de la composition démo `TextDemo` (`Typewriter`, `WordByWord`, `TextReveal` depuis `@repo/ui/remotion`). Pour le narratif long (ex. intro), privilégier le **typewriter** avec **pauses** entre phrases ; le skill **remotion-best-practices** (`text-animations.md`) rappelle : effet machine à écrire par **slicing** de chaîne, pas par opacité caractère par caractère.
+  - **Timings** : centraliser dans un module `*-content.ts` (ou équivalent) les constantes **CPS / charsPerSecond**, **delays** entre lignes terminal, **holds** après une sortie ou une idée clé, pour ajuster sans disperser les nombres magiques dans la composition.
+  - **Séquençage** : `premountFor` sur les `Sequence` concernées ; chevauchements légers (quelques frames) entre éléments pour éviter les coupures trop sèches ; réf. skill `sequencing.md` (Series, offsets négatifs si besoin).
+  - **Terminal** : garder une **pause lisible** entre commande et sortie, puis un **hold** sur la sortie avant la fin de sous-scène (cohérent avec le tableau *Rythme* des outlines).
+  - **Vérification** : lecture Studio bout en bout + conscience des **temps sans mouvement** ; compléter [Templates/thp-solarpunk-visual-checklist](../Templates/thp-solarpunk-visual-checklist.md) pour le reste (contraste, etc.).
+  - **Sous-`Sequence` et contenu persistant** : si un calque (texte, pills, etc.) doit **rester à l’écran jusqu’au cut** de la scène parente, la `durationInFrames` de la sous-`Sequence` qui le porte doit couvrir **toute la fin de scène** (typiquement `durationInFrames = duréeScèneParente - from`). Sinon Remotion **démonte** le nœud à la fin de la sous-`Sequence` : le contenu **disparaît avant la fin** de la scène — scène visuellement « incomplète ». Les **chevauchements** entre beats restent possibles via des `from` décalés ; ce qui change est la **durée de vie** du montage, pas seulement le moment d’apparition.
+  - **Taxonomie texte THP (reproductible)** : limiter le nombre de systèmes en parallèle ; **un type de rendu par rôle** — voir le tableau dans la section suivante. Référence visuelle : [`TextDemo.tsx`](../../../apps/remotion/src/remotion/compositions/demos/TextDemo.tsx).
+  - **Catalogue démo & structure THP** : les compositions sous `apps/remotion/src/remotion/compositions/demos/` (`TextDemo`, `DemoShowcaseSolarpunkDemo`, `TransitionsDemo`, `CodeDemo`, `DiagramsDemo`, etc.) constituent la **bibliothèque de patterns** pour une identité reproductible. **Avant** d’inventer une transition ou un effet isolé, vérifier si une démo ou un composant existe déjà (`FadeSlide`, `ZoomBlur`, `Wipe`, etc., avec **`solarTheme`**). Les **nouveaux** blocs « signature » THP (transition, lower-third, bumper) : implémentation sous `packages/ui` / `packages/remotion-lib` si réutilisable, **`theme={solarTheme}`**, puis **enregistrement** d’une mini-composition démo + **ligne dans** [solarpunk-theme-decisions — Catalogue démo & motion](../reference/solarpunk-theme-decisions.md#catalogue-démo--motion-reproductibilité) et mise à jour de ce §04 si ça change la procédure.
+
+### Taxonomie texte THP (reproductible)
+
+| Rôle | Composant `@repo/ui/remotion` (ou équivalent) | Notes |
+|------|-----------------------------------------------|--------|
+| Titre d’épisode (impact court) | `TextReveal` | Hero ligne 1 ; `theme={solarTheme}`, contrastes WCAG |
+| Sous-titre / accroche une ligne | `Typewriter` | Ligne 2 ; CPS dans `*-content.ts` |
+| Narration / pédagogie (paragraphes) | `Typewriter` | Pauses entre blocs = `startFrame` ou sous-textes |
+| Emphase ponctuelle (optionnel) | `WordByWord` | Au plus une phrase clé par scène si utile |
+| CLI commandes / sorties | `Terminal` uniquement | Ne pas doubler avec `Typewriter` sur les commandes |
+| Snippet statique | `CodeBlockStatic` + `FadeIn` (`@repo/remotion-lib`) | Pas d’animation caractère sur le bloc entier |
 
 ---
 
@@ -172,13 +195,17 @@ Do not duplicate full Remotion command reference here; link to the Remotion runb
   - **Pilot 01 (Pré-requis terminal, 2026-03)** : [outline](../video-ai-preparation/pilot-01-prerequis-outline.md). Composants ajoutés : TitleCard, SectionIntro, ConceptSlide, CodeBlockStatic (UI) ; FadeIn, TitleCardAnimated, SectionIntroAnimated, ConceptSlideAnimated, CodeBlockWithHighlight, CodeAlongStep (remotion-lib). Composition `Pilot01Prerequis` dans `apps/remotion/.../serie-01/`.  
   - **Retour 1 (2026-03)** : « Pas assez vivant, pas d’animations, même le terminal n’est pas animé. » → **Actions** : (1) Utiliser le composant [Terminal](packages/ui/src/lib/remotion/code/Terminal.tsx) de `@repo/ui/remotion` (typewriter, ligne par ligne) pour les scènes terminal au lieu de CodeBlockStatic. (2) Renforcer les animations (FadeIn + translateY, entrées plus dynamiques). (3) Référence ton/script : [reference/thp-tone-and-theme](reference/thp-tone-and-theme.md) (analyse cours Intro week_01) pour aligner le ton des vidéos avec THP.
   - **Thème (2026-03-19)** : THP = **Solarpunk dark** comme thème principal ; `:root` web aligné ; `defaultTheme` Remotion = `solarTheme` ; source CSS `solarpunk.tokens.css` ; icônes via `@repo/ui/icons` (Lucide) ; skill Cursor `thp-solarpunk-visual`. Détail et tableau d’amélioration continue : [solarpunk-theme-decisions](../reference/solarpunk-theme-decisions.md).
+  - **Retour 2 (2026-03) — fluidité / « trop de temps en plein écran »** : feedback sur le **rythme** (exécution pas assez smooth, sensation d’écran complet statique). **Actions récurrentes** (désormais norme en §04) : (1) découper les scènes en **sous-séquences** avec pattern setup/reveal/hold ; (2) **typewriter** (ou équivalent) sur l’**intro** et textes narratifs longs ; (3) **timings** dans `pilot01-content.ts` (ou équivalent) ; (4) recalibrer **Terminal** (delays + hold sur sortie) ; (5) micro-chevauchements entre éléments. **Références** : [runbooks/remotion](remotion.md#pacing-et-structure-des-scènes) ; démo `TextDemo` ; skill **remotion-best-practices** (`sequencing.md`, `text-animations.md`, `timing.md`).
+  - **Retour 3 (2026-03) — V0.6 / lectures scène & identité reproductible** : (1) **Éléments qui disparaissent** avant la fin d’une scène : causé par des sous-`Sequence` trop courtes — corrigé par **durée de montage jusqu’à la fin de la scène parente** (§04 *Sous-Sequence et contenu persistant*). (2) **Chevauchements** : distinguer chevauchement voulu (handoff) vs **collision** (layout) ; ajuster `position` / flex si le texte se superpose. (3) **Trop de systèmes texte** sans rôle : adopter la **taxonomie** §04 (titre = `TextReveal`, narration = `Typewriter`, etc.). (4) **Bases reproductibles THP** : documenter les **démos** comme catalogue de patterns et rattacher **transitions + mouvement** à `solarTheme` / springs du kit — voir [solarpunk-theme-decisions](../reference/solarpunk-theme-decisions.md) § catalogue démo & motion.
 
 ## 08 – Skills utiles au workflow vidéo
 
 Le dossier `packages/skills/` sert de point d’entrée pour les skills utiles à la création vidéo.
 
+- **Cursor (agents) — pas de déclenchement « automatique » garanti** : le code versionné des skills projet est sous `packages/skills/` (et le pointeur Solarpunk sous `KM/Docs/meta/thp-solarpunk-visual-skill.md`). Pour que Cursor les propose comme **Agent Skills**, recopier ou faire un symlink de chaque dossier vers **`.cursor/skills/`** (souvent gitignoré) — commandes dans chaque `SKILL.md` (*Cursor install*) et [meta/thp-video-generation-skill](../meta/thp-video-generation-skill.md). Cursor peut attacher un skill si la requête correspond à sa `description`, ou si vous le chargez explicitement ; pour un pilot Remotion (ex. V0.6 timeline / taxonomie texte), **chargez les deux** : `thp-video-generation` (pipeline, `Sequence`, texte / code) et `thp-solarpunk-visual` (tokens, contraste, motion).
+- **THP / Video-AI project skill** : [`packages/skills/thp-video-generation/SKILL.md`](../../../packages/skills/thp-video-generation/SKILL.md) — author pipeline (visual choice by content type, Storybook → Remotion demo → doc update), matrix [`references/library-matrix.md`](../../../packages/skills/thp-video-generation/references/library-matrix.md). Use together with the official Remotion skill below.
 - **Présent dans le repo** : `packages/skills/Remotion` (submodule) pour les bonnes pratiques Remotion et les patterns d’animation.
-- **Option diagrammes Mermaid → SVG** : utile pour préparer des assets de diagrammes avant intégration Remotion.
+- **Diagrammes Mermaid → SVG** : défaut **sans skill** — `bunx @mermaid-js/mermaid-cli` (§03b) ; option **pretty-mermaid** ([skills.sh](https://skills.sh/imxv/pretty-mermaid-skills/pretty-mermaid), voir `packages/skills/README.md`) pour thèmes / batch ; checklist ordre de travail : `diagrams/<slug>/ASSET-PIPELINE.md`.
 - **Option génération SVG illustratif par IA** : skill `@neversight/generate-svg` (agentskill.sh) pour logos/illustrations vectorielles à intégrer ensuite dans les scènes.
 
 Voir l’index interne : `packages/skills/README.md`.

@@ -9,8 +9,9 @@ tags:
   - runbooks
   - architecture
 created: 2026-03-10
-updated: 2026-03-11
+updated: 2026-03-22
 related:
+  - "[[meta/thp-video-generation-skill]]"
   - "[[00-architecture]]"
   - "[[reference/video-lifecycle]]"
   - "[[reference/tools/README]]"
@@ -57,6 +58,11 @@ Exploratory notes, evaluations, and POCs. **Not canonical**; see [reference/tool
 - [**storybook**](./runbooks/storybook.md) – Storybook, component library documentation
 - [**remotion**](./runbooks/remotion.md) – Remotion Studio, video generation, compositions
 - [**video-ai-development**](./runbooks/video-ai-development.md) – Video-AI Development Runbook (purpose, workflow, conventions, quality)
+
+## Agent skills (versioned in repo)
+
+- **THP Video generation** — source: `packages/skills/thp-video-generation/`; KM pointer: [meta/thp-video-generation-skill](meta/thp-video-generation-skill.md); see §08 in [video-ai-development](runbooks/video-ai-development.md).
+- **THP Solarpunk visual** — [meta/thp-solarpunk-visual-skill](meta/thp-solarpunk-visual-skill.md)
 
 ## Templates
 

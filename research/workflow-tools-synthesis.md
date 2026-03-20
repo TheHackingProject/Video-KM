@@ -15,7 +15,7 @@ tags:
   - mastra
   - openclaw
 created: 2026-03-18
-updated: 2026-03-18
+updated: 2026-03-20
 related:
   - "[[research/inngest]]"
   - "[[research/trigger-dev]]"
@@ -41,6 +41,14 @@ Point sur les quatre recherches (Inngest, Trigger.dev, Mastra, OpenClaw) : **quo
 
 **Règle importante** : pour le **cœur du process** (rendu → feedback → re-render), il faut **un seul** orchestrateur : soit **Inngest**, soit **Trigger.dev**. Mastra s’ajoute **par-dessus** pour la partie IA. OpenClaw reste à part (outil dev/auteur).
 
+**Hors cœur du pipeline ≠ « déprécié » ou inutile** : il s’agit d’un choix de **répartition des rôles** — orchestration durable et observable d’un côté, agent IA **dans le graphe** produit (Mastra) de l’autre, assistant **hors graphe** sur poste auteur/dev (OpenClaw en option). Ce n’est pas une hiérarchie « le plus créatif gagne », mais des **couches différentes**.
+
+**Séparation des responsabilités (rappel)** :
+
+- **Orchestrateur (Inngest ou Trigger.dev)** : événements, étapes durables, retries, observabilité.
+- **Mastra** : agent LLM + tools **comme étape** du workflow (pas un second orchestrateur).
+- **OpenClaw** : assistant local **en marge** du pipeline central ; utile pour explorer, brouillonner, lancer des CLI, sans servir de source de vérité du process batch.
+
 ---
 
 ## 1. Ce qui est vraiment utile et important
@@ -59,8 +67,9 @@ Point sur les quatre recherches (Inngest, Trigger.dev, Mastra, OpenClaw) : **quo
 ### Optionnel / à part
 
 1. **OpenClaw**
-  - **Utile pour** : assistant **local** pour auteurs (rédaction de pilot outline, brouillons, lancement de `remotion render` en conversationnel). Données et exécution restent sur la machine.
+  - **Utile pour** : assistant **local** pour auteurs (rédaction de pilot outline, brouillons, lancement de `remotion render` en conversationnel). Données et exécution restent sur la machine. Peut être **très exploratoire / créatif** grâce au large périmètre d’action (fichiers, shell, navigateur).
   - **Pas pour** : le pipeline central (événements → jobs durables → rendu → THP). OpenClaw n’est pas un moteur de workflows ; l’orchestration reste Inngest ou Trigger.dev.
+  - **OpenClaw vs Mastra (créativité)** : la **créativité cadrée dans le flux produit** (feedback → décision → re-render, traçabilité, reproductibilité) est confiée à **Mastra comme étape** derrière l’orchestrateur. OpenClaw peut coexister comme **outil de poste** sans remplir ce rôle dans le graphe.
   - **Si intégré** : comme outil à part (poste dev/auteur), permissions limitées, revue humaine, pas comme brique centrale.
 
 ---
@@ -84,6 +93,7 @@ Point sur les quatre recherches (Inngest, Trigger.dev, Mastra, OpenClaw) : **quo
 | **v2**          | Pipeline feedback + IA : ingestion feedback → priorisation/suggestions IA → re-rendus.                                                            | **Orchestrateur** (Inngest ou Trigger.dev) + **Mastra** comme étape “agent” (priorisation, suggestions).      |
 | **v3**          | Régénération guidée / semi-autonome, human-in-the-loop.                                                                                           | Même stack ; Mastra workflows (human-in-the-loop) + orchestrateur pour rendu et planification.                |
 
+**v1 et prod disciplinée** : la fabrication actuelle des vidéos (runbooks, matrice biblio → Storybook → démo Remotion, garde-fous design) reste la référence **humaine et reproductible**. L’orchestration v2/v3 **enveloppe** ce travail (rendu distant, boucles feedback) ; elle ne remplace pas la structure runbook / skill côté monorepo.
 
 ---
 
@@ -100,6 +110,8 @@ Point sur les quatre recherches (Inngest, Trigger.dev, Mastra, OpenClaw) : **quo
 - [research/trigger-dev](trigger-dev.md) – Détail et verdict Trigger.dev
 - [research/mastra](mastra.md) – Rôle agents, complémentarité avec l’orchestrateur
 - [research/openclaw](openclaw.md) – Pourquoi pas au cœur du pipeline, option assistant
+- [runbooks/video-ai-development](../runbooks/video-ai-development.md) – Procédure v1 (pacing, démos, persistance)
+- [packages/skills/thp-video-generation/SKILL.md](../../../packages/skills/thp-video-generation/SKILL.md) – Skill agent : choix visuels, workflow building blocks
 - [reference/video-lifecycle](../reference/video-lifecycle.md) – Cycle de vie canonique
 - [explanation/video-ai-vision](../explanation/video-ai-vision.md) – Vision v1/v2/v3
 

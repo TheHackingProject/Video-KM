@@ -65,7 +65,8 @@ Video-AI/
 │   ├── eslint-config/      # @repo/eslint-config
 │   ├── typescript-config/  # @repo/typescript-config
 │   └── skills/
-│       └── Remotion/       # submodule – Remotion Agent Skills
+│       ├── Remotion/       # submodule – Remotion Agent Skills (remotion-dev/skills)
+│       └── thp-video-generation/  # THP Video-AI Cursor skill (versioned) — SKILL.md + references/
 ├── KM/
 │   ├── Docs/               # submodule – Project documentation
 │   │   ├── 00-architecture.md   # ← this file
