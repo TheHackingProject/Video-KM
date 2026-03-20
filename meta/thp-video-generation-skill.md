@@ -37,4 +37,4 @@ Confirm `.cursor/skills/thp-video-generation/SKILL.md` exists. `thp-solarpunk-vi
 
 **Trigger workflow (fort)** : pour toute session qui modifie une composition ou des timings, coller en tête du chat la **phrase canonique** et la **carte rules → tâche** dans [runbooks/video-ai-development §08 — Triggers agent](../runbooks/video-ai-development.md#08--skills-utiles-au-workflow-vidéo). Toujours associer ce skill à **thp-solarpunk-visual** et **remotion-best-practices** sur du code Remotion.
 
-**Effets texte (Typewriter, TextReveal, WordByWord, GlitchText)** : la matrice **rôle → composant** est dans [video-ai-development §04 — Taxonomie texte THP](../runbooks/video-ai-development.md#taxonomie-texte-thp-reproductible), pas dans le fichier thème React. Référence démo : `TextDemo` dans `apps/remotion`.
+**Effets texte (Typewriter, TextReveal, WordByWord, GlitchText)** : la matrice **rôle -> composant** est maintenue dans `packages/skills/thp-video-generation/references/library-matrix.md` (source unique), consommée par le runbook et les templates. Pas dans le fichier thème React. Référence démo : `TextDemo` dans `apps/remotion`.

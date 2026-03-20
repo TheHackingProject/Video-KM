@@ -50,9 +50,9 @@ Outline complet pour la vidéo « Pré-requis » de la [Série 01](serie-01-git-
 
 ---
 
-## Version V0.7 (harmonisation Série 01 — §04 + chrome)
+## Version V0.8 (consolidation workflow + matrice texte)
 
-**Objectifs** : (1) **7 segments** sur la timeline = **7** valeurs `SceneHeader` / `PILOT01_TOTAL_SCENES` (`TITRE`, `INTRO`, `OUVRIR`, `PWD`, `LS`, `RÉCAP`, `SUITE`) — plus de décalage « 5 phases » vs titre + CTA ; (2) **TextReveal** sur les héros titre et CTA ; **Typewriter** narration avec `SHOW_TYPEWRITER_CURSOR = false` en prod ; **WordByWord** sur **une** phrase (recap ligne 2) ; (3) entrées de scène **`FadeSlide`** (catalogue) alignées pilot 02 ; (4) shell partagé **`Serie01SceneShell`** où pertinent ; (5) **GlitchText** : non sur ce pilot pédagogique (cours calme).
+**Objectifs** : (1) imposer la source unique `thp-video-generation` + `library-matrix` ; (2) intro hero en **`GlitchText`** (règle globale) ; (3) sous-titre intro en **`TextReveal`** ; (4) ligne OS en **`WordByWord`** vert (`success`) comme repère pratique ; (5) conserver `Terminal` pour la CLI ; (6) garder 7 segments `SceneHeader` cohérents.
 
 **Fichiers** : `pilot01-content.ts`, `Pilot01Prerequis.tsx`, `Serie01SceneShell.tsx`.
 
@@ -62,14 +62,15 @@ Outline complet pour la vidéo « Pré-requis » de la [Série 01](serie-01-git-
 
 ## Cartographie taxonomie §04 (par scène)
 
-Chaque bloc texte visible → **rôle** et **composant** ([runbook §04 — Taxonomie](../runbooks/video-ai-development.md#taxonomie-texte-thp-reproductible)). Le **Terminal** reste la source des lignes CLI (pas de `Typewriter` sur les lignes commande/sortie).
+Chaque bloc texte visible -> **rôle** et **composant** (source canonique: `packages/skills/thp-video-generation/references/library-matrix.md`). Le **Terminal** reste la source des lignes CLI (pas de `Typewriter` sur les lignes commande/sortie).
 
 | # | Beat / zone | Texte (résumé) | Rôle §04 | Composant |
 |---|-------------|----------------|----------|-----------|
-| 1 | Titre | `TITLE` | Hero titre | `TextReveal` |
-| 1 | Titre | `SUBTITLE` | Sous-titre | `Typewriter` |
+| 1 | Titre | `TITLE` | Hero intro | `GlitchText` |
+| 1 | Titre | `SUBTITLE` | Sous-titre intro | `TextReveal` |
 | 2 | Intro | accroche + objectif | Narration | `Typewriter` ×2 |
-| 3 | Step 1 | analogie, OS, code | Narration + code statique | `Typewriter`, `CodeBlockStatic` |
+| 3 | Step 1 | analogie, code | Narration + code statique | `Typewriter`, `CodeBlockStatic` |
+| 3 | Step 1 | ligne OS Mac/Linux/Windows | Repère pratique emphase | `WordByWord` (`highlightColor=success`) |
 | 4 | Step 2 | paragraphes `pwd` | Narration | `Typewriter` ×2 |
 | 4 | Step 2 | terminal | CLI | `Terminal` |
 | 5 | Step 3 | paragraphes `ls` | Narration | `Typewriter` ×2 |
@@ -79,6 +80,12 @@ Chaque bloc texte visible → **rôle** et **composant** ([runbook §04 — Taxo
 | 6 | Recap | flux | Concept | `FlowChart` |
 | 7 | CTA | titre épisode suivant | Hero / outro | `TextReveal` |
 | 7 | CTA | sous-titre | CTA | `Typewriter` |
+
+### Exceptions matrix (obligatoire)
+
+| Bloc | Écart par rapport à matrix | Raison validée | Date |
+|------|----------------------------|----------------|------|
+| _(aucun)_ | — | — | — |
 
 ---
 
@@ -289,7 +296,7 @@ D’après le [Component shortlist](video-ai-preparation.md#component-shortlist)
 - [x] Liste des composants conforme au P0 shortlist ; écarts documentés (Terminal vs CodeBlock).
 - [x] Durée cible et format conformes aux [Formats](video-ai-preparation.md#video-formats).
 - [x] V0.5 : composition alignée Solarpunk + `pilot01-content.ts` + `premountFor` + Terminal delays.
-- [x] V0.7 : harmonisation Série 01 (§04, 7 scènes `SceneHeader`, `Serie01SceneShell` / `FadeSlide`, TextReveal titres + CTA, WordByWord recap L2) — lint + bundle OK ; Studio bout-en-bout = validation manuelle à chaque livraison.
+- [x] V0.8 : matrice consolidée (hero intro `GlitchText`, sous-titre intro `TextReveal`, ligne OS `WordByWord` vert, CLI `Terminal`) — lint + bundle OK.
 - [ ] Capture Studio : holds `pwd` / `ls` et lisibilité (mobile / scale terminal) — validation manuelle.
 
 **Implémentation** : Composition `Pilot01Prerequis` dans `apps/remotion/src/remotion/compositions/serie-01/`, enregistrée dans `Root.tsx` (id `Pilot01Prerequis`, **3600 frames**, 30 fps, 1920×1080).
@@ -303,6 +310,7 @@ D’après le [Component shortlist](video-ai-preparation.md#component-shortlist)
 - **2026-03-20** : Apprentissages **fluidité** (typewriter intro, découpage beats, timings centralisés, holds terminal) documentés dans ce fichier et dans [video-ai-development §04/§07](../runbooks/video-ai-development.md) pour l’amélioration continue ; cible itération **V0.6+** sur la composition.
 - **2026-03-21** : **Bases reproductibles THP** — taxonomie texte (§04 runbook), règle **sous-Sequence / contenu persistant**, catalogue **démos Remotion** + **transitions** sous `solarTheme` ([solarpunk-theme-decisions](../reference/solarpunk-theme-decisions.md) décision #11, § *Catalogue démo & motion*) ; retour process [§07 Retour 3](../runbooks/video-ai-development.md#07--amélioration-du-process). Section [Version V0.6](#version-v06-timeline-texte-reproductibilité-thp) dans ce outline.
 - **2026-03-20 (itération harmonisation)** : **V0.7** — [Version V0.7](#version-v07-harmonisation-série-01--04--chrome) ; cartographie §04 ; `Serie01SceneShell` + `FadeSlide` ; curseurs typewriter masqués en prod ; recap **WordByWord** ligne 2 uniquement.
+- **2026-03-20 (cycle long consolidation)** : **V0.8** — source unique skill/matrix ; intro hero en `GlitchText`, sous-titre en `TextReveal`, ligne OS en `WordByWord` vert ; still checks render OK sur frames clés.
 
 ---
 

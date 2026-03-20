@@ -58,6 +58,18 @@ Pour que la procédure **remonte** et soit appliquée quand c’est pertinent :
 
 [Paste or link the script here. Keep it short for the first pilot.]
 
+### Text role mapping (required, before code)
+
+Map each visible text block to a role and target component using the canonical matrix in:
+
+- `packages/skills/thp-video-generation/SKILL.md`
+- `packages/skills/thp-video-generation/references/library-matrix.md`
+
+| Text block | Role id | Target component | Timing/color notes | Exception reason (if any) |
+|------------|---------|------------------|--------------------|---------------------------|
+| [e.g. intro title] | [e.g. ROLE_INTRO_HERO] | [e.g. GlitchText] | [duration, highlight, cps] | [required only if diverging] |
+| [e.g. subtitle] | [e.g. ROLE_INTRO_SUBTITLE] | [e.g. TextReveal] | [...] | [...] |
+
 **Structure hint** (align with chosen format):
 
 - **Concept intro**: hook (1–2 sentences) → one concept (2–4 sentences) → optional micro-recap (1 sentence).
@@ -98,9 +110,11 @@ From [Component shortlist](../video-ai-preparation/video-ai-preparation.md#compo
 ## Ready for Remotion when
 
 - [ ] Script and scene breakdown are filled in and reviewed.
+- [ ] Text role mapping table is complete and matches canonical skill/matrix.
 - [ ] Component list matches P0 (and any P1) from the shortlist; gaps are documented.
 - [ ] Target duration and format are consistent with [Formats](../video-ai-preparation/video-ai-preparation.md#video-formats).
 - [ ] [Checklist visuelle THP Solarpunk](thp-solarpunk-visual-checklist.md) passée (ou équivalent documenté dans l’outline).
 - [ ] **Agent** : `bun run bootstrap:agents` exécuté si besoin ; skills **thp-video-generation**, **thp-solarpunk-visual** et **remotion-best-practices** sous `.cursor/skills/` ; session ouverte avec la **phrase type** [§08 — Triggers agent](../runbooks/video-ai-development.md#08--skills-utiles-au-workflow-vidéo).
+- [ ] Any exception to text-role matrix is documented in this outline and scheduled for §07 feedback.
 
 Only then create or edit compositions in `apps/remotion` and use components from `packages/remotion-lib`.
