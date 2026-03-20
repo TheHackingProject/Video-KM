@@ -60,4 +60,4 @@ GitFlow : soit une phrase dans la vidéo “Branch”, soit un clip séparé en 
 
 ## Prochaine étape
 
-Pour chaque vidéo : copier [Templates/pilot-outline.md](../Templates/pilot-outline.md) dans ce dossier (ex. `pilot-01-prerequis-outline.md`, `pilot-02-git-vs-github-outline.md`, …), remplir métadonnées, script et scene breakdown, puis implémentation dans `apps/remotion` + `packages/remotion-lib`.
+Pour chaque vidéo : copier [Templates/pilot-outline.md](../Templates/pilot-outline.md) dans ce dossier (ex. `pilot-01-prerequis-outline.md`, `pilot-02-git-vs-github-outline.md`, …), remplir métadonnées (dont **vidéo jumelle** si besoin), script, scene breakdown, **Components needed** et checklist **Ready for Remotion** du template, puis implémentation dans `apps/remotion` + `packages/remotion-lib`. **À chaque itération sur le script** : resynchroniser avec le template si besoin — [video-ai-preparation § Template sync](video-ai-preparation.md#template-sync-before-script-edits).

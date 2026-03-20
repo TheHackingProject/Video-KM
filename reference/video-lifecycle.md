@@ -62,7 +62,7 @@ flowchart LR
 
 ## Workflow summary
 
-In practice: **idea** and **script** are prepared in [video-ai-preparation](../video-ai-preparation/video-ai-preparation.md) (formats, shortlist, pilot outline). From the script you derive which **components** to build or reuse (`packages/remotion-lib`), then you assemble the **scene** in `apps/remotion`. After review and render, THP integration and feedback feed **iteration** back to script or composition.
+In practice: **idea** and **script** are prepared in [video-ai-preparation](../video-ai-preparation/video-ai-preparation.md) (formats, shortlist, pilot outline). From the script you derive which **components** to build or reuse (`packages/remotion-lib`), then you assemble the **scene** in `apps/remotion`. After review and render, THP integration and feedback feed **iteration** back to script or composition. On each iteration that touches the script, **re-check** the canonical [pilot-outline template](../Templates/pilot-outline.md) and update the pilot copy so it does not drift from new checklist or metadata requirements.
 
 ## Steps
 
@@ -75,7 +75,7 @@ In practice: **idea** and **script** are prepared in [video-ai-preparation](../v
 | **Render** | Export video asset(s) (e.g. via Remotion CLI or future rendering pipeline). |
 | **THP integration** | Publish asset to platform; link video to course/lesson in THP app. |
 | **Feedback** | Collect learner/staff feedback (explicit or inferred) keyed by video/lesson. |
-| **Iteration** | Use feedback to prioritize; loop back to script or composition for next version. |
+| **Iteration** | Use feedback to prioritize; loop back to script or composition for next version. **Before** editing script or scene breakdown in a pilot file, sync that file with [Templates/pilot-outline.md](../Templates/pilot-outline.md) if the template changed (see [video-ai-preparation — Template sync before script edits](../video-ai-preparation/video-ai-preparation.md#template-sync-before-script-edits) and [video-ai-development §03b](../runbooks/video-ai-development.md)). |
 
 ## Who does what
 

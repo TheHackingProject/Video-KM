@@ -38,6 +38,8 @@ Pour que la procédure **remonte** et soit appliquée quand c’est pertinent :
 
    *« Applique **thp-video-generation**, **thp-solarpunk-visual** et **remotion-best-practices**. Ouvre les rules Remotion listées dans video-ai-development §08 (triggers) pour cette passe. »*
 
+**Itération** : avant de rééditer le **script** ou le **découpage de scènes** dans une copie pilote, vérifier si ce template a changé et aligner la copie — procédure : [video-ai-preparation — Template sync before script edits](../video-ai-preparation/video-ai-preparation.md#template-sync-before-script-edits) et [video-ai-development §03b](../runbooks/video-ai-development.md) (*Itération — synchroniser le template avant le script*).
+
 ---
 
 ## Pilot metadata

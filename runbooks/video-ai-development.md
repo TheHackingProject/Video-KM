@@ -54,6 +54,8 @@ For full scope and audience, see [reference/video-lifecycle](reference/video-lif
 
 Before building new components or compositions, define formats and component plans in [video-ai-preparation](video-ai-preparation/video-ai-preparation.md#video-formats) and [component shortlist](video-ai-preparation/video-ai-preparation.md#component-shortlist).
 
+When **iterating** on script, scene breakdown, or Remotion for an existing pilot, **check** whether [Templates/pilot-outline.md](../Templates/pilot-outline.md) changed and **align** the pilot copy in `video-ai-preparation/` before editing (systematic step — [video-ai-preparation — Template sync](../video-ai-preparation/video-ai-preparation.md#template-sync-before-script-edits) and **§03b step 1bis** below).
+
 1. **Clone and install**  
    From repo root: `git clone --recurse-submodules <repo-url>`, then `bun install`.
 
@@ -81,8 +83,16 @@ Do not duplicate full Remotion command reference here; link to the Remotion runb
 
 1. **Préparation (write before code)**  
    - Définir ou réutiliser la série dans [video-ai-preparation](../video-ai-preparation/serie-01-git-github.md) (ou équivalent).  
-   - Pour chaque vidéo : copier le [template pilot outline](../Templates/pilot-outline.md) dans `video-ai-preparation/`, remplir **métadonnées** (titre, format, durée, idée unique), **script** (hook → concept → recap pour Format 1 ; intro → étapes → recap pour Format 2), **découpage de scènes** (durée + composants par scène).  
+   - Pour chaque vidéo : copier le [template pilot outline](../Templates/pilot-outline.md) dans `video-ai-preparation/`, remplir **métadonnées** (titre, format, durée, idée unique, **vidéo jumelle** si applicable), **script** (hook → concept → recap pour Format 1 ; intro → étapes → recap pour Format 2), **découpage de scènes** (durée + composants par scène), **composants requis**, checklist **Ready for Remotion** (y compris blocs agents — voir template).  
    - Référence formats et shortlist : [video-ai-preparation](../video-ai-preparation/video-ai-preparation.md). Pour le **ton et le style** des scripts (tutoiement, direct, communauté THP), voir [reference/thp-tone-and-theme](reference/thp-tone-and-theme.md).
+
+1bis. **Itération — synchroniser le template avant le script**  
+   Avant de **modifier le script**, le **découpage de scènes** ou le **code Remotion** dans une boucle de retours (V0.x, révisions pédago, etc.) :  
+   - Ouvrir le fichier canonique [Templates/pilot-outline.md](../Templates/pilot-outline.md) (champ `updated` du frontmatter + corps).  
+   - Comparer avec la copie pilote dans `KM/Docs/video-ai-preparation/` (`git log` / `git diff` sur le template depuis la dernière synchro de ce pilot, ou revue structurelle : métadonnées **Paired video**, table **Components needed**, checklist **Ready for Remotion when**, bloc agents).  
+   - **Si le template a changé** : mettre à jour d’abord la copie pilote (sections / cases / consignes manquantes), **puis** refaire l’itération (script → scènes → Remotion) à partir du document à jour.  
+   - **Si inchangé** : poursuivre les modifications prévues.  
+   Détail et tableau des blocs obligatoires : [video-ai-preparation — Template sync before script edits](../video-ai-preparation/video-ai-preparation.md#template-sync-before-script-edits).
 
 2. **Composants statiques (UI + Storybook)**  
    - Créer dans `packages/ui/src/` les composants **statiques** nécessaires (ex. TitleCard, SectionIntro, ConceptSlide, CodeBlockStatic ou briques réutilisables).  
