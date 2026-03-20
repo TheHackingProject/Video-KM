@@ -11,7 +11,7 @@ tags:
   - github
   - thp
 created: 2026-03-18
-updated: 2026-03-18
+updated: 2026-03-21
 related:
   - "[[video-ai-preparation/video-ai-preparation]]"
   - "[[reference/video-lifecycle]]"

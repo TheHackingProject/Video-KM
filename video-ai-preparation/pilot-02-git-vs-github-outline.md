@@ -11,16 +11,32 @@ tags:
   - github
   - serie-01
 created: 2026-03-18
-updated: 2026-03-18
+updated: 2026-03-20
 related:
   - "[[video-ai-preparation/video-ai-preparation]]"
   - "[[video-ai-preparation/serie-01-git-github]]"
   - "[[reference/video-lifecycle]]"
+  - "[[reference/thp-tone-and-theme]]"
+  - "[[reference/solarpunk-theme-decisions]]"
+  - "[[Templates/thp-solarpunk-visual-checklist]]"
+  - "[[meta/thp-video-generation-skill]]"
+  - "[[meta/thp-solarpunk-visual-skill]]"
+  - "[[runbooks/video-ai-development]]"
 ---
 
 # Pilot 02 – Git vs GitHub
 
 Outline complet pour la vidéo « Git vs GitHub » de la [Série 01](serie-01-git-github.md). Format 1 – Concept intro. Une idée par clip : **Git et GitHub ne sont pas la même chose** — Git = outil local (historique / machine à voyager dans le temps), GitHub = hébergement en ligne + lieu de collaboration.
+
+**Agents Cursor** : pour toute itération **script / scènes / Remotion**, exécuter `bun run bootstrap:agents` si besoin, puis charger **thp-video-generation**, **thp-solarpunk-visual** et **remotion-best-practices**. Phrase type et rules : [runbook §08 — Triggers agent](../runbooks/video-ai-development.md#08--skills-utiles-au-workflow-vidéo). **Avant une itération sur le script** : [Template sync](video-ai-preparation.md#template-sync-before-script-edits).
+
+---
+
+## Implémentation (code)
+
+- **Contenu** : `apps/remotion/src/remotion/compositions/serie-01/pilot02-content.ts`
+- **Composition** : `Pilot02GitVsGithub.tsx` — id Remotion `Pilot02GitVsGithub`, **1350 frames** (45 s @ 30 fps), 1920×1080, enregistrée dans `Root.tsx`.
+- **Visuel série** : `solarTheme`, fond dégradé discret + `ParticleField` (aligné pilot 01). Pas de FlowChart en V1 (schéma « ordinateur ↔ nuage » : option reportée si surcharge).
 
 ---
 
@@ -31,6 +47,7 @@ Outline complet pour la vidéo « Git vs GitHub » de la [Série 01](serie-01-gi
 | **Title** | Git vs GitHub |
 | **Format** | Concept intro (Format 1) |
 | **Target duration** | 45 s (30–60 s) |
+| **FPS (composition)** | 30 → **1350 frames** pour 45 s |
 | **Source** | THP – module Git / première approche (à lier au cours existant si disponible) |
 | **Paired video** | Série 01 – vidéo 1 (Pré-requis) en amont ; vidéo 3 (Commit) en aval. Pas de Code demo jumelée pour ce clip. |
 | **Public** | Débutants THP ; pas de jargon sauf Git / GitHub / commit (introduits ici ou ailleurs). |
@@ -58,7 +75,7 @@ GitHub, c’est un site sur internet. Il stocke une copie de ton projet en ligne
 
 **Notes rédaction**  
 - Pas de détails techniques (pas de "remote", "push", "clone" ici — d’autres clips de la série s’en chargent).  
-- Image possible à prévoir : schéma simple « ordinateur (Git) ↔ nuage (GitHub) » si un visuel le permet sans surcharger.
+- Image possible à prévoir : schéma simple « ordinateur (Git) ↔ nuage (GitHub) » si un visuel le permet sans surcharger (V2 / FlowChart si besoin).
 
 ---
 
@@ -111,8 +128,10 @@ D’après le [Component shortlist](video-ai-preparation.md#component-shortlist)
 
 ## Ready for Remotion when
 
-- [ ] Script et scene breakdown remplis et relus (ce document).
-- [ ] Liste des composants conforme au P0 shortlist ; écarts documentés (aucun ici).
-- [ ] Durée cible et format conformes aux [Formats](video-ai-preparation.md#video-formats).
+- [x] Script et scene breakdown remplis et relus (ce document).
+- [x] Liste des composants conforme au P0 shortlist ; écarts documentés (aucun ici).
+- [x] Durée cible et format conformes aux [Formats](video-ai-preparation.md#video-formats).
+- [ ] [Checklist visuelle THP Solarpunk](../Templates/thp-solarpunk-visual-checklist.md) passée après rendu Studio.
+- [ ] **Agent** : `bun run bootstrap:agents` si besoin ; skills **thp-video-generation**, **thp-solarpunk-visual** et **remotion-best-practices** ; session avec la **phrase type** [§08](../runbooks/video-ai-development.md#08--skills-utiles-au-workflow-vidéo).
 
-Ensuite : implémenter TitleCard, SectionIntro, ConceptSlide dans `packages/remotion-lib`, puis créer la composition dans `apps/remotion` qui enchaîne les scènes 1 → 6 selon ce découpage.
+**Suite** : composition `Pilot02GitVsGithub` dans `apps/remotion/.../serie-01/` + `pilot02-content.ts` ; pas de nouveau composant `packages/remotion-lib` requis (wrappers animés P0 déjà présents).
