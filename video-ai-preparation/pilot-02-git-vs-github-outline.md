@@ -11,7 +11,7 @@ tags:
   - github
   - serie-01
 created: 2026-03-18
-updated: 2026-03-20
+updated: 2026-03-21
 related:
   - "[[video-ai-preparation/video-ai-preparation]]"
   - "[[video-ai-preparation/serie-01-git-github]]"
@@ -34,9 +34,10 @@ Outline complet pour la vidéo « Git vs GitHub » de la [Série 01](serie-01-gi
 
 ## Implémentation (code)
 
-- **Contenu** : `apps/remotion/src/remotion/compositions/serie-01/pilot02-content.ts`
+- **Contenu** : `apps/remotion/src/remotion/compositions/serie-01/pilot02-content.ts` — CPS, pauses et `startFrame` par bloc (source de vérité des timings).
 - **Composition** : `Pilot02GitVsGithub.tsx` — id Remotion `Pilot02GitVsGithub`, **1350 frames** (45 s @ 30 fps), 1920×1080, enregistrée dans `Root.tsx`.
-- **Visuel série** : `solarTheme`, fond dégradé discret + `ParticleField` (aligné pilot 01). Pas de FlowChart en V1 (schéma « ordinateur ↔ nuage » : option reportée si surcharge).
+- **Taxonomie texte THP ([runbook §04](../runbooks/video-ai-development.md#taxonomie-texte-thp-reproductible))** : implémentation via **`TextReveal`** (titres / impact) et **`Typewriter`** (narration, corps, callout, recap) depuis `@repo/ui/remotion`, comme [`TextDemo.tsx`](../../../apps/remotion/src/remotion/compositions/demos/TextDemo.tsx) et le pilot 01 — **pas** de simple fade sur `TitleCard` / `ConceptSlide` statiques seuls.
+- **V1 clean (série 01)** : `SceneHeader` (6 scènes, mots-clés `TITRE` → `SUITE`), `ProgressBar` footer, entrée de scène **`FadeSlide`** (catalogue `@repo/ui/remotion`), mini **`FlowChart`** 2 nœuds (Git ↔ GitHub) en fin de scène 4. Constantes Flow dans `pilot02-content.ts` (`GITHUB_FLOW_*`).
 
 ---
 
@@ -75,7 +76,7 @@ GitHub, c’est un site sur internet. Il stocke une copie de ton projet en ligne
 
 **Notes rédaction**  
 - Pas de détails techniques (pas de "remote", "push", "clone" ici — d’autres clips de la série s’en chargent).  
-- Image possible à prévoir : schéma simple « ordinateur (Git) ↔ nuage (GitHub) » si un visuel le permet sans surcharger (V2 / FlowChart si besoin).
+- Schéma « machine ↔ nuage » : **FlowChart** léger en scène 4 (voir Implémentation).
 
 ---
 
@@ -98,19 +99,18 @@ Une ligne = une scène. Durées en secondes ; total visé ≈ 45 s.
 
 ## Components needed
 
-D’après le [Component shortlist](video-ai-preparation.md#component-shortlist). Tous P0.
+D’après le [Component shortlist](video-ai-preparation.md#component-shortlist). Équivalent pédagogique : **TextReveal + Typewriter** (`@repo/ui/remotion`) pour les scènes 1–6 + **FlowChart**, **SceneHeader**, **ProgressBar**, **FadeSlide** (V1).
 
-| Component | Used in scene(s) | Notes |
-|-----------|------------------|--------|
-| TitleCard | 1, 6 (optionnel) | Titre + sous-titre ; fade simple. |
-| SectionIntro | 2, 5 | Texte court, accroche et recap. |
-| ConceptSlide | 3, 4 | Titre + corps (texte) ; callout optionnel en scène 4. |
-| BulletList | — | Non utilisé (tout en phrases courtes). |
-| Callout | 4 (optionnel) | « Git = machine · GitHub = lieu en ligne » si on veut insister. |
+| Rôle outline | Used in scene(s) | Implémentation Remotion |
+|--------------|------------------|-------------------------|
+| TitleCard | 1, 6 | `TextReveal` + `Typewriter` (sous-titre / CTA). |
+| SectionIntro | 2, 5 | `Typewriter`. |
+| ConceptSlide | 3, 4 | `TextReveal` (titre) + `Typewriter` (corps) ; callout = `Typewriter` accent. |
+| Schéma | 4 | `FlowChart` 2 nœuds (fin de scène). |
 | CodeBlockWithHighlight | — | Non utilisé (Format 1). |
 | CodeAlongStep | — | Non utilisé (Format 2). |
 
-**Gaps** : aucun. P0 suffit pour ce pilote.
+**Gaps** : aucun.
 
 ---
 

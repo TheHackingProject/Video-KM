@@ -9,7 +9,7 @@ tags:
   - video-ai
   - thp
 created: 2026-03-21
-updated: 2026-03-20
+updated: 2026-03-21
 related:
   - "[[runbooks/video-ai-development]]"
   - "[[reference/solarpunk-theme-decisions]]"
@@ -36,3 +36,5 @@ This KM page is a **shortcut** for Obsidian and cross-links from other docs.
 Confirm `.cursor/skills/thp-video-generation/SKILL.md` exists. `thp-solarpunk-visual` : symlink séparé — voir [meta/thp-solarpunk-visual-skill](thp-solarpunk-visual-skill.md).
 
 **Trigger workflow (fort)** : pour toute session qui modifie une composition ou des timings, coller en tête du chat la **phrase canonique** et la **carte rules → tâche** dans [runbooks/video-ai-development §08 — Triggers agent](../runbooks/video-ai-development.md#08--skills-utiles-au-workflow-vidéo). Toujours associer ce skill à **thp-solarpunk-visual** et **remotion-best-practices** sur du code Remotion.
+
+**Effets texte (Typewriter, TextReveal, WordByWord, GlitchText)** : la matrice **rôle → composant** est dans [video-ai-development §04 — Taxonomie texte THP](../runbooks/video-ai-development.md#taxonomie-texte-thp-reproductible), pas dans le fichier thème React. Référence démo : `TextDemo` dans `apps/remotion`.

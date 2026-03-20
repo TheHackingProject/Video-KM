@@ -148,7 +148,7 @@ Do not duplicate full Remotion command reference here; link to the Remotion runb
 - **Remotion primitives**: Reuse building blocks from `@repo/remotion-lib` and `@repo/ui/remotion`. For a detailed list of primitives and usage, see [runbooks/remotion](remotion.md); a dedicated reference doc (e.g. `video-ai/remotion-primitives.md`) may be added later.
 - **Pacing, séquences et texte animé (THP / Remotion)** — à appliquer dès qu’une scène paraît « figée » :
   - **Découper** chaque grande scène en **beats** (sous-`Sequence` ou `Series`) plutôt qu’un seul bloc plein écran : enchaînement **setup → reveal → hold → handoff** ; viser un **changement visible** régulier (aligné avec la section *Rythme* des outlines pilot).
-  - **Typewriter / mots / reveal** : réutiliser les patterns de la composition démo `TextDemo` (`Typewriter`, `WordByWord`, `TextReveal` depuis `@repo/ui/remotion`). Pour le narratif long (ex. intro), privilégier le **typewriter** avec **pauses** entre phrases ; le skill **remotion-best-practices** (`text-animations.md`) rappelle : effet machine à écrire par **slicing** de chaîne, pas par opacité caractère par caractère.
+  - **Typewriter / mots / reveal / glitch** : réutiliser les patterns de la composition démo `TextDemo` (`Typewriter`, `WordByWord`, `TextReveal`, `GlitchText` depuis `@repo/ui/remotion`). **Source de vérité des rôles** : tableau *Taxonomie texte THP* ci‑dessous (ne pas définir cette matrice dans `theme.ts` — le thème = tokens ; le runbook + `library-matrix` = choix d’effet). Pour le narratif long (ex. intro), privilégier le **typewriter** avec **pauses** entre phrases ; le skill **remotion-best-practices** (`text-animations.md`) rappelle : effet machine à écrire par **slicing** de chaîne, pas par opacité caractère par caractère.
   - **Timings** : centraliser dans un module `*-content.ts` (ou équivalent) les constantes **CPS / charsPerSecond**, **delays** entre lignes terminal, **holds** après une sortie ou une idée clé, pour ajuster sans disperser les nombres magiques dans la composition.
   - **Séquençage** : `premountFor` sur les `Sequence` concernées ; chevauchements légers (quelques frames) entre éléments pour éviter les coupures trop sèches ; réf. skill `sequencing.md` (Series, offsets négatifs si besoin).
   - **Terminal** : garder une **pause lisible** entre commande et sortie, puis un **hold** sur la sortie avant la fin de sous-scène (cohérent avec le tableau *Rythme* des outlines).
@@ -159,14 +159,19 @@ Do not duplicate full Remotion command reference here; link to the Remotion runb
 
 ### Taxonomie texte THP (reproductible)
 
-| Rôle | Composant `@repo/ui/remotion` (ou équivalent) | Notes |
-|------|-----------------------------------------------|--------|
-| Titre d’épisode (impact court) | `TextReveal` | Hero ligne 1 ; `theme={solarTheme}`, contrastes WCAG |
-| Sous-titre / accroche une ligne | `Typewriter` | Ligne 2 ; CPS dans `*-content.ts` |
-| Narration / pédagogie (paragraphes) | `Typewriter` | Pauses entre blocs = `startFrame` ou sous-textes |
-| Emphase ponctuelle (optionnel) | `WordByWord` | Au plus une phrase clé par scène si utile |
-| CLI commandes / sorties | `Terminal` uniquement | Ne pas doubler avec `Typewriter` sur les commandes |
-| Snippet statique | `CodeBlockStatic` + `FadeIn` (`@repo/remotion-lib`) | Pas d’animation caractère sur le bloc entier |
+**Où maintenir cette structure** : ce tableau (procédure) ; copie courte alignée dans [`packages/skills/thp-video-generation/references/library-matrix.md`](../../../packages/skills/thp-video-generation/references/library-matrix.md) ; les **skills** `thp-video-generation` et §08 runbook renvoient ici. **Pas** dans `solarTheme` / `theme.ts` : le thème fixe couleurs, polices, rayons — pas le type d’effet par rôle éditorial.
+
+| Rôle (editorial / spectateur) | Composant `@repo/ui/remotion` | Utilité pour le lecteur | Notes |
+|-------------------------------|--------------------------------|-------------------------|--------|
+| Titre de leçon — calme, lisible | `TextReveal` | Impact clair sans distraction ; bon pour cours THP par défaut | Hero ligne 1 ; `theme={solarTheme}` ; WCAG |
+| Titre / bumper — fort, “tech”, très court | `GlitchText` | Accroche visuelle max (intro série, trailer, segment hack) | **Court** (quelques mots) ; **parcimonie** (pas narration) ; éviter si sensible flash/mouvement ; `duration` faible ; vérifier reproductibilité rendu (composant non déterministe) |
+| Sous-titre / accroche une ligne | `Typewriter` | Rythme lecture synchrone avec VO possible | Ligne 2 ; CPS dans `*-content.ts` |
+| Narration / pédagogie (phrases) | `Typewriter` | Débit contrôlé, moins “mur de texte” instantané | Pauses = `startFrame` ou sous-blocs |
+| Une phrase d’emphase (beat unique) | `WordByWord` | Met en évidence une idée sans effet machine à écrire | Au plus **une** phrase / scène si utile |
+| CLI commandes / sorties | `Terminal` | Aligné avec la pratique réelle du terminal | Ne pas doubler avec `Typewriter` sur les commandes |
+| Snippet statique | `CodeBlockStatic` + `FadeIn` (`@repo/remotion-lib`) | Code de référence sans animation caractère | |
+
+**Règle d’or** : **un rôle → un type de rendu** par plan (éviter `Typewriter` + `WordByWord` sur la même phrase). Référence live : [`TextDemo.tsx`](../../../apps/remotion/src/remotion/compositions/demos/TextDemo.tsx).
 
 ---
 
@@ -203,7 +208,7 @@ Do not duplicate full Remotion command reference here; link to the Remotion runb
 
 - **Retours pilots** (à compléter après chaque livraison) :  
   - **Pilot 01 (Pré-requis terminal, 2026-03)** : [outline](../video-ai-preparation/pilot-01-prerequis-outline.md). Composants ajoutés : TitleCard, SectionIntro, ConceptSlide, CodeBlockStatic (UI) ; FadeIn, TitleCardAnimated, SectionIntroAnimated, ConceptSlideAnimated, CodeBlockWithHighlight, CodeAlongStep (remotion-lib). Composition `Pilot01Prerequis` dans `apps/remotion/.../serie-01/`.  
-  - **Pilot 02 (Git vs GitHub, 2026-03)** : [outline](../video-ai-preparation/pilot-02-git-vs-github-outline.md). Format 1 (45 s) ; P0 existants uniquement (`TitleCardAnimated`, `SectionIntroAnimated`, `ConceptSlideAnimated`). Fichiers : `pilot02-content.ts`, `Pilot02GitVsGithub.tsx` ; composition id **`Pilot02GitVsGithub`**, **1350 frames** @ 30 fps, 1920×1080.  
+  - **Pilot 02 (Git vs GitHub, 2026-03)** : [outline](../video-ai-preparation/pilot-02-git-vs-github-outline.md). Format 1 (45 s) ; **refonte équipe §04** : `TextReveal` / `Typewriter` (`@repo/ui/remotion`), `SceneHeader`, `ProgressBar`, `FadeSlide`, mini `FlowChart` scène 4. Fichiers : `pilot02-content.ts`, `Pilot02GitVsGithub.tsx` ; id **`Pilot02GitVsGithub`**, **1350 f** @ 30 fps.  
   - **Retour 1 (2026-03)** : « Pas assez vivant, pas d’animations, même le terminal n’est pas animé. » → **Actions** : (1) Utiliser le composant [Terminal](packages/ui/src/lib/remotion/code/Terminal.tsx) de `@repo/ui/remotion` (typewriter, ligne par ligne) pour les scènes terminal au lieu de CodeBlockStatic. (2) Renforcer les animations (FadeIn + translateY, entrées plus dynamiques). (3) Référence ton/script : [reference/thp-tone-and-theme](reference/thp-tone-and-theme.md) (analyse cours Intro week_01) pour aligner le ton des vidéos avec THP.
   - **Thème (2026-03-19)** : THP = **Solarpunk dark** comme thème principal ; `:root` web aligné ; `defaultTheme` Remotion = `solarTheme` ; source CSS `solarpunk.tokens.css` ; icônes via `@repo/ui/icons` (Lucide) ; skill Cursor `thp-solarpunk-visual`. Détail et tableau d’amélioration continue : [solarpunk-theme-decisions](../reference/solarpunk-theme-decisions.md).
   - **Retour 2 (2026-03) — fluidité / « trop de temps en plein écran »** : feedback sur le **rythme** (exécution pas assez smooth, sensation d’écran complet statique). **Actions récurrentes** (désormais norme en §04) : (1) découper les scènes en **sous-séquences** avec pattern setup/reveal/hold ; (2) **typewriter** (ou équivalent) sur l’**intro** et textes narratifs longs ; (3) **timings** dans `pilot01-content.ts` (ou équivalent) ; (4) recalibrer **Terminal** (delays + hold sur sortie) ; (5) micro-chevauchements entre éléments. **Références** : [runbooks/remotion](remotion.md#pacing-et-structure-des-scènes) ; démo `TextDemo` ; skill **remotion-best-practices** (`sequencing.md`, `text-animations.md`, `timing.md`).
