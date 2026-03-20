@@ -9,14 +9,18 @@ tags:
   - thp
   - template
 created: 2026-03-12
-updated: 2026-03-12
+updated: 2026-03-19
 related:
   - "[[video-ai-preparation/video-ai-preparation]]"
+  - "[[reference/solarpunk-theme-decisions]]"
+  - "[[Templates/thp-solarpunk-visual-checklist]]"
 ---
 
 # Pilot Video Outline (Template)
 
 Template for the first (and subsequent) pilot videos. **Copy or rename this file per pilot** (e.g. into `video-ai-preparation/pilot-01-http-intro-outline.md` or keep in a working folder). Fill it in with a real THP course extract **before** writing any Remotion composition. See [Formats](../video-ai-preparation/video-ai-preparation.md#video-formats) and [Component shortlist](../video-ai-preparation/video-ai-preparation.md#component-shortlist) for context.
+
+**Identité visuelle THP** : toutes les vidéos suivent le kit **Solarpunk dark** ([décisions](../reference/solarpunk-theme-decisions.md)). Avant livraison, parcourir [checklist visuelle Solarpunk](thp-solarpunk-visual-checklist.md).
 
 ---
 
@@ -78,5 +82,6 @@ From [Component shortlist](../video-ai-preparation/video-ai-preparation.md#compo
 - [ ] Script and scene breakdown are filled in and reviewed.
 - [ ] Component list matches P0 (and any P1) from the shortlist; gaps are documented.
 - [ ] Target duration and format are consistent with [Formats](../video-ai-preparation/video-ai-preparation.md#video-formats).
+- [ ] [Checklist visuelle THP Solarpunk](thp-solarpunk-visual-checklist.md) passée (ou équivalent documenté dans l’outline).
 
 Only then create or edit compositions in `apps/remotion` and use components from `packages/remotion-lib`.

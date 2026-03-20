@@ -10,13 +10,14 @@ tags:
   - development
   - workflow
 created: 2026-03-12
-updated: 2026-03-12
+updated: 2026-03-19
 related:
   - "[[00-architecture]]"
   - "[[reference/video-lifecycle]]"
   - "[[video-ai-preparation/video-ai-preparation]]"
   - "[[explanation/video-ai-vision]]"
   - "[[runbooks/remotion]]"
+  - "[[reference/solarpunk-theme-decisions]]"
 ---
 
 # Video-AI Development Runbook
@@ -57,14 +58,16 @@ Before building new components or compositions, define formats and component pla
    From repo root: `git clone --recurse-submodules <repo-url>`, then `bun install`.
 
 2. **Run dev**  
-   `bun run dev --filter=remotion` (or `cd apps/remotion && bun run dev`) to open Remotion Studio and preview compositions.
+   - **Remotion Studio** : `bun run dev --filter=remotion` (or `cd apps/remotion && bun run dev`).  
+   - **Storybook** (`@repo/ui`) : **port 6006** — `bun run storybook` from repo root, ou `http://<IP>:6006` sur le réseau local. **Pas** le port 3000 (c’était l’ancien `next dev` du dossier storybook ; le script `dev` de `apps/storybook` lance maintenant Storybook). Détail : [apps/storybook/README](../../apps/storybook/README.md).
 
 3. **Where to work**  
    - **Compositions** (full video “scenes”): create or edit under `apps/remotion/src/remotion/compositions/` (e.g. `demos/`, or domain folders like `marketing/`, `onboarding/`). Register new compositions in `apps/remotion/src/remotion/Root.tsx`.
    - **Animated primitives/blocks**: add under `packages/remotion-lib/src/` (primitives, blocks, sections). Use `@repo/remotion-lib` from compositions when needed.
 
 4. **Commands**  
-   - Dev: `bun run dev --filter=remotion`  
+   - Remotion: `bun run dev --filter=remotion`  
+   - Storybook: `bun run storybook` (localhost:6006)  
    - Build: `bun run build` (root)  
    - Render: see [runbooks/remotion](remotion.md) for `remotion render`, stills, and codecs.
 
@@ -84,7 +87,7 @@ Do not duplicate full Remotion command reference here; link to the Remotion runb
 2. **Composants statiques (UI + Storybook)**  
    - Créer dans `packages/ui/src/` les composants **statiques** nécessaires (ex. TitleCard, SectionIntro, ConceptSlide, CodeBlockStatic ou briques réutilisables).  
    - Pour Format 2 (code demo) avec **terminal** : prévoir un bloc code/terminal statique (ex. CodeBlockStatic avec style terminal) ; les steps « commande + sortie » sont gérés en scène par CodeAlongStep en remotion-lib.  
-   - Ajouter les stories colocated (`*.stories.tsx`) et valider dans Storybook (`bun run dev --filter=storybook`).  
+   - Ajouter les stories colocated (`*.stories.tsx`) et valider dans Storybook (`bun run storybook` — **port 6006**).  
    - Règle : pas de `useCurrentFrame` ni de timing Remotion dans `packages/ui` ; voir [00-architecture](00-architecture.md#ui-vs-remotion).
 
 3. **Composants animés (remotion-lib)**  
@@ -102,6 +105,7 @@ Do not duplicate full Remotion command reference here; link to the Remotion runb
 
 ## 04 – Conventions for video courses
 
+- **Visual identity (THP)**: **Solarpunk dark** is the product default — shared tokens (`packages/theme/solarpunk.tokens.css`), Remotion `solarTheme` / `defaultTheme`, extended palette in `demo-showcase/config.ts`. Decisions and feedback log: [reference/solarpunk-theme-decisions](../reference/solarpunk-theme-decisions.md). Before closing a video or UI slice, run [Templates/thp-solarpunk-visual-checklist](../Templates/thp-solarpunk-visual-checklist.md). **WCAG contrast** is mandatory when changing colors or type sizes. **Icons**: `@repo/ui/icons` (Lucide). Optional future signature SVGs: `packages/ui/src/assets/thp/svg/` (README).
 - **Structure**: Prefer a clear flow: intro → concept explanation → code demo → recap.
 - **Naming**: Use a consistent scheme, e.g. THP slug + module + lesson (e.g. `react-module-2-lesson-3-intro`). Keep composition IDs and file names aligned so they are discoverable.
 - **Remotion primitives**: Reuse building blocks from `@repo/remotion-lib` and `@repo/ui/remotion`. For a detailed list of primitives and usage, see [runbooks/remotion](remotion.md); a dedicated reference doc (e.g. `video-ai/remotion-primitives.md`) may be added later.
@@ -142,3 +146,4 @@ Do not duplicate full Remotion command reference here; link to the Remotion runb
 - **Retours pilots** (à compléter après chaque livraison) :  
   - **Pilot 01 (Pré-requis terminal, 2026-03)** : [outline](../video-ai-preparation/pilot-01-prerequis-outline.md). Composants ajoutés : TitleCard, SectionIntro, ConceptSlide, CodeBlockStatic (UI) ; FadeIn, TitleCardAnimated, SectionIntroAnimated, ConceptSlideAnimated, CodeBlockWithHighlight, CodeAlongStep (remotion-lib). Composition `Pilot01Prerequis` dans `apps/remotion/.../serie-01/`.  
   - **Retour 1 (2026-03)** : « Pas assez vivant, pas d’animations, même le terminal n’est pas animé. » → **Actions** : (1) Utiliser le composant [Terminal](packages/ui/src/lib/remotion/code/Terminal.tsx) de `@repo/ui/remotion` (typewriter, ligne par ligne) pour les scènes terminal au lieu de CodeBlockStatic. (2) Renforcer les animations (FadeIn + translateY, entrées plus dynamiques). (3) Référence ton/script : [reference/thp-tone-and-theme](reference/thp-tone-and-theme.md) (analyse cours Intro week_01) pour aligner le ton des vidéos avec THP.
+  - **Thème (2026-03-19)** : THP = **Solarpunk dark** comme thème principal ; `:root` web aligné ; `defaultTheme` Remotion = `solarTheme` ; source CSS `solarpunk.tokens.css` ; icônes via `@repo/ui/icons` (Lucide) ; skill Cursor `thp-solarpunk-visual`. Détail et tableau d’amélioration continue : [solarpunk-theme-decisions](../reference/solarpunk-theme-decisions.md).

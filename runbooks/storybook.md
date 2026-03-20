@@ -11,7 +11,7 @@ tags:
   - components
   - ui
 created: 2026-03-11
-updated: 2026-03-11
+updated: 2026-03-19
 related:
   - "[[00-architecture]]"
   - "[[01-index]]"
@@ -28,8 +28,9 @@ Component library documentation and development environment using Storybook.
 - **Storybook app**: `apps/storybook/`
 - **Stories location**: `packages/ui/src/*.stories.tsx` (colocated with components)
 - **Framework**: Next.js + Storybook 10
-- **Port**: `http://localhost:6006` (network: `http://<ip>:6006`)
+- **Port**: `http://localhost:6006` (network: `http://<ip>:6006`). **Not** port `3000` — that was the default Next.js page; the `dev` script in `apps/storybook` now starts Storybook (see [apps/storybook/README](../../../apps/storybook/README.md)).
 - **Purpose**: Document and develop UI components from `@repo/ui`
+- **Root command**: `bun run storybook` (runs `turbo run storybook --filter=storybook`).
 
 ## Architecture
 

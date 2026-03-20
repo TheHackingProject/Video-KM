@@ -11,15 +11,22 @@ tags:
   - voice
   - video-ai
 created: 2026-03-18
-updated: 2026-03-18
+updated: 2026-03-19
 related:
   - "[[video-ai-preparation/video-ai-preparation]]"
   - "[[reference/video-lifecycle]]"
+  - "[[reference/solarpunk-theme-decisions]]"
 ---
 
 # Ton et thème THP (pour les vidéos)
 
 Référence pour aligner le **ton** et le **style** des vidéos Video-AI avec les cours THP. Source : analyse des contenus [KM/Course/Intro/week_01](../../Course/Intro/week_01) (présentations, leçons).
+
+---
+
+## Identité visuelle (THP = Solarpunk)
+
+Les vidéos et l’UI pédagogique associée suivent le **thème Solarpunk dark** (nature + tech optimiste, fond sombre, verts / ambre / teal). Décisions normatives, tokens et boucle d’amélioration : [solarpunk-theme-decisions](solarpunk-theme-decisions.md). Checklist avant livraison : [Templates/thp-solarpunk-visual-checklist](../Templates/thp-solarpunk-visual-checklist.md).
 
 ---
 
