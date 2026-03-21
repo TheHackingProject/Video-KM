@@ -11,7 +11,7 @@ tags:
   - compositions
   - react
 created: 2026-03-11
-updated: 2026-03-20
+updated: 2026-03-21
 related:
   - "[[00-architecture]]"
   - "[[01-index]]"
@@ -264,6 +264,24 @@ Config.setConcurrency(4);
 | Components not animating | Ensure using `useCurrentFrame()` |
 | Slow renders | Reduce concurrency or resolution |
 | Import errors from @repo/ui/remotion | Run `bun install` at monorepo root |
+
+### Fond (background) absent ou « non intégré » au fichier exporté
+
+**À distinguer :** prévisualisation Studio vs fichier final (MP4, ProRes, WebM, PNG).
+
+1. **Rendu avec transparence (alpha)**  
+   Si la commande ou la config utilise un **codec / pixel format à canal alpha** (ex. ProRes 4444, VP9 WebM avec `yuva…`, ou séquence PNG avec alpha), les zones non couvertes par des pixels opaques restent **transparentes** : dans un lecteur ou un NLE, le fond peut apparaître noir, gris ou absent — ce n’est pas un bug du gradient React, c’est le comportement du format.  
+   Réf. skill (repo) : `packages/skills/Remotion/skills/remotion/rules/transparent-videos.md` — pour un fond **toujours visible** dans un fichier « classique », utiliser **H.264 / pixel format sans alpha** (ex. `yuv420p`) et ne pas forcer `--image-format=png` + codec alpha sauf besoin explicite.
+
+2. **`background-image` chargée via `url(...)`**  
+   Remotion ne peut pas attendre fin de chargement pour une image référencée uniquement en CSS (`background-image`, `mask-image`), ce qui peut provoquer **clignotement ou calque vide** au rendu. Préférer le composant `<Img>` de Remotion ou le contournement décrit dans la doc officielle.  
+   Réf. : [Troubleshooting – background-image](https://www.remotion.dev/docs/troubleshooting/background-image).
+
+3. **Fond défini dans le composant**  
+   Le runbook montre un fond **opaque** via `AbsoluteFill` + `backgroundColor` (fiable pour le pipeline d’encodage). Les **dégradés CSS** inline sur `AbsoluteFill` (comme sur les pilots série 01) sont en général rendus correctement par Chromium ; si un cas limite apparaît, tester `backgroundColor` (couleur de repli) + `backgroundImage` avec le même gradient.
+
+4. **Config projet (`apps/remotion/remotion.config.ts`)**  
+   `Config.setVideoImageFormat("jpeg")` définit le format des **frames intermédiaires** vers la vidéo : **pas de canal alpha** ; le fond dessiné par React doit normalement être présent. En cas de souci de qualité / bandes, tester `png` ou ajuster codec / qualité (voir [Remotion – config](https://www.remotion.dev/docs/config)).
 
 ## Resources
 
