@@ -154,6 +154,7 @@ Do not duplicate full Remotion command reference here; link to the Remotion runb
   - **Terminal** : garder une **pause lisible** entre commande et sortie, puis un **hold** sur la sortie avant la fin de sous-scène (cohérent avec le tableau *Rythme* des outlines).
   - **Vérification** : lecture Studio bout en bout + conscience des **temps sans mouvement** ; compléter [Templates/thp-solarpunk-visual-checklist](../Templates/thp-solarpunk-visual-checklist.md) pour le reste (contraste, etc.).
   - **Sous-`Sequence` et contenu persistant** : si un calque (texte, pills, etc.) doit **rester à l’écran jusqu’au cut** de la scène parente, la `durationInFrames` de la sous-`Sequence` qui le porte doit couvrir **toute la fin de scène** (typiquement `durationInFrames = duréeScèneParente - from`). Sinon Remotion **démonte** le nœud à la fin de la sous-`Sequence` : le contenu **disparaît avant la fin** de la scène — scène visuellement « incomplète ». Les **chevauchements** entre beats restent possibles via des `from` décalés ; ce qui change est la **durée de vie** du montage, pas seulement le moment d’apparition.
+  - **`Serie01SceneShell` `stack` + `FlowChart` sous le texte** : ne pas placer le schéma en `position: absolute` / `bottom` (voir réf. ci-dessous). En flux : colonne **`justifyContent: "center"`** sur un wrapper `flex:1` pour centrer le **bloc** texte + schéma ; **pas** de `flex:1` **entre** le texte et le `FlowChart` (sinon le schéma colle à la barre de progression et le milieu de l’écran reste vide). Réf. : [`packages/skills/thp-video-generation/references/stack-scene-flowchart-layout.md`](../../../packages/skills/thp-video-generation/references/stack-scene-flowchart-layout.md).
   - **Taxonomie texte THP (reproductible)** : limiter le nombre de systèmes en parallèle ; **un type de rendu par rôle** — voir le tableau dans la section suivante. Référence visuelle : [`TextDemo.tsx`](../../../apps/remotion/src/remotion/compositions/demos/TextDemo.tsx).
   - **Catalogue démo & structure THP** : les compositions sous `apps/remotion/src/remotion/compositions/demos/` (`TextDemo`, `DemoShowcaseSolarpunkDemo`, `TransitionsDemo`, `CodeDemo`, `DiagramsDemo`, etc.) constituent la **bibliothèque de patterns** pour une identité reproductible. **Avant** d’inventer une transition ou un effet isolé, vérifier si une démo ou un composant existe déjà (`FadeSlide`, `ZoomBlur`, `Wipe`, etc., avec **`solarTheme`**). Les **nouveaux** blocs « signature » THP (transition, lower-third, bumper) : implémentation sous `packages/ui` / `packages/remotion-lib` si réutilisable, **`theme={solarTheme}`**, puis **enregistrement** d’une mini-composition démo + **ligne dans** [solarpunk-theme-decisions — Catalogue démo & motion](../reference/solarpunk-theme-decisions.md#catalogue-démo--motion-reproductibilité) et mise à jour de ce §04 si ça change la procédure.
 
@@ -205,6 +206,7 @@ Rappels de gouvernance :
 - **Retours pilots** (à compléter après chaque livraison) :  
   - **Pilot 01 (Pré-requis terminal, 2026-03)** : [outline](../video-ai-preparation/pilot-01-prerequis-outline.md). Composants ajoutés : TitleCard, SectionIntro, ConceptSlide, CodeBlockStatic (UI) ; FadeIn, TitleCardAnimated, SectionIntroAnimated, ConceptSlideAnimated, CodeBlockWithHighlight, CodeAlongStep (remotion-lib). Composition `Pilot01Prerequis` dans `apps/remotion/.../serie-01/`.  
   - **Pilot 02 (Git vs GitHub, 2026-03)** : [outline](../video-ai-preparation/pilot-02-git-vs-github-outline.md). Format 1 (45 s) ; **refonte équipe §04** : `TextReveal` / `Typewriter` (`@repo/ui/remotion`), `SceneHeader`, `ProgressBar`, `FadeSlide`, mini `FlowChart` scène 4. Fichiers : `pilot02-content.ts`, `Pilot02GitVsGithub.tsx` ; id **`Pilot02GitVsGithub`**, **1350 f** @ 30 fps.  
+  - **Pilot 03 (Commit, 2026-03)** : [outline](../video-ai-preparation/pilot-03-commit-outline.md). Format 1 (45 s) ; même chrome série 01 (`Serie01SceneShell`, `GlitchText` / `TextReveal` / `Typewriter`, transitions variées vs pilot 02), **`FlowChart`** 3 nœuds scène 4 (Modifier → Enregistrer → Commit). Fichiers : `pilot03-content.ts`, `Pilot03Commit.tsx` ; id **`Pilot03Commit`**, **1350 f** @ 30 fps.  
   - **Retour 1 (2026-03)** : « Pas assez vivant, pas d’animations, même le terminal n’est pas animé. » → **Actions** : (1) Utiliser le composant [Terminal](packages/ui/src/lib/remotion/code/Terminal.tsx) de `@repo/ui/remotion` (typewriter, ligne par ligne) pour les scènes terminal au lieu de CodeBlockStatic. (2) Renforcer les animations (FadeIn + translateY, entrées plus dynamiques). (3) Référence ton/script : [reference/thp-tone-and-theme](reference/thp-tone-and-theme.md) (analyse cours Intro week_01) pour aligner le ton des vidéos avec THP.
   - **Thème (2026-03-19)** : THP = **Solarpunk dark** comme thème principal ; `:root` web aligné ; `defaultTheme` Remotion = `solarTheme` ; source CSS `solarpunk.tokens.css` ; icônes via `@repo/ui/icons` (Lucide) ; skill Cursor `thp-solarpunk-visual`. Détail et tableau d’amélioration continue : [solarpunk-theme-decisions](../reference/solarpunk-theme-decisions.md).
   - **Retour 2 (2026-03) — fluidité / « trop de temps en plein écran »** : feedback sur le **rythme** (exécution pas assez smooth, sensation d’écran complet statique). **Actions récurrentes** (désormais norme en §04) : (1) découper les scènes en **sous-séquences** avec pattern setup/reveal/hold ; (2) **typewriter** (ou équivalent) sur l’**intro** et textes narratifs longs ; (3) **timings** dans `pilot01-content.ts` (ou équivalent) ; (4) recalibrer **Terminal** (delays + hold sur sortie) ; (5) micro-chevauchements entre éléments. **Références** : [runbooks/remotion](remotion.md#pacing-et-structure-des-scènes) ; démo `TextDemo` ; skill **remotion-best-practices** (`sequencing.md`, `text-animations.md`, `timing.md`).
@@ -270,3 +272,32 @@ Runbooks:
 - [runbooks/frontend](frontend.md)
 - [runbooks/postgres-local](postgres-local.md)
 - [runbooks/deploy-selfhost-api-frontend](deploy-selfhost-api-frontend.md)
+
+### 09b – New video publication workflow (mandatory)
+
+When a new Remotion composition is considered published, update the platform catalogue in this order:
+
+1. **Render readiness**  
+   Confirm composition id, final duration/fps, and public render target URL (or live code playback target).
+
+2. **Database reference** (`packages/db`)  
+   Add a new `videos`/`video_versions` entry (seed or migration-based data insert), including:
+   - `slug`, `title`, `description`
+   - `compositionId`
+   - `renderUrl` (if using media URL delivery)
+   - `docUrl` (pilot outline / KM documentation link)
+   - `publishedAt`
+
+3. **API visibility** (`apps/api`)  
+   Verify the new entry appears in:
+   - `GET /videos`
+   - `GET /videos/:slug`
+
+4. **Frontend visibility** (`apps/frontend`)  
+   Ensure the new video appears in the catalogue list and opens in detail view.
+   If using code playback (Remotion Player), make sure `compositionId` is registered in `sceneRegistry`.
+
+5. **Documentation update**  
+   Update corresponding pilot docs and mention publication in the relevant runbook section when needed.
+
+No new video is considered delivered until API + frontend listing is verified.

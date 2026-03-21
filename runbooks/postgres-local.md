@@ -51,3 +51,19 @@ DATABASE_URL="postgres://video_ai:video_ai@localhost:5432/video_ai_dev" bun run 
 # reset local DB content
 DATABASE_URL="postgres://video_ai:video_ai@localhost:5432/video_ai_dev" bun run db:reset --filter=@repo/db
 ```
+
+## Add a new published video
+
+For every new published episode, add one new catalogue record (`videos` + `video_versions`) with:
+
+- `slug`, `title`, `description`
+- `compositionId`
+- `renderUrl` (or placeholder if code-first playback only)
+- `docUrl`
+- `publishedAt`
+
+Then verify:
+
+1. `GET /videos` includes the new video.
+2. `GET /videos/:slug` resolves correctly.
+3. Frontend catalogue shows the new card.
