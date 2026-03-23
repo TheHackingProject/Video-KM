@@ -11,13 +11,14 @@ tags:
   - compositions
   - react
 created: 2026-03-11
-updated: 2026-03-21
+updated: 2026-03-23
 related:
   - "[[00-architecture]]"
   - "[[01-index]]"
   - "[[runbooks/monorepo]]"
   - "[[runbooks/storybook]]"
   - "[[runbooks/video-ai-development]]"
+  - "[[runbooks/deploy-selfhost-api-frontend]]"
 ---
 
 # Runbook – Remotion
@@ -255,6 +256,14 @@ Config.setVideoImageFormat("jpeg");
 Config.setOverwriteOutput(true);
 Config.setConcurrency(4);
 ```
+
+## Docker / self-host (Remotion Studio)
+
+- **Dockerfile**: [`apps/remotion/Dockerfile`](../../../apps/remotion/Dockerfile); build context = monorepo root.
+- **Runtime**: **Remotion Studio** (`remotionb studio --ipv4 --port 3000`) for internal preview — not the same as headless **render** workers (see future `video-ai-rendering` runbook if added).
+- **Build step in image**: `turbo run build --filter=remotion` runs `remotionb bundle` into `apps/remotion/build/` to validate the bundle before serving Studio.
+- **Resources**: allocate enough **RAM/CPU**; first Studio response can exceed 60s (webpack).
+- **Full stack deploy**: [runbooks/deploy-selfhost-api-frontend](deploy-selfhost-api-frontend.md).
 
 ## Troubleshooting
 

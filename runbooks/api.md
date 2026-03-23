@@ -10,11 +10,12 @@ tags:
   - hono
   - bun
 created: 2026-03-20
-updated: 2026-03-20
+updated: 2026-03-23
 related:
   - "[[00-architecture]]"
   - "[[runbooks/monorepo]]"
   - "[[runbooks/postgres-local]]"
+  - "[[runbooks/deploy-selfhost-api-frontend]]"
 ---
 
 # Runbook: API (`apps/api`)
@@ -57,3 +58,9 @@ bun run test --filter=api
 - `DATABASE_URL` (required)
 - `PORT` (default: `8787`)
 - `CORS_ORIGIN` (default: `http://localhost:5173`)
+
+## Production (Docker)
+
+- **Dockerfile**: [`apps/api/Dockerfile`](../../../apps/api/Dockerfile) (build from repo root).
+- **Image**: `oven/bun` multi-stage; runs bundled `dist/index.js` with Bun.
+- **Deploy procedure**: [runbooks/deploy-selfhost-api-frontend](deploy-selfhost-api-frontend.md).

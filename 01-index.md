@@ -9,7 +9,7 @@ tags:
   - runbooks
   - architecture
 created: 2026-03-10
-updated: 2026-03-20
+updated: 2026-03-23
 related:
   - "[[meta/thp-video-generation-skill]]"
   - "[[00-architecture]]"
@@ -61,7 +61,7 @@ Exploratory notes, evaluations, and POCs. **Not canonical**; see [reference/tool
 - [**api**](./runbooks/api.md) – Generic backend API (`apps/api`) with Hono/Bun
 - [**frontend**](./runbooks/frontend.md) – Generic frontend (`apps/frontend`) with Vite/React
 - [**postgres-local**](./runbooks/postgres-local.md) – Local PostgreSQL + Drizzle migrations/seed/reset
-- [**deploy-selfhost-api-frontend**](./runbooks/deploy-selfhost-api-frontend.md) – Dokploy/Coolify/VPS deploy and rollback
+- [**deploy-selfhost-api-frontend**](./runbooks/deploy-selfhost-api-frontend.md) – Coolify/VPS: Docker images per app (api, frontend, storybook, remotion), Postgres, build context, troubleshooting
 
 ## Agent skills (versioned in repo)
 

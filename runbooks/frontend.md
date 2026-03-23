@@ -10,11 +10,12 @@ tags:
   - vite
   - react
 created: 2026-03-20
-updated: 2026-03-20
+updated: 2026-03-23
 related:
   - "[[00-architecture]]"
   - "[[runbooks/monorepo]]"
   - "[[runbooks/api]]"
+  - "[[runbooks/deploy-selfhost-api-frontend]]"
 ---
 
 # Runbook: Frontend (`apps/frontend`)
@@ -47,3 +48,9 @@ bun run test --filter=frontend
 ## Environment variables
 
 - `VITE_API_BASE_URL` (default: `http://localhost:8787`)
+
+## Production (Docker)
+
+- **Dockerfile**: [`apps/frontend/Dockerfile`](../../../apps/frontend/Dockerfile); **nginx**: [`apps/frontend/nginx.conf`](../../../apps/frontend/nginx.conf). Build context = monorepo root.
+- **Build arg**: `VITE_API_BASE_URL` must be the **public** API URL at image build time.
+- **Deploy procedure**: [runbooks/deploy-selfhost-api-frontend](deploy-selfhost-api-frontend.md).

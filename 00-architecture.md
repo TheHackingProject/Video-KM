@@ -11,7 +11,7 @@ tags:
   - turborepo
   - submodules
 created: 2026-03-10
-updated: 2026-03-11
+updated: 2026-03-23
 related:
   - "[[01-index]]"
   - "[[runbooks/monorepo]]"
@@ -28,15 +28,16 @@ Overview of the monorepo architecture, structure and repository links.
 
 ```
 Video-AI/
+├── .dockerignore              # Docker build context exclusions (monorepo root)
 ├── .agents/
 │   └── skills/                # remotion-best-practices → packages/skills (agents with CWD = repo root)
 ├── .cursor/
 │   └── environment.json       # Background Agents: install = submodule + bun + bootstrap (versioned)
 ├── apps/
-│   ├── api/               # Hono + Bun API (generic backend)
-│   ├── frontend/          # Vite React app (generic frontend)
-│   ├── storybook/         # Storybook – component library docs
-│   └── remotion/          # Remotion Studio – video generation
+│   ├── api/               # Hono + Bun API (generic backend) + Dockerfile (self-host)
+│   ├── frontend/          # Vite React app (generic frontend) + Dockerfile + nginx.conf
+│   ├── storybook/         # Storybook – component library docs + Dockerfile + nginx.conf
+│   └── remotion/          # Remotion Studio – video generation + Dockerfile
 │       ├── src/
 │       │   ├── index.ts         # Registers RemotionRoot from remotion/Root
 │       │   ├── index.css
@@ -114,6 +115,10 @@ Video-AI/
 ```
 
 Some paths (e.g. `packages/remotion-lib`, `apps/remotion/src/remotion`, `packages/ui` `src/components/`) describe the target architecture; code may be migrated gradually. Before adding Remotion components or compositions, define formats and script in [video-ai-preparation](video-ai-preparation/video-ai-preparation.md); see [reference/video-lifecycle](reference/video-lifecycle.md).
+
+## Container images (self-host)
+
+Production-oriented Dockerfiles live under `apps/*/Dockerfile` with **build context = repository root** (see [runbooks/deploy-selfhost-api-frontend](runbooks/deploy-selfhost-api-frontend.md)). Coolify (or similar): one resource per service (`api`, `frontend`, `storybook`, `remotion`) plus PostgreSQL.
 
 ## Research vs reference (tools)
 

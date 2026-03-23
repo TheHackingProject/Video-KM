@@ -10,7 +10,7 @@ tags:
   - development
   - workflow
 created: 2026-03-12
-updated: 2026-03-21
+updated: 2026-03-23
 related:
   - "[[00-architecture]]"
   - "[[reference/video-lifecycle]]"
@@ -194,6 +194,7 @@ Rappels de gouvernance :
 
 - **Deployment**  
   - Rendered assets are published or deployed according to THP platform process (e.g. upload to CDN, trigger app update). Rendering and ops procedures will be documented in a future `video-ai-rendering.md` runbook when applicable.
+  - **Self-host stack** (API + frontend + optional Storybook, Remotion Studio, PostgreSQL on Coolify/VPS): [runbooks/deploy-selfhost-api-frontend](deploy-selfhost-api-frontend.md).
 
 ---
 

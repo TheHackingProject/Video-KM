@@ -11,12 +11,13 @@ tags:
   - components
   - ui
 created: 2026-03-11
-updated: 2026-03-19
+updated: 2026-03-23
 related:
   - "[[00-architecture]]"
   - "[[01-index]]"
   - "[[runbooks/monorepo]]"
   - "[[runbooks/bun-biome]]"
+  - "[[runbooks/deploy-selfhost-api-frontend]]"
 ---
 
 # Runbook: Storybook
@@ -31,6 +32,7 @@ Component library documentation and development environment using Storybook.
 - **Port**: `http://localhost:6006` (network: `http://<ip>:6006`). **Not** port `3000` — that was the default Next.js page; the `dev` script in `apps/storybook` now starts Storybook (see [apps/storybook/README](../../../apps/storybook/README.md)).
 - **Purpose**: Document and develop UI components from `@repo/ui`
 - **Root command**: `bun run storybook` (runs `turbo run storybook --filter=storybook`).
+- **Static build (Turbo)**: `bun run build-storybook` from repo root — do **not** use `turbo run build --filter=storybook` for a static site (that runs **Next.js** `next build`).
 
 ## Architecture
 
@@ -181,6 +183,11 @@ npx chromatic --project-token=<your-token>
 ### Static hosting
 
 Build and deploy `storybook-static/` to any static host (Vercel, Netlify, GitHub Pages).
+
+### Docker (nginx static)
+
+- **Dockerfile**: [`apps/storybook/Dockerfile`](../../../apps/storybook/Dockerfile); **nginx**: [`apps/storybook/nginx.conf`](../../../apps/storybook/nginx.conf). Context = monorepo root; image runs `turbo run build-storybook --filter=storybook` then serves `storybook-static/`.
+- **Coolify / VPS**: [runbooks/deploy-selfhost-api-frontend](deploy-selfhost-api-frontend.md).
 
 ## Configuration
 
