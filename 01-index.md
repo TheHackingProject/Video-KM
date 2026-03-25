@@ -9,7 +9,7 @@ tags:
   - runbooks
   - architecture
 created: 2026-03-10
-updated: 2026-03-23
+updated: 2026-03-25
 related:
   - "[[meta/thp-video-generation-skill]]"
   - "[[00-architecture]]"
@@ -46,6 +46,7 @@ Index of project documentation resources.
 Exploratory notes, evaluations, and POCs. **Not canonical**; see [reference/tools](./reference/tools/README.md) for stable tool reference. New tools and patterns start in research/; promote to reference/tools/ only once adopted or officially recommended.
 
 - [**research/**](./research/README.md) – Overview and rules
+- [**Soul — visuel & vulgarisation**](./research/soul-recherche-visuelle.md) · [**Git/GitHub (visuel)**](./research/git-github-vulgarisation-visuelle.md)
 - [**openclaw**](./research/openclaw.md) · [**mastra**](./research/mastra.md) · [**trigger-dev**](./research/trigger-dev.md) · [**inngest**](./research/inngest.md)
 
 **Reference (tools):** [reference/tools/](./reference/tools/README.md) – Stable tool reference (one file per adopted tool); promoted from research when decided.

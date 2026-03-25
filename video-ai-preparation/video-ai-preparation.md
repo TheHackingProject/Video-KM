@@ -11,7 +11,7 @@ tags:
   - formats
   - components
 created: 2026-03-12
-updated: 2026-03-20
+updated: 2026-03-25
 related:
   - "[[reference/video-lifecycle]]"
   - "[[explanation/video-ai-vision]]"
@@ -22,11 +22,14 @@ related:
   - "[[reference/solarpunk-theme-decisions]]"
   - "[[meta/thp-video-generation-skill]]"
   - "[[meta/thp-solarpunk-visual-skill]]"
+  - "[[research/soul-recherche-visuelle]]"
 ---
 
 # Video-AI Preparation
 
 Write before code: this doc defines formats, component shortlist, and pilot outline before any Remotion components or compositions are added. It is the **single reference** for formats and shortlist — runbooks refer here and do not duplicate this content. The **reading order is contractual**: [Formats](#video-formats) → [Component shortlist](#component-shortlist) → [Pilot outline](#pilot-outline). Full workflow: [video-lifecycle](reference/video-lifecycle.md).
+
+**Créativité & vulgarisation (Soul)** : avant de figer le découpage, ouvrir la recherche visuelle du sujet — [Soul — recherche visuelle](../research/soul-recherche-visuelle.md) et le fichier thématique (ex. [Git/GitHub visuel](../research/git-github-vulgarisation-visuelle.md)). Enrichir l’outline avec une section **« Cues visuels / Soul »** par scène (voir skill **thp-video-generation**).
 
 ---
 

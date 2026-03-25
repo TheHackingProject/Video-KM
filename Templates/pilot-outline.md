@@ -92,6 +92,17 @@ One row per scene. Map each scene to a purpose and to components from [Component
 
 ---
 
+## Cues visuels / Soul (vulgarisation)
+
+Avant ou en parallèle du script : consulter le fichier **research** du sujet (voir [Soul — recherche visuelle](../research/soul-recherche-visuelle.md)). Pour **chaque scène**, noter **1–3 bullets** : métaphore, prop, schéma prioritaire — ce qui doit être compris **sans** lire tout le texte.
+
+| # | Cues visuels / Soul (résumé) | Composant ou artefact cible |
+|---|------------------------------|-----------------------------|
+| 1 | [e.g. split Local vs nuage] | ComparisonTable \| … |
+| 2 | … | … |
+
+---
+
 ## Components needed
 
 From [Component shortlist](../video-ai-preparation/video-ai-preparation.md#component-shortlist), tick which components this pilot uses. If the pilot reveals a missing piece, note it and consider updating the shortlist.
@@ -110,6 +121,7 @@ From [Component shortlist](../video-ai-preparation/video-ai-preparation.md#compo
 ## Ready for Remotion when
 
 - [ ] Script and scene breakdown are filled in and reviewed.
+- [ ] **Cues visuels / Soul** : au moins une scène avec héros non-texte (schéma, terminal bref, prop) pour les formats courts ; fichier `KM/Docs/research/<sujet>-vulgarisation-visuelle.md` consulté ou mis à jour.
 - [ ] Text role mapping table is complete and matches canonical skill/matrix.
 - [ ] Component list matches P0 (and any P1) from the shortlist; gaps are documented.
 - [ ] Target duration and format are consistent with [Formats](../video-ai-preparation/video-ai-preparation.md#video-formats).
