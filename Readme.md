@@ -9,10 +9,13 @@ tags:
   - knowledge-base
   - cursor
 created: 2026-03-10
-updated: 2026-03-11
+updated: 2026-03-27
 related:
   - "[[00-architecture]]"
   - "[[01-index]]"
+  - "[[02-video-ai-roadmap]]"
+  - "[[reference/video-ai-orchestrator-decision]]"
+  - "[[reference/video-ai-upper-layers-mastra-openclaw]]"
   - "[[runbooks/monorepo]]"
   - "[[runbooks/storybook]]"
 ---
@@ -25,6 +28,9 @@ Project documentation and runbooks for Video-AI.
 
 - [**00-architecture**](00-architecture.md) – Monorepo structure and repository links
 - [**01-index**](01-index.md) – Full documentation index
+- [**02-video-ai-roadmap**](02-video-ai-roadmap.md) – Roadmap & état des lieux (plan v1 → v2)
+- [**video-ai-orchestrator-decision**](reference/video-ai-orchestrator-decision.md) – Décision **Trigger.dev v4** vs Inngest (Coolify)
+- [**video-ai-upper-layers-mastra-openclaw**](reference/video-ai-upper-layers-mastra-openclaw.md) – Mastra + OpenClaw (v2, HITL)
 - [**Video-AI**](reference/video-lifecycle.md) – Canonical reference (role, lifecycle) · [vision](explanation/video-ai-vision.md) · [development runbook](runbooks/video-ai-development.md)
 - [**video-lifecycle**](reference/video-lifecycle.md) – Full lifecycle (idea → preparation → components → scene → review → render → feedback)
 - [**video-ai-preparation**](video-ai-preparation/video-ai-preparation.md) – Write before code (formats, shortlist, pilot outline)

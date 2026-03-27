@@ -15,8 +15,10 @@ tags:
   - mastra
   - openclaw
 created: 2026-03-18
-updated: 2026-03-20
+updated: 2026-03-27
 related:
+  - "[[reference/video-ai-orchestrator-decision]]"
+  - "[[reference/video-ai-upper-layers-mastra-openclaw]]"
   - "[[research/inngest]]"
   - "[[research/trigger-dev]]"
   - "[[research/mastra]]"

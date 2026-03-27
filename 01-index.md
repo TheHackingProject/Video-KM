@@ -9,10 +9,13 @@ tags:
   - runbooks
   - architecture
 created: 2026-03-10
-updated: 2026-03-25
+updated: 2026-03-27
 related:
   - "[[meta/thp-video-generation-skill]]"
   - "[[00-architecture]]"
+  - "[[reference/video-ai-orchestrator-decision]]"
+  - "[[reference/video-ai-upper-layers-mastra-openclaw]]"
+  - "[[02-video-ai-roadmap]]"
   - "[[reference/video-lifecycle]]"
   - "[[reference/tools/README]]"
   - "[[explanation/video-ai-vision]]"
@@ -29,6 +32,8 @@ related:
 
 Index of project documentation resources.
 
+**Quick path — plan & statut** : après cet index, ouvre directement [**02-video-ai-roadmap**](02-video-ai-roadmap.md) (roadmap et état des lieux v1 → v2).
+
 **Linking**: Point to sections (anchors) of living docs; when changing file structure, prefer adding anchors and updating links over duplicating content. Example: do not create a separate quick-reference file (e.g. `video-ai-lifecycle-quick.md`); add an anchor or a short paragraph in the canonical reference page and link to it.
 
 ## Architecture & structure
@@ -37,6 +42,9 @@ Index of project documentation resources.
 
 ## Video-AI project
 
+- [**02-video-ai-roadmap**](./02-video-ai-roadmap.md) – **Roadmap & état des lieux** (v1 → v1.1 → pré-v2 → v2 ; livré vs à faire) — **à la racine KM/Docs**, suite de `01-index`
+- [**video-ai-orchestrator-decision**](./reference/video-ai-orchestrator-decision.md) – **Décision orchestrateur** : Trigger.dev v4 (vs Inngest), spike Coolify
+- [**video-ai-upper-layers-mastra-openclaw**](./reference/video-ai-upper-layers-mastra-openclaw.md) – **Mastra + OpenClaw** au-dessus de Trigger (v2, HITL, poste auteur)
 - [**video-lifecycle**](./reference/video-lifecycle.md) – Canonical reference: role, lifecycle, where it lives (idea → preparation → components → scene → review → render → THP → feedback → iteration)
 - [**video-ai-vision**](./explanation/video-ai-vision.md) – Long-term vision, v1/v2/v3, pedagogy (explanation)
 - [**video-ai-preparation**](./video-ai-preparation/video-ai-preparation.md) – Preparation (formats, shortlist, pilot outline) – write before code

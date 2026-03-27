@@ -10,8 +10,9 @@ tags:
   - lifecycle
   - workflow
 created: 2026-03-12
-updated: 2026-03-20
+updated: 2026-03-25
 related:
+  - "[[02-video-ai-roadmap]]"
   - "[[explanation/video-ai-vision]]"
   - "[[runbooks/video-ai-development]]"
   - "[[runbooks/remotion]]"
@@ -25,7 +26,7 @@ Reference: full lifecycle of a course video from idea to production and exploita
 **When to read this / Not for**
 
 - **When to read this**: You need the exact sequence (idea → preparation → components → scene → …), where each step lives in the repo, or who does what.
-- **Not for**: Long-term "why" and v1/v2/v3 trajectory → see [video-ai-vision](explanation/video-ai-vision.md).
+- **Not for**: Long-term "why" and v1/v2/v3 trajectory → see [video-ai-vision](explanation/video-ai-vision.md). **Current plan status** (what is done vs next) → [02-video-ai-roadmap](../02-video-ai-roadmap.md).
 - **Not for (situation)**: If you're in the middle of debugging a specific Remotion error, go to the [Remotion runbook](runbooks/remotion.md) instead.
 
 **Canonical reference**: If in doubt, this page wins over any summary elsewhere. Other docs may summarize or show variants; this one is the canonical sequence. Links from other docs should point to this page or to sections (anchors) of living docs, not to removed files. When changing file structure, prefer adding anchors and updating links instead of duplicating sections. Example: do not create a separate quick-reference file (e.g. `video-ai-lifecycle-quick.md`); add an anchor or paragraph in this page and link to it.
@@ -99,6 +100,7 @@ In practice: **idea** and **script** are prepared in [video-ai-preparation](../v
 
 ## See also
 
+- [02-video-ai-roadmap](../02-video-ai-roadmap.md) – Roadmap and delivery status (single entry point).
 - [explanation/video-ai-vision](explanation/video-ai-vision.md) – Long-term vision and v1/v2/v3.
 - [runbooks/video-ai-development](runbooks/video-ai-development.md) – Day-to-day development workflow (section 02 links here for lifecycle).
 - [runbooks/remotion](runbooks/remotion.md) – Remotion usage and commands.

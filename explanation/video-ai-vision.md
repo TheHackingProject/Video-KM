@@ -11,15 +11,16 @@ tags:
   - pedagogy
   - ai
 created: 2026-03-12
-updated: 2026-03-12
+updated: 2026-03-25
 related:
+  - "[[02-video-ai-roadmap]]"
   - "[[reference/video-lifecycle]]"
   - "[[runbooks/video-ai-development]]"
 ---
 
 # Video-AI Vision
 
-Explanation: why Video-AI exists and where it is heading (long-term). This page explains the **why** and the **trajectory**; for the **what** and **how** (exact sequence, where it lives), see [video-lifecycle](reference/video-lifecycle.md).
+Explanation: why Video-AI exists and where it is heading (long-term). This page explains the **why** and the **trajectory**; for **where we are in the plan** (delivered vs next), see [video-ai-roadmap](../02-video-ai-roadmap.md); for the **what** and **how** (exact sequence, where it lives), see [video-lifecycle](../reference/video-lifecycle.md).
 
 ## Long-term vision (v1 → v2 → v3)
 
@@ -29,7 +30,7 @@ Explanation: why Video-AI exists and where it is heading (long-term). This page 
 
 ## Video lifecycle (summary)
 
-From idea to production and back: **idea** → **preparation** (formats, script) → **components** (remotion-lib) → **composition** → review → render → THP integration → feedback → iteration. Full detail: [reference/video-lifecycle](reference/video-lifecycle.md).
+From idea to production and back: **idea** → **preparation** (formats, script) → **components** (remotion-lib) → **composition** → review → render → THP integration → feedback → iteration. Full detail: [reference/video-lifecycle](../reference/video-lifecycle.md).
 
 ## Pedagogical positioning
 
@@ -42,9 +43,10 @@ Video-AI serves THP’s pedagogical goals: clear, consistent, and maintainable c
 3. Devs and content owners use that feedback to decide which videos to improve or regenerate.
 4. (Future) AI/skills and tooling help prioritize and draft improvements; humans review and ship.
 
-A dedicated runbook for the feedback loop and AI workflows will be added when those processes are in place (see [runbooks/video-ai-development](runbooks/video-ai-development.md) section 05).
+A dedicated runbook for the feedback loop and AI workflows will be added when those processes are in place (see [runbooks/video-ai-development](../runbooks/video-ai-development.md) section 05).
 
 ## See also
 
-- [reference/video-lifecycle](reference/video-lifecycle.md) – Full video lifecycle (steps, roles, where in repo); canonical reference for what and how.
-- [runbooks/video-ai-development](runbooks/video-ai-development.md) – How to develop and evolve Video-AI day to day.
+- [02-video-ai-roadmap](../02-video-ai-roadmap.md) – Roadmap and current status (v1, v1.1, pre-v2, v2).
+- [reference/video-lifecycle](../reference/video-lifecycle.md) – Full video lifecycle (steps, roles, where in repo); canonical reference for what and how.
+- [runbooks/video-ai-development](../runbooks/video-ai-development.md) – How to develop and evolve Video-AI day to day.
