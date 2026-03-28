@@ -11,7 +11,7 @@ tags:
   - v1
   - v2
 created: 2026-03-25
-updated: 2026-03-30
+updated: 2026-03-31
 related:
   - "[[01-index]]"
   - "[[reference/video-ai-orchestrator-decision]]"
@@ -70,6 +70,8 @@ Un runbook ou un POC peut être **niveau 1–2 livré** alors que le **niveau 3*
 | [remotion](./runbooks/remotion.md) · [api](./runbooks/api.md) · [frontend](./runbooks/frontend.md) · [postgres-local](./runbooks/postgres-local.md) | Procédures par couche. |
 | [deploy-selfhost-api-frontend](./runbooks/deploy-selfhost-api-frontend.md) | Docker / Coolify / VPS. |
 | [soul-recherche-visuelle](./research/soul-recherche-visuelle.md) · [git-github-vulgarisation-visuelle](./research/git-github-vulgarisation-visuelle.md) | Recherche visuelle / vulgarisation. |
+| [solarpunk-theme-decisions](./reference/solarpunk-theme-decisions.md) · [thp-solarpunk-visual-checklist](./Templates/thp-solarpunk-visual-checklist.md) | **DA THP** normative + QA visuelle avant merge. |
+| *À créer* `reference/da-thp-synthese.md` | **Synthèse DA 1 page** (3 règles + liens) — voir [§ DA → étalon → Trigger → Mastra](#da-etalon-orchestration-ia). |
 
 ---
 
@@ -87,9 +89,28 @@ Un runbook ou un POC peut être **niveau 1–2 livré** alors que le **niveau 3*
 
 ---
 
+## Direction artistique → étalon → Trigger → Mastra (ordre recommandé 2026) {#da-etalon-orchestration-ia}
+
+**Constat** : le repo a déjà **runbooks, skills, templates, décisions Solarpunk** et un IDE (Cursor) pour exécuter. **Trigger** sert surtout les **workflows longs** (checkpoint / resume, retries, orchestration de rendu) ; **Mastra** apporte surtout **mémoire et orchestration agentique** dans une étape de pipeline — **ni l’un ni l’autre ne règlent une DA floue**. Sans cadre visuel clair, ils **industrialisent** ou **amplifient** plutôt qu’ils ne corrigent le style.
+
+**Ordre net** (à respecter avant d’accélérer la prod « à grande échelle ») :
+
+| Étape | Cible | Rôle |
+|-------|--------|------|
+| **A — Cadre DA** | **Synthèse ultra courte** (~1 page) : **3 règles non négociables** (ex. scène dominante, héros visuel, rythme entrée / hold / sortie) + **liens** vers les sources canoniques — **sans** recopier les longs documents. Références existantes : [solarpunk-theme-decisions](./reference/solarpunk-theme-decisions.md), [Templates/pilot-outline](./Templates/pilot-outline.md), [checklist Solarpunk](./Templates/thp-solarpunk-visual-checklist.md), skill [thp-video-generation](../../packages/skills/thp-video-generation/SKILL.md), [Soul — recherche visuelle](./research/soul-recherche-visuelle.md). **Document cible versionné** (à créer quand prêt) : `KM/Docs/reference/da-thp-synthese.md`. |
+| **B — Étalon** | **Un clip de référence** Remotion qui **matérialise** la cible visuelle (pas forcément un nouvel épisode de série ; peut rafraîchir un pilote existant). Objectif : **point de comparaison** pour toute la série, pas seulement « enchaîner les clips ». |
+| **C — Trigger** | **Après A + B** : fiabiliser **exécution, rendu, répétabilité** ([décision orchestrateur](./reference/video-ai-orchestrator-decision.md), [inventaire render pipeline](./reference/trigger-prepare-render-fields-inventory.md)). Si A + B sont insuffisants, Trigger peut **accélérer des rendus encore faibles** visuellement. |
+| **D — Mastra** | **Après** un cycle **contenu → rendu → feedback** défendable : assistance, suggestions, mémoire — [couches supérieures](./reference/video-ai-upper-layers-mastra-openclaw.md). **Accélérateur**, pas arbitre de goût. |
+
+**Outil d’exécution** : **Cursor** (et la chaîne doc existante) reste le levier principal pour A et B ; Trigger / Mastra viennent **ensuite**.
+
+**Lecture conjointe** avec le tableau **Ordre de priorité global** ci‑dessous : si la **DA n’est pas cadrée** (A + B), interpréter les lignes **série 01** et **pré‑v2 / Trigger** avec prudence — l’**industrialisation** ne remplace pas l’**intention visuelle**.
+
+---
+
 ## Ordre de priorité global (ce qu’on fait avant quoi)
 
-*Ordre validé pour enchaîner sans sur-ingénierie : rendu et données feedback avant IA lourde.*
+*Ordre validé pour enchaîner sans sur-ingénierie : rendu et données feedback avant IA lourde. **Méta-ordre DA / étalon** : voir [§ précédent](#da-etalon-orchestration-ia) — ne pas utiliser Trigger ou Mastra pour « réparer » une DA non figée.*
 
 | # | Priorité | Pourquoi |
 |---|----------|----------|
@@ -130,6 +151,11 @@ flowchart TB
 ---
 
 ## v1 — état détaillé (checklist dev)
+
+### Direction artistique & clip étalon (gageure visuelle)
+
+- [ ] **DA THP — synthèse** (~1 page, 3 règles non négociables + liens vers sources canoniques) — document cible `KM/Docs/reference/da-thp-synthese.md` ; cadre : [§ DA → étalon → Trigger → Mastra](#da-etalon-orchestration-ia).
+- [ ] **Clip étalon** : une composition Remotion (ou pilote rafraîchi) qui sert de **référence visuelle** pour le reste de la série.
 
 ### Monorepo, tooling, déploiement doc
 
