@@ -11,7 +11,7 @@ tags:
   - v1
   - v2
 created: 2026-03-25
-updated: 2026-03-30
+updated: 2026-03-27
 related:
   - "[[01-index]]"
   - "[[reference/video-ai-orchestrator-decision]]"
@@ -175,7 +175,7 @@ Aligné sur [serie-01-git-github](./video-ai-preparation/serie-01-git-github.md)
 | 2 | Git vs GitHub | [x] `pilot-02-git-vs-github-outline.md` | [x] `Pilot02GitVsGithub` | `Pilot02GitVsGithub.tsx` |
 | 3 | Commit | [x] `pilot-03-commit-outline.md` | [x] `Pilot03Commit` | `Pilot03Commit.tsx` |
 | 4 | Branch | [x] `pilot-04-branch-outline.md` | [x] `Pilot04Branch` | `Pilot04Branch.tsx` |
-| 5 | Merge | [ ] | [ ] | *à créer* |
+| 5 | Merge | [x] `pilot-05-merge-outline.md` | [x] `Pilot05Merge` | `serie-01/Pilot05Merge.tsx`, `pilot05-content.ts` |
 | 6 | Pull request (+ review) | [ ] | [ ] | *à créer* |
 | 7 | Fork | [ ] | [ ] | *à créer* |
 | 8 | git diff (optionnel) | [ ] | [ ] | *à créer* |

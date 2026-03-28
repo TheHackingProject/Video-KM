@@ -88,7 +88,7 @@ bun run dev
 # ou: bun run trigger:deploy
 ```
 
-Voir [video-ai-rendering](video-ai-rendering.md), [trigger-dev-coolify-spike](trigger-dev-coolify-spike.md), [infra/trigger-hosting](../../../infra/trigger-hosting/README.md), [video-ai-orchestrator-decision](../reference/video-ai-orchestrator-decision.md).
+Voir [video-ai-rendering](video-ai-rendering.md), [trigger-dev-coolify-spike](trigger-dev-coolify-spike.md), [infra/trigger-hosting](../../../infra/trigger-hosting/README.md), [video-ai-orchestrator-decision](../reference/video-ai-orchestrator-decision.md). **Champs utiles futurs** (hors contrat Zod minimal) : [trigger-prepare-render-fields-inventory](../reference/trigger-prepare-render-fields-inventory.md).
 
 ## Production (Docker)
 
