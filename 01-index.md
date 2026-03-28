@@ -9,7 +9,7 @@ tags:
   - runbooks
   - architecture
 created: 2026-03-10
-updated: 2026-03-30
+updated: 2026-03-27
 related:
   - "[[meta/thp-video-generation-skill]]"
   - "[[00-architecture]]"
@@ -51,6 +51,7 @@ Index of project documentation resources.
 - [**video-lifecycle**](./reference/video-lifecycle.md) – Canonical reference: role, lifecycle, where it lives (idea → preparation → components → scene → review → render → THP → feedback → iteration)
 - [**video-ai-vision**](./explanation/video-ai-vision.md) – Long-term vision, v1/v2/v3, pedagogy (explanation)
 - [**video-ai-preparation**](./video-ai-preparation/video-ai-preparation.md) – Preparation (formats, shortlist, pilot outline) – write before code
+- [**da-thp-synthese**](./reference/da-thp-synthese.md) – **DA THP** (charte courte) : règles opérationnelles, liens canoniques, politique Storybook, inventaire, clip étalon Remotion
 
 ## Research
 

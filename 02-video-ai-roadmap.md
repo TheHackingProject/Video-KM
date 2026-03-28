@@ -70,8 +70,7 @@ Un runbook ou un POC peut être **niveau 1–2 livré** alors que le **niveau 3*
 | [remotion](./runbooks/remotion.md) · [api](./runbooks/api.md) · [frontend](./runbooks/frontend.md) · [postgres-local](./runbooks/postgres-local.md) | Procédures par couche. |
 | [deploy-selfhost-api-frontend](./runbooks/deploy-selfhost-api-frontend.md) | Docker / Coolify / VPS. |
 | [soul-recherche-visuelle](./research/soul-recherche-visuelle.md) · [git-github-vulgarisation-visuelle](./research/git-github-vulgarisation-visuelle.md) | Recherche visuelle / vulgarisation. |
-| [solarpunk-theme-decisions](./reference/solarpunk-theme-decisions.md) · [thp-solarpunk-visual-checklist](./Templates/thp-solarpunk-visual-checklist.md) | **DA THP** normative + QA visuelle avant merge. |
-| *À créer* `reference/da-thp-synthese.md` | **Synthèse DA 1 page** (3 règles + liens) — voir [§ DA → étalon → Trigger → Mastra](#da-etalon-orchestration-ia). |
+| [solarpunk-theme-decisions](./reference/solarpunk-theme-decisions.md) · [thp-solarpunk-visual-checklist](./Templates/thp-solarpunk-visual-checklist.md) · [da-thp-synthese](./reference/da-thp-synthese.md) | **DA THP** normative + QA visuelle + **synthèse 1 page** (4 règles, liens, inventaire, étalon) — voir [§ DA → étalon → Trigger → Mastra](#da-etalon-orchestration-ia). |
 
 ---
 
@@ -97,8 +96,8 @@ Un runbook ou un POC peut être **niveau 1–2 livré** alors que le **niveau 3*
 
 | Étape | Cible | Rôle |
 |-------|--------|------|
-| **A — Cadre DA** | **Synthèse ultra courte** (~1 page) : **3 règles non négociables** (ex. scène dominante, héros visuel, rythme entrée / hold / sortie) + **liens** vers les sources canoniques — **sans** recopier les longs documents. Références existantes : [solarpunk-theme-decisions](./reference/solarpunk-theme-decisions.md), [Templates/pilot-outline](./Templates/pilot-outline.md), [checklist Solarpunk](./Templates/thp-solarpunk-visual-checklist.md), skill [thp-video-generation](../../packages/skills/thp-video-generation/SKILL.md), [Soul — recherche visuelle](./research/soul-recherche-visuelle.md). **Document cible versionné** (à créer quand prêt) : `KM/Docs/reference/da-thp-synthese.md`. |
-| **B — Étalon** | **Un clip de référence** Remotion qui **matérialise** la cible visuelle (pas forcément un nouvel épisode de série ; peut rafraîchir un pilote existant). Objectif : **point de comparaison** pour toute la série, pas seulement « enchaîner les clips ». |
+| **A — Cadre DA** | **Livré** : [da-thp-synthese](./reference/da-thp-synthese.md) (~1 page) — **4 règles non négociables** + liens canoniques + politique Storybook + inventaire — **sans** recopier les longs documents. Complète : [solarpunk-theme-decisions](./reference/solarpunk-theme-decisions.md), [Templates/pilot-outline](./Templates/pilot-outline.md), [checklist Solarpunk](./Templates/thp-solarpunk-visual-checklist.md), skill [thp-video-generation](../../packages/skills/thp-video-generation/SKILL.md), rules [remotion-best-practices](../../packages/skills/remotion-best-practices/rules/), [Soul — recherche visuelle](./research/soul-recherche-visuelle.md). |
+| **B — Étalon** | **Motion** : **DemoShowcaseSolarpunk** = étalon **unifié** (kit + patterns), **sans** faux cours pour tout caser — détail [da-thp-synthese — Reference clip](./reference/da-thp-synthese.md#reference-clip-current). **Pédagogique (B2)** : composition dédiée **seulement si** il faut valider hero/secondaire + rythme sur un **vrai** mini-cours (ex. Serie01). Objectif long terme : **point de comparaison** pour toute la série. |
 | **C — Trigger** | **Après A + B** : fiabiliser **exécution, rendu, répétabilité** ([décision orchestrateur](./reference/video-ai-orchestrator-decision.md), [inventaire render pipeline](./reference/trigger-prepare-render-fields-inventory.md)). Si A + B sont insuffisants, Trigger peut **accélérer des rendus encore faibles** visuellement. |
 | **D — Mastra** | **Après** un cycle **contenu → rendu → feedback** défendable : assistance, suggestions, mémoire — [couches supérieures](./reference/video-ai-upper-layers-mastra-openclaw.md). **Accélérateur**, pas arbitre de goût. |
 
@@ -154,8 +153,8 @@ flowchart TB
 
 ### Direction artistique & clip étalon (gageure visuelle)
 
-- [ ] **DA THP — synthèse** (~1 page, 3 règles non négociables + liens vers sources canoniques) — document cible `KM/Docs/reference/da-thp-synthese.md` ; cadre : [§ DA → étalon → Trigger → Mastra](#da-etalon-orchestration-ia).
-- [ ] **Clip étalon** : une composition Remotion (ou pilote rafraîchi) qui sert de **référence visuelle** pour le reste de la série.
+- [x] **DA THP — synthèse** (~1 page, **4** règles non négociables + liens canoniques + inventaire + étalon) — [da-thp-synthese](./reference/da-thp-synthese.md) ; cadre : [§ DA → étalon → Trigger → Mastra](#da-etalon-orchestration-ia).
+- [x] **Clip étalon** : référence actuelle = **DemoShowcaseSolarpunk** (composition `DemoShowcaseSolarpunk`) — voir [da-thp-synthese — Reference clip](./reference/da-thp-synthese.md#reference-clip-current) ; étalon **pédagogique** dédié (B2) si le showcase ne suffit pas à cristalliser le format cours.
 
 ### Monorepo, tooling, déploiement doc
 

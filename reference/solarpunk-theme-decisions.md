@@ -11,8 +11,9 @@ tags:
   - accessibility
   - video-ai
 created: 2026-03-19
-updated: 2026-03-23
+updated: 2026-03-27
 related:
+  - "[[reference/da-thp-synthese]]"
   - "[[reference/solarpunk-theme-reflection]]"
   - "[[reference/thp-tone-and-theme]]"
   - "[[runbooks/video-ai-development]]"
@@ -23,6 +24,8 @@ related:
 # Décisions thème THP Solarpunk
 
 Document **normatif** : décisions validées par l’équipe / produit. Pour le contexte et la recherche, voir [solarpunk-theme-reflection](solarpunk-theme-reflection.md).
+
+**Voir aussi** : [da-thp-synthese](da-thp-synthese.md) — synthèse opérationnelle une page (règles non négociables, liens, politique Storybook, clip étalon **DemoShowcaseSolarpunk**).
 
 ---
 
