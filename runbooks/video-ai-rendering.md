@@ -119,7 +119,7 @@ bunx remotion render MyComp out/smoke.mp4 --codec=h264 --overwrite
 
 ## 5. Orchestration Trigger.dev (référence code)
 
-- Tasks : `apps/api/src/trigger/` — pipeline `prepare` → `render` (stub ou réel) → `notify`.
+- Tasks : **`apps/trigger/src/trigger/`** (workspace / package tasks) — pipeline `prepare` → `render` (stub ou réel) → `notify`. L’API déclenche via `tasks.trigger` sans embarquer ce code — voir [api](api.md).
 - Déclenchement HTTP : `POST /jobs/render-pipeline` — voir [api](api.md).
 - Secrets : `TRIGGER_SECRET_KEY`, `TRIGGER_PROJECT_REF` — ne pas committer.
 

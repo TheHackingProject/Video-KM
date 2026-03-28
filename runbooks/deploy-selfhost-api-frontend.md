@@ -12,7 +12,7 @@ tags:
   - vps
   - docker
 created: 2026-03-20
-updated: 2026-03-23
+updated: 2026-03-27
 related:
   - "[[runbooks/api]]"
   - "[[runbooks/frontend]]"
@@ -37,6 +37,30 @@ Procedure for deploying the Video-AI monorepo on a VPS using **Coolify** (or sim
 | `remotion` | Remotion Studio (dev server) | `3000` |
 
 You can **disable or skip** a Coolify service (e.g. Storybook or Remotion) if you do not need it exposed; images are independent.
+
+## Deploy **only** the API (or only Storybook / only Remotion)
+
+Each app is a **separate Coolify application** — same Git repo and branch, **different** Dockerfile path. You never need to deploy frontend, Storybook, or Remotion to ship the API.
+
+**Pattern (identical for API, Storybook, Remotion)** :
+
+| Coolify field | Value |
+|---------------|--------|
+| **Base Directory** | **Empty** = clone root of the repo (not `apps/api`). Required so the Dockerfile can `COPY apps ./apps` and `COPY packages ./packages`. |
+| **Dockerfile** path (relative to that root) | API: `apps/api/Dockerfile` · Storybook: `apps/storybook/Dockerfile` · Remotion: `apps/remotion/Dockerfile` |
+| **Port** (container) | API: `8787` · Storybook / Frontend static: `80` · Remotion Studio: `3000` |
+
+**API-only checklist**
+
+1. Create **one** new Application → Git → repo `Video-AI`, branch (e.g. `Dev`).
+2. Build pack: **Dockerfile**.
+3. **Base Directory**: leave **blank** (same as you would for a Storybook-only or Remotion-only deploy).
+4. Dockerfile: `apps/api/Dockerfile`.
+5. Set **environment variables** (secrets): `DATABASE_URL`, `CORS_ORIGIN` (public frontend origin when it exists; for API-only testing without a browser UI you can point at a placeholder origin until the real app is deployed), `PORT` if not `8787`.
+6. Optional: `TRIGGER_SECRET_KEY`, **`TRIGGER_API_URL`** (self-hostable instance), `TRIGGER_PROJECT_REF` (for task deploy from dev machine) if you use `POST /jobs/render-pipeline` — see [api](api.md). The **Trigger.dev platform** is **not** this Dockerfile: deploy upstream Compose per [infra/trigger-hosting](../../../infra/trigger-hosting/README.md).
+7. Attach **PostgreSQL** on the same internal network (or use an external DB URL).
+
+Storybook-only and Remotion-only: same steps, only the Dockerfile path and port row change (see table above and § “Ports to expose”).
 
 ## Decisions (scope)
 
@@ -108,7 +132,7 @@ For **each** application:
 
 | Service | Variables |
 |---------|-----------|
-| **API** | `DATABASE_URL`, `PORT` (default `8787`), `CORS_ORIGIN` (public frontend origin), `NODE_ENV=production` |
+| **API** | `DATABASE_URL`, `PORT` (default `8787`), `CORS_ORIGIN` (public frontend origin), `NODE_ENV=production` ; optional `TRIGGER_SECRET_KEY`, **`TRIGGER_API_URL`** if enqueueing runs to a **self-hostable** Trigger instance |
 | **Frontend** | Build arg `VITE_API_BASE_URL` (public API URL) — set in Coolify build arguments |
 | **Storybook** | None required for static build |
 | **Remotion** | Optional; `NODE_ENV=development` in image for Studio |

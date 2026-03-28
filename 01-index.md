@@ -39,6 +39,8 @@ Index of project documentation resources.
 ## Architecture & structure
 
 - [**00-architecture**](./00-architecture.md) – Directory tree, locations, repository links
+- **Trigger.dev platform (upstream)** — reference doc at repo root: [`infra/trigger-hosting`](../../../infra/trigger-hosting/README.md) (Compose upstream, not `apps/trigger`)
+- **ADR** — [[adr/2026-03-27-trigger-workspace-and-upstream-platform]] (workspace tasks vs platform)
 
 ## Video-AI project
 

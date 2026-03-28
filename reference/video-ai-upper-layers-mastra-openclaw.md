@@ -159,18 +159,18 @@ export const feedbackPipelineTask = task({
 
 ### Placement monorepo
 
-Colocaliser **Mastra** sous `apps/api` (ex. `src/mastra/`) avec les **tasks** `src/trigger/` pour éviter appels réseau inutiles et friction Bun/workspaces.
+Colocaliser **Mastra** avec le **code des tasks** sous **`apps/trigger`** (ex. `apps/trigger/src/trigger/mastra/`) pour que le **worker Trigger** exécute l’agent sans hop HTTP vers l’API Hono. L’**API** (`apps/api`) reste un client `tasks.trigger` vers la plateforme.
 
 **Attention** : la doc Mastra + workspaces Bun évolue — valider la structure au moment du spike.
 
 ```text
-apps/api/src/
-  trigger/           # tasks Trigger.dev
-  mastra/
+apps/trigger/src/trigger/
+  renderPipeline.ts  # tasks existantes
+  mastra/            # v2 : agents / tools côté worker
     agents/
-    tools/           # ex. accès DB lecture contrôlée
-    index.ts
+    tools/
 packages/contracts/  # types partagés (pas de secrets)
+apps/api/src/          # Hono uniquement ; pas de src/trigger
 ```
 
 ### Secrets LLM
@@ -205,7 +205,7 @@ packages/contracts/  # types partagés (pas de secrets)
 - `DATABASE_URL` → local ou staging uniquement.
 - `API_BASE_URL` → localhost en dev, jamais URL prod pour actions d’écriture.
 - Outils : `read_file` large ; `write_file` limité aux zones repo autorisées ; **pas** `.env.production`.
-- **Revue obligatoire** avant commit généré, changement `trigger.config.ts`, nouveaux types dans `contracts`.
+- **Revue obligatoire** avant commit généré, changement **`apps/trigger/trigger.config.ts`**, nouveaux types dans `contracts`.
 - Risque **prompt injection** via contenu fichier : ne pas ingérer du feedback utilisateur brut sans garde-fous.
 
 ---

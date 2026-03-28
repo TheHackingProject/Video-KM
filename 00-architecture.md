@@ -11,7 +11,7 @@ tags:
   - turborepo
   - submodules
 created: 2026-03-10
-updated: 2026-03-23
+updated: 2026-03-27
 related:
   - "[[01-index]]"
   - "[[runbooks/monorepo]]"
@@ -34,7 +34,8 @@ Video-AI/
 ├── .cursor/
 │   └── environment.json       # Background Agents: install = submodule + bun + bootstrap (versioned)
 ├── apps/
-│   ├── api/               # Hono + Bun API (generic backend) + Dockerfile (self-host)
+│   ├── api/               # Hono + Bun API (generic backend) + Dockerfile — triggers Trigger runs via SDK (no task code here)
+│   ├── trigger/           # Trigger.dev workspace / package tasks (trigger.config.ts, src/trigger) — not the Trigger platform
 │   ├── frontend/          # Vite React app (generic frontend) + Dockerfile + nginx.conf
 │   ├── storybook/         # Storybook – component library docs + Dockerfile + nginx.conf
 │   └── remotion/          # Remotion Studio – video generation + Dockerfile
@@ -75,6 +76,8 @@ Video-AI/
 │       ├── Remotion/       # submodule – remotion-dev/skills (official Remotion agent pack)
 │       ├── remotion-best-practices/  # symlink → Remotion/skills/remotion
 │       └── thp-video-generation/  # THP Video-AI skill (versioned) — SKILL.md + references/
+├── infra/
+│   └── trigger-hosting/   # README: reference upstream Trigger.dev Compose (hosting/docker), Coolify notes
 ├── KM/
 │   ├── Docs/               # submodule – Project documentation
 │   │   ├── 00-architecture.md   # ← this file

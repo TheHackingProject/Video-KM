@@ -26,7 +26,7 @@ related:
 
 **Décision** : **Trigger.dev v4** comme **seul** orchestrateur du cœur du pipeline (pré-v2 → v2). Inngest reste documenté en recherche mais n’est **pas** retenu pour l’implémentation actuelle.
 
-**Périmètre** : monorepo Video-AI (Turborepo, Bun, Hono, Remotion, PostgreSQL), déploiement **self-host** visé (**Coolify** / VPS), POC puis boucle **feedback → re-render** (v2).
+**Périmètre** : monorepo Video-AI (Turborepo, Bun, Hono, Remotion, PostgreSQL), déploiement **self-hostable** (limitations documentées vs cloud managé) visé (**Coolify** / VPS), POC puis boucle **feedback → re-render** (v2).
 
 **Note méthodologique** : ce document consolide une **recherche externe** (Perplexity / Deep Research, mars 2026). Les points **factuels** (versions, limites exactes, tarifs) doivent être **recoupés** avec la documentation officielle Inngest / Trigger.dev **pendant le spike** ; seules la **structure de décision** et les **critères** font foi jusqu’à validation terrain.
 
@@ -34,7 +34,7 @@ related:
 
 ## Synthèse exécutive
 
-Pour un pipeline de rendu vidéo pédagogique (Remotion) en **self-host** sur VPS/Coolify, avec stack **Turborepo + Bun + Hono** et une boucle **feedback → re-render** en v2, **Trigger.dev v4** est retenu : support **Bun** documenté et maintenu, modèle d’exécution adapté aux **tâches long-running** (workers persistants, pas de timeout de step obligatoire), **self-host** Docker Compose / guides affichant une parité cloud/self-host claire (hors warm start, autoscaling, checkpoints CRIU), intégration **Turborepo** documentée, et trajectoire produit alignée **vidéo / traitement lourd**.
+Pour un pipeline de rendu vidéo pédagogique (Remotion) en déploiement **self-hostable** sur VPS/Coolify, avec stack **Turborepo + Bun + Hono** et une boucle **feedback → re-render** en v2, **Trigger.dev v4** est retenu : support **Bun** documenté et maintenu, modèle d’exécution adapté aux **tâches long-running** (workers persistants, pas de timeout de step obligatoire), stack **Compose upstream** avec **limitations documentées vs cloud** (warm start, autoscaling, checkpoints CRIU, etc.), intégration **Turborepo** documentée, et trajectoire produit alignée **vidéo / traitement lourd**.
 
 **Inngest** reste pertinent en **serverless-first** (HTTP par step, excellents free tiers cloud) ; pour notre profil, les frictions viennent du couple **long-running + self-host** : l’option **Connect** (WebSocket, steps longs) n’est **pas** considérée comme disponible en self-host au moment de la recherche — à revalider sur la doc Inngest au spike.
 
@@ -49,7 +49,7 @@ Pour un pipeline de rendu vidéo pédagogique (Remotion) en **self-host** sur VP
 | **Long-running / render** | Modèle serverless (step = invocation HTTP) ; timeouts step (plafond ~2h sur offres payantes cloud) ; **Connect** pour dépasser — **self-host Connect** à vérifier / souvent « en développement » selon recherche | Workers **Docker** persistants ; timeout optionnel (`maxDuration`) ; checkpoints CRIU **cloud only** |
 | **Retries / idempotence** | `step.run()` mémoïsé, retries / throttle configurables | Retry par task ; idempotence par design |
 | **Self-host** | `inngest start` en beta ; Compose Postgres + Redis ; dashboard sans auth native | Compose v4 ; registry / object storage intégrés (selon doc) ; Helm K8s |
-| **Monorepo Turborepo** | Pas d’exemple officiel Turborepo mis en avant | Guides Turborepo (tasks dans `apps/api` ou `packages/tasks`) |
+| **Monorepo Turborepo** | Pas d’exemple officiel Turborepo mis en avant | Guides Turborepo (tasks dans une app dédiée ou `packages/tasks`) — Video-AI : **`apps/trigger`** (package tasks), **`apps/api`** déclenche via SDK |
 | **Observabilité** | Dashboard, traces, replay | Dashboard, TRQL / métriques, replay payload, logs, OTel |
 | **Pricing cloud** | Free généreux en runs (ordre 50k/mois selon recherche) | Crédit / runs plus limités en free ; facturation **compute** à la seconde |
 | **Lock-in** | SDK npm | SDK OSS MIT ; self-host proche du cloud (sauf features listées) |
@@ -73,13 +73,13 @@ Le rendu Remotion peut durer **plusieurs minutes**. Inngest historique = **HTTP 
 
 ### 3. Self-host
 
-Recherche : Inngest self-host **beta**, dashboard **sans auth** native, Connect self-host **non aligné** avec le besoin long-running. Trigger.dev v4 : Compose **GA**, registry intégré, parité documentée hors warm starts / autoscaling / checkpoints CRIU.
+Recherche : Inngest self-host **beta**, dashboard **sans auth** native, Connect self-host **non aligné** avec le besoin long-running. Trigger.dev v4 : Compose **GA** upstream, registry intégré, **self-hostable** avec écarts documentés vs cloud (warm starts, autoscaling, checkpoints CRIU, etc.).
 
 **Verdict** : **Trigger.dev** retenu pour **maturité perçue** self-host + Coolify (voir annexe).
 
 ### 4. DX & Turborepo
 
-Patterns documentés Trigger.dev : tâches dans **`apps/api`** (ou `src/trigger`) **ou** package **`packages/tasks`**. CLI `init --runtime bun`. Inngest : `serve()` dans l’app ou process **connect** — intégration simple mais moins de **patterns Turborepo** officiels.
+Patterns documentés Trigger.dev : tâches dans une app dédiée ou **`packages/tasks`**. Video-AI : **`apps/trigger`** (workspace / package tasks) + **`apps/api`** comme client HTTP (`tasks.trigger`, types uniquement). CLI `init --runtime bun` ; **`login -a`** vers l’instance **self-hostable**. Inngest : `serve()` dans l’app ou process **connect** — intégration simple mais moins de **patterns Turborepo** officiels.
 
 ### 5. Observabilité
 
@@ -106,7 +106,7 @@ Les deux ont des **précédents** ; Trigger.dev cite explicitement **FFmpeg / vi
 4. **Turborepo** : patterns officiels + `init --runtime bun`.
 5. **Observabilité** : runs, replay, logs — adapté au debug pipeline.
 6. **Vidéo / FFMPEG** mentionné dans la doc produit.
-7. **SDK OSS** (MIT) et **self-host** avec parité fonctionnelle claire (hors features cloud listées).
+7. **SDK OSS** (MIT) et déploiement **self-hostable** avec limitations documentées vs cloud.
 8. **Workers sur infra** : pas uniquement « tout en HTTP public » pour chaque step long (selon modèle Trigger).
 9. **v2** : enchaînements type **batch / wait** entre tâches sans second orchestrateur.
 10. **Facturation cloud** : au **temps de compute** — cohérent avec rendus variables (si usage cloud un jour).
@@ -127,13 +127,12 @@ Les deux ont des **précédents** ; Trigger.dev cite explicitement **FFmpeg / vi
 ```text
 monorepo/
 ├── apps/
-│   ├── api/                    # Hono + Bun, Drizzle
-│   │   └── src/trigger/      # pattern simple : config + jobs (ou packages/tasks plus tard)
-│   │       ├── trigger.config.ts
-│   │       └── jobs/
-│   │           └── renderVideo.ts
-│   └── remotion/             # Studio + bundle
-└── (infra)                    # Compose Coolify / Trigger self-host + worker render dédié si besoin
+│   ├── api/                 # Hono + Bun, Drizzle ; déclenche runs (tasks.trigger), pas le code des tasks
+│   ├── trigger/             # workspace / package tasks : trigger.config.ts + src/trigger/*
+│   └── remotion/            # Studio + bundle
+├── infra/
+│   └── trigger-hosting/     # doc : référencer plateforme upstream (hosting/docker), pas copier Trigger.dev
+└── (Coolify / VPS)          # Compose upstream webapp + worker + registry — hors racine Video-AI comme build context
 ```
 
 **Flux POC cible** :
@@ -159,13 +158,13 @@ API Hono → trigger render task → queue Trigger.dev
   - Variables **registry** : `REGISTRY_HOST`, `TRIGGER_DOCKER_USERNAME`, `TRIGGER_DOCKER_PASSWORD` si besoin.
 - **Valider** : dashboard OK + **task stub** exécutée.
 
-### Étape 1 — Self-host Trigger.dev (local ou VPS)
+### Étape 1 — Plateforme self-hostable Trigger.dev (local ou VPS)
 
-Compose officiel v4, worker connecté, `trigger.dev@latest dev` avec **Bun** dans le monorepo.
+Compose officiel **upstream** (`hosting/docker`), worker connecté — voir [`infra/trigger-hosting`](../../../infra/trigger-hosting/README.md).
 
-### Étape 2 — Stub task dans `apps/api`
+### Étape 2 — Stub tasks dans **`apps/trigger`**
 
-`init --runtime bun`, task `render-video` (log + sleep), déclenchement **POST** Hono `/jobs/render`, run visible dans le dashboard.
+`init --runtime bun`, tasks pipeline (stub), **`trigger dev` / `deploy`** depuis **`apps/trigger`** avec **`login -a`** vers l’instance ; déclenchement **POST** Hono `/jobs/render-pipeline`, run visible dans le dashboard.
 
 ### Étape 3 — Spike **render** Remotion dans le worker (critique)
 
@@ -211,7 +210,7 @@ Logs structurés, webhook fin de render, **replay** dashboard avec payload modif
 1. ~~Rédiger [`video-ai-rendering.md`](../runbooks/video-ai-rendering.md)~~ — **fait** ; itérer après choix runtime final.
 2. ~~Mettre à jour [`02-video-ai-roadmap`](../02-video-ai-roadmap.md)~~ — **fait** (pré-v2 + POC stub). Poursuivre quand render réel + Coolify ops seront validés.
 3. Runbook spike : [`trigger-dev-coolify-spike.md`](../runbooks/trigger-dev-coolify-spike.md) — **fait** (procédure) ; **exécution** infra sur VPS restante.
-4. Promouvoir après spike validé une fiche **`reference/tools/trigger-dev.md`** (optionnel) ou ADR.
+4. Promouvoir après spike validé une fiche **`reference/tools/trigger-dev.md`** (optionnel) ou ADR — voir [[adr/2026-03-27-trigger-workspace-and-upstream-platform]].
 
 ---
 

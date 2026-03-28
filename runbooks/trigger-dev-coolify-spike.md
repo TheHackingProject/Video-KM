@@ -1,5 +1,5 @@
 ---
-title: "Runbook – Spike Trigger.dev v4 self-host sur Coolify"
+title: "Runbook – Spike Trigger.dev v4 self-hostable sur Coolify"
 type: runbook
 diataxis: how-to
 status: published
@@ -20,18 +20,26 @@ related:
 
 # Runbook – Spike Trigger.dev v4 + Coolify
 
-Objectif : déployer **Trigger.dev v4** en **self-host** sur une instance **Coolify** (ou équivalent Docker), puis valider qu’une **task** s’exécute (stub), **avant** d’y brancher le render Remotion lourd.
+Objectif : déployer la **plateforme** Trigger.dev v4 (**self-hostable**, avec **limitations documentées vs cloud managé**) sur une instance **Coolify** (ou équivalent Docker), puis valider qu’une **task** s’exécute (stub), **avant** d’y brancher le render Remotion lourd.
+
+**Vocabulaire** :
+
+- **Plateforme** (webapp, supervisor, registry, DB, Compose) = **repo upstream** [`trigger.dev/hosting/docker`](https://github.com/triggerdotdev/trigger.dev) — **pas** le dossier `apps/trigger` du monorepo.
+- **`apps/trigger`** = **workspace / package tasks** uniquement (code des tasks + `trigger.config.ts` + CLI `dev` / `deploy`).
 
 **Décision produit** : orchestrateur **Trigger.dev v4** — [video-ai-orchestrator-decision](../reference/video-ai-orchestrator-decision.md).  
+**Référence clone / SHA / checklist validation** : [`infra/trigger-hosting`](../../../infra/trigger-hosting/README.md).  
 **Détail pas à pas spike** (étape 0 Coolify) : [même doc § Plan de spike](../reference/video-ai-orchestrator-decision.md#plan-de-spike-incl-coolify).
 
 ---
 
 ## Prérequis
 
-- Compte / projet Trigger.dev (cloud ou self-host) et variables `TRIGGER_SECRET_KEY`, `TRIGGER_PROJECT_REF` pour `apps/api`.
+- Instance **self-hostable** Trigger v4 (Compose upstream) accessible (URL webapp) **ou** projet cloud si spike temporaire — la cible Video-AI reste **self-hostable** avec limitations vs cloud.
+- Variables pour **l’API** Video-AI : `TRIGGER_SECRET_KEY`, **`TRIGGER_API_URL`** (URL du webapp Trigger), et pour le **workspace tasks** : `TRIGGER_PROJECT_REF` dans `apps/trigger`.
 - Coolify avec accès Docker sur le VPS.
 - Repo Video-AI ; pour le dev local : **Node.js** pour la CLI `npx trigger.dev@latest` (la CLI n’est pas officiellement sur Bun — voir [guide Bun Trigger](https://trigger.dev/docs/guides/frameworks/bun)).
+- CLI : toujours **`login -a` / `--api-url`** vers **votre** instance pour éviter le cloud par défaut — [doc self-host Docker § CLI](https://trigger.dev/docs/self-hosting/docker#cli-usage).
 
 ---
 
@@ -39,14 +47,14 @@ Objectif : déployer **Trigger.dev v4** en **self-host** sur une instance **Cool
 
 1. Dans Coolify, ajouter le service **Trigger.dev** depuis le catalogue (template officiel ou communautaire à jour v4).
 2. Renseigner **PostgreSQL** : soit base managée par le template, soit **DATABASE_URL** vers votre instance existante (ex. même Postgres que l’API — isoler schémas / DB selon politique interne).
-3. Déployer ; noter l’URL du **dashboard** (souvent port `3000` ou équivalent derrière le proxy Coolify).
+3. Déployer ; noter l’URL du **dashboard** (souvent derrière le proxy Coolify ; port interne selon template — la doc upstream utilise souvent **8030** en local).
 
 ---
 
-## Option B — Docker Compose custom (v4)
+## Option B — Docker Compose upstream (v4)
 
-1. Utiliser le **Compose officiel** Trigger.dev v4 (documentation Trigger self-host) ou un template **Coolify-ready** (ex. communauté ; vérifier la date et la compatibilité v4).
-2. **Build context** : suivre la doc Trigger (souvent dépôt dédié ou stack fourni), **pas** la racine Video-AI seule, sauf si vous avez fusionné les stacks (avancé).
+1. Utiliser le **Compose officiel** dans **github.com/triggerdotdev/trigger.dev** sous `hosting/docker` ([documentation](https://trigger.dev/docs/self-hosting/docker)) — **build context = upstream**, pas la racine Video-AI.
+2. Ne **pas** fusionner les stacks dans le monorepo sans processus de mise à jour clair ; **référencer** la plateforme depuis [`infra/trigger-hosting`](../../../infra/trigger-hosting/README.md).
 
 ---
 
@@ -61,15 +69,16 @@ Coolify génère un **réseau Docker** interne. Le **supervisor** Trigger qui la
 
 ### 2. Registry d’images de tasks
 
-Trigger v4 **build** et **push** une image pour les tasks. En self-host, un **registry** local (ex. `:5000`) est souvent inclus.
+Trigger v4 **build** et **push** une image pour les tasks. En self-hostable, un **registry** local (ex. `:5000`) est souvent inclus.
 
 - Exposer le port **registry** dans Coolify si besoin.
 - Configurer `REGISTRY_HOST`, `TRIGGER_DOCKER_USERNAME`, `TRIGGER_DOCKER_PASSWORD` (ou équivalent) selon la doc self-host.
+- La machine qui exécute **`deploy`** doit pouvoir **`docker login`** vers ce registry.
 
 ### 3. Ports exposés
 
-- **Dashboard** web (ex. `3000`).
-- **Registry** si séparé (ex. `5000`).
+- **Webapp** / dashboard (selon template).
+- **Registry** si séparé.
 
 Vérifier les **healthchecks** et les **labels** proxy (HTTPS) Coolify.
 
@@ -77,9 +86,11 @@ Vérifier les **healthchecks** et les **labels** proxy (HTTPS) Coolify.
 
 ## Validation du spike
 
-1. Depuis la machine de dev (avec Node) : `npx trigger.dev@latest dev` pointant vers le projet `apps/api` (voir [api](api.md) § Trigger).
-2. Ou déclencher `POST /jobs/render-pipeline` sur l’API avec un body JSON valide.
-3. Dans le **dashboard** Trigger : run **réussi** pour `render-pipeline` (ou task hello world intermédiaire).
+1. Depuis la machine de dev (avec Node) : `npx trigger.dev@latest login -a <URL-instance>` puis **`bun run trigger:dev`** ou **`bun run trigger:deploy`** depuis **`apps/trigger`** (voir [api](api.md) § Trigger).
+2. Ou déclencher `POST /jobs/render-pipeline` sur l’API avec un body JSON valide (`TRIGGER_API_URL` + `TRIGGER_SECRET_KEY` configurés sur l’API).
+3. Dans le **dashboard** de **votre** instance : run **réussi** pour `render-pipeline` (ou task hello world intermédiaire).
+
+Checklist étendue : [`infra/trigger-hosting` § Validation](../../../infra/trigger-hosting/README.md#validation-checklist-real-environment).
 
 ---
 
@@ -101,3 +112,4 @@ Vérifier les **healthchecks** et les **labels** proxy (HTTPS) Coolify.
 
 - [deploy-selfhost-api-frontend](deploy-selfhost-api-frontend.md)
 - [video-ai-orchestrator-decision](../reference/video-ai-orchestrator-decision.md)
+- [infra/trigger-hosting](../../../infra/trigger-hosting/README.md)

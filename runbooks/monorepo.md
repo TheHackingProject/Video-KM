@@ -82,7 +82,8 @@ bun run bootstrap:agents
 |-------------|------------------------|------------------------------------------|
 | Bootstrap agents | `bun run bootstrap:agents` | Init `packages/skills/Remotion`, link `.cursor/skills/*` |
 | Build       | `bun run build`        | Build all apps/packages (Turbo)          |
-| Dev         | `bun run dev`          | Start dev servers (Turbo)                 |
+| Dev         | `bun run dev`          | Start dev servers (Turbo) — includes **`apps/trigger`** (`npx trigger.dev dev`) alongside api, frontend, remotion, storybook |
+| Trigger tasks only | `bun run trigger:dev` | Turbo `dev` **filter=trigger** only (workspace tasks CLI) |
 | Lint        | `bun run lint`        | Lint all packages (Turbo)                 |
 | Check-types | `bun run check-types`  | TypeScript check (Turbo)                  |
 | Format      | `bun run format`       | Prettier (migrate to Biome if needed)    |
@@ -93,6 +94,7 @@ bun run bootstrap:agents
 - **Develop API**: `bun run dev --filter=api`
 - **Develop frontend**: `bun run dev --filter=frontend`
 - **Develop Remotion**: `bun run dev --filter=remotion`
+- **Develop Trigger tasks only**: `bun run trigger:dev` (needs Node for `npx`; set `TRIGGER_*` env — see [api](api.md))
 - **Build one package**: `turbo build --filter=docs`
 - **Run all in dev**: `turbo dev`
 

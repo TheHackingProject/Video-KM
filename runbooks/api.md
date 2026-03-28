@@ -22,7 +22,7 @@ related:
 
 # Runbook: API (`apps/api`)
 
-Generic backend API for Video-AI platform.
+Generic backend API for Video-AI platform. It is **not** the Trigger.dev platform: task definitions live in **`apps/trigger`** (workspace / package tasks); the **self-hostable** platform is deployed from **upstream** Compose — see [`infra/trigger-hosting`](../../../infra/trigger-hosting/README.md).
 
 ## Endpoints (v1)
 
@@ -30,6 +30,8 @@ Generic backend API for Video-AI platform.
 - `GET /videos`
 - `GET /videos/:slug`
 - `POST /jobs/render-pipeline` — enqueue le pipeline Trigger.dev **prepare → render (stub) → notify** (`202` + `{ message, id }`). Retourne `503` si `TRIGGER_SECRET_KEY` est absent. Corps JSON : `compositionId` (optionnel, défaut `MyComp`), `correlationId` (optionnel) — schéma `@repo/contracts` `RenderPipelinePayloadSchema`.
+
+Implémentation : **`tasks.trigger()`** avec **import de types uniquement** depuis le workspace `trigger/render-pipeline` — **aucun import runtime** du code des tasks dans le bundle API (voir [Triggering](https://trigger.dev/docs/triggering)).
 
 ## Local run
 
@@ -48,7 +50,7 @@ bun run dev --filter=api
 bun run lint --filter=api
 bun run check-types --filter=api
 bun run build --filter=api
-bun run test --filter=api
+cd apps/api && bun test
 ```
 
 ## Error contract
@@ -64,21 +66,31 @@ bun run test --filter=api
 
 ### Trigger.dev (pré-v2 / POC orchestration)
 
-- `TRIGGER_SECRET_KEY` — requis pour `POST /jobs/render-pipeline` (secret projet, dashboard Trigger.dev).
-- `TRIGGER_PROJECT_REF` — référence projet (ex. `proj_xxx`) ; utilisée par `trigger.config.ts`.
-- `TRIGGER_API_URL` — optionnel (override endpoint API cloud / self-host).
+Cible : instance **self-hostable** avec **limitations documentées vs cloud managé** — pas de parité complète avec Trigger.dev Cloud.
 
-**Dev tasks** : depuis `apps/api`, avec Node disponible pour `npx` :
+- **`TRIGGER_SECRET_KEY`** — requis pour `POST /jobs/render-pipeline` (clé API projet depuis le dashboard de **votre** instance).
+- **`TRIGGER_API_URL`** — **recommandé** pour self-host : URL de base du webapp Trigger (ex. `https://trigger.example.com`). Sans cela, le SDK peut cibler le cloud par défaut.
+- **`TRIGGER_PROJECT_REF`** — utilisé par **`apps/trigger/trigger.config.ts`** pour `trigger dev` / `deploy` (pas embarqué comme fichier dans l’image API).
+
+**CI** (déploiement automatisé des tasks) : ex. `TRIGGER_ACCESS_TOKEN` + `TRIGGER_API_URL` — [GitHub Actions Trigger](https://trigger.dev/docs/github-actions).
+
+**Dev / deploy tasks** : avec **Node** pour `npx trigger.dev@latest` :
+
+- **Monorepo** : `bun run dev` (racine) lance aussi le **`dev`** du workspace **`trigger`** via Turbo (en parallèle des autres apps).
+- **Trigger seul** : `bun run trigger:dev` à la racine, ou `cd apps/trigger && bun run dev`.
 
 ```bash
-cd apps/api
-bun run trigger:dev
+cd apps/trigger
+npx trigger.dev@latest login -a http://localhost:8030
+bun run dev
+# ou: bun run trigger:deploy
 ```
 
-Voir [video-ai-rendering](video-ai-rendering.md), [trigger-dev-coolify-spike](trigger-dev-coolify-spike.md), [video-ai-orchestrator-decision](../reference/video-ai-orchestrator-decision.md).
+Voir [video-ai-rendering](video-ai-rendering.md), [trigger-dev-coolify-spike](trigger-dev-coolify-spike.md), [infra/trigger-hosting](../../../infra/trigger-hosting/README.md), [video-ai-orchestrator-decision](../reference/video-ai-orchestrator-decision.md).
 
 ## Production (Docker)
 
 - **Dockerfile**: [`apps/api/Dockerfile`](../../../apps/api/Dockerfile) (build from repo root).
 - **Image**: `oven/bun` multi-stage; runs bundled `dist/index.js` with Bun.
 - **Deploy procedure**: [runbooks/deploy-selfhost-api-frontend](deploy-selfhost-api-frontend.md).
+- Pour `POST /jobs/render-pipeline` contre une instance **self-hostable** : injecter **`TRIGGER_API_URL`** et **`TRIGGER_SECRET_KEY`** sur le service API Coolify.

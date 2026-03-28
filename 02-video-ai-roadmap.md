@@ -202,7 +202,7 @@ Aligné sur [serie-01-git-github](./video-ai-preparation/serie-01-git-github.md)
 - [x] **Runbook** [video-ai-rendering](./runbooks/video-ai-rendering.md) : rendu local + § runtime (worker / Lambda / CI)
 - [ ] **Design** rendu distant (choix final Lambda vs worker Docker) — à figer dans le runbook ou ADR après spike image
 - [x] **Doc spike Coolify** : [trigger-dev-coolify-spike](./runbooks/trigger-dev-coolify-spike.md) — **infra** self-host (réseau `DOCKER_RUNNER_NETWORKS`, registry) : *à valider sur VPS*
-- [x] **Code POC minimal** : `@trigger.dev/sdk` dans `apps/api`, tasks `prepare-render` → `render-video` (**stub**) → `notify-render`, `POST /jobs/render-pipeline` — voir [api](./runbooks/api.md) ; **render réel** (Chrome + FFmpeg) + prod Coolify : *suite*
+- [x] **Code POC minimal** : `@trigger.dev/sdk` + `tasks.trigger` dans `apps/api` ; tasks dans **`apps/trigger`** (`prepare-render` → `render-video` **stub** → `notify-render`), `POST /jobs/render-pipeline` — voir [api](./runbooks/api.md) ; **render réel** (Chrome + FFmpeg) + prod Coolify : *suite*
 - [x] **Décision orchestrateur** : [video-ai-orchestrator-decision](./reference/video-ai-orchestrator-decision.md) (**Trigger.dev v4**, pas Inngest)
 - [x] **Décision couches IA (doc)** : [video-ai-upper-layers-mastra-openclaw](./reference/video-ai-upper-layers-mastra-openclaw.md) — **impl Mastra/OpenClaw = v2**, pas pré-v2
 - [x] **Pas** de Mastra dans le POC orchestration (convention respectée dans le code livré)
