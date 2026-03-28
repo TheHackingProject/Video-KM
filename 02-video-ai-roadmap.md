@@ -112,7 +112,7 @@ flowchart TB
 - [x] Runbooks : [monorepo](./runbooks/monorepo.md), [bun-biome](./runbooks/bun-biome.md), [dependencies-submodules](./runbooks/dependencies-submodules.md)
 - [x] [deploy-selfhost-api-frontend](./runbooks/deploy-selfhost-api-frontend.md) (Dockerfiles `apps/*`)
 - [ ] **CI/CD sur le repo Video-AI racine** (pas de `.github/workflows` dédiés au monorepo ; workflows présents sous `KM/Course/*` uniquement)
-- [ ] Runbook **`KM/Docs/runbooks/video-ai-rendering.md`** (pipeline rendu : local → artefact → stockage ; mentionné dans [video-ai-development](./runbooks/video-ai-development.md))
+- [x] Runbook [video-ai-rendering](./runbooks/video-ai-rendering.md) (local → artefact → runtime worker / Trigger)
 
 ### Apps Remotion
 
@@ -199,13 +199,13 @@ Aligné sur [serie-01-git-github](./video-ai-preparation/serie-01-git-github.md)
 
 *Aligné sur* [workflow-tools-synthesis §3](./research/workflow-tools-synthesis.md#3-ordre-dintégration-recommandé) · orchestrateur **acté** : [video-ai-orchestrator-decision](./reference/video-ai-orchestrator-decision.md).
 
-- [ ] **Runbook** `video-ai-rendering.md` : rendu local discipliné (chemins, nommage, où va le fichier) — **avant** de figer le worker Trigger
-- [ ] **Design** rendu distant (Lambda, worker Docker dédié, etc.) — même runbook ou ADR
-- [ ] **Self-host Trigger sur Coolify** : service catalogue ou Compose ; post-déploiement **`DOCKER_RUNNER_NETWORKS`** ; registry (ports / creds) — détail [décision — plan de spike Coolify](./reference/video-ai-orchestrator-decision.md#plan-de-spike-incl-coolify)
-- [ ] **Deps + POC** : `event → prepare → render → notify` avec **Trigger.dev v4** (task stub puis render réel dans worker **Chrome + FFmpeg**)
+- [x] **Runbook** [video-ai-rendering](./runbooks/video-ai-rendering.md) : rendu local + § runtime (worker / Lambda / CI)
+- [ ] **Design** rendu distant (choix final Lambda vs worker Docker) — à figer dans le runbook ou ADR après spike image
+- [x] **Doc spike Coolify** : [trigger-dev-coolify-spike](./runbooks/trigger-dev-coolify-spike.md) — **infra** self-host (réseau `DOCKER_RUNNER_NETWORKS`, registry) : *à valider sur VPS*
+- [x] **Code POC minimal** : `@trigger.dev/sdk` dans `apps/api`, tasks `prepare-render` → `render-video` (**stub**) → `notify-render`, `POST /jobs/render-pipeline` — voir [api](./runbooks/api.md) ; **render réel** (Chrome + FFmpeg) + prod Coolify : *suite*
 - [x] **Décision orchestrateur** : [video-ai-orchestrator-decision](./reference/video-ai-orchestrator-decision.md) (**Trigger.dev v4**, pas Inngest)
 - [x] **Décision couches IA (doc)** : [video-ai-upper-layers-mastra-openclaw](./reference/video-ai-upper-layers-mastra-openclaw.md) — **impl Mastra/OpenClaw = v2**, pas pré-v2
-- [ ] **Pas** de Mastra dans le POC orchestration (agents **uniquement** dans tasks Trigger en v2)
+- [x] **Pas** de Mastra dans le POC orchestration (convention respectée dans le code livré)
 
 ---
 

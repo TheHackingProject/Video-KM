@@ -10,12 +10,14 @@ tags:
   - hono
   - bun
 created: 2026-03-20
-updated: 2026-03-23
+updated: 2026-03-27
 related:
   - "[[00-architecture]]"
   - "[[runbooks/monorepo]]"
   - "[[runbooks/postgres-local]]"
   - "[[runbooks/deploy-selfhost-api-frontend]]"
+  - "[[runbooks/video-ai-rendering]]"
+  - "[[reference/video-ai-orchestrator-decision]]"
 ---
 
 # Runbook: API (`apps/api`)
@@ -27,6 +29,7 @@ Generic backend API for Video-AI platform.
 - `GET /health`
 - `GET /videos`
 - `GET /videos/:slug`
+- `POST /jobs/render-pipeline` — enqueue le pipeline Trigger.dev **prepare → render (stub) → notify** (`202` + `{ message, id }`). Retourne `503` si `TRIGGER_SECRET_KEY` est absent. Corps JSON : `compositionId` (optionnel, défaut `MyComp`), `correlationId` (optionnel) — schéma `@repo/contracts` `RenderPipelinePayloadSchema`.
 
 ## Local run
 
@@ -58,6 +61,21 @@ bun run test --filter=api
 - `DATABASE_URL` (required)
 - `PORT` (default: `8787`)
 - `CORS_ORIGIN` (default: `http://localhost:5173`)
+
+### Trigger.dev (pré-v2 / POC orchestration)
+
+- `TRIGGER_SECRET_KEY` — requis pour `POST /jobs/render-pipeline` (secret projet, dashboard Trigger.dev).
+- `TRIGGER_PROJECT_REF` — référence projet (ex. `proj_xxx`) ; utilisée par `trigger.config.ts`.
+- `TRIGGER_API_URL` — optionnel (override endpoint API cloud / self-host).
+
+**Dev tasks** : depuis `apps/api`, avec Node disponible pour `npx` :
+
+```bash
+cd apps/api
+bun run trigger:dev
+```
+
+Voir [video-ai-rendering](video-ai-rendering.md), [trigger-dev-coolify-spike](trigger-dev-coolify-spike.md), [video-ai-orchestrator-decision](../reference/video-ai-orchestrator-decision.md).
 
 ## Production (Docker)
 

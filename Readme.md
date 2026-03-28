@@ -35,7 +35,7 @@ Project documentation and runbooks for Video-AI.
 - [**video-lifecycle**](reference/video-lifecycle.md) – Full lifecycle (idea → preparation → components → scene → review → render → feedback)
 - [**video-ai-preparation**](video-ai-preparation/video-ai-preparation.md) – Write before code (formats, shortlist, pilot outline)
 - [**Research**](research/) – Exploratory notes (not canonical). [**reference/tools**](reference/tools/README.md) – Stable tool reference
-- [**Runbooks**](runbooks/) – Procedures (monorepo, remotion, video-ai-development, [GitHub MCP projects](runbooks/github-mcp-projects.md), etc.)
+- [**Runbooks**](runbooks/) – Procedures (monorepo, remotion, video-ai-development, [GitHub MCP projects](runbooks/github-mcp-projects.md), [video-ai-rendering](runbooks/video-ai-rendering.md), [trigger-dev-coolify-spike](runbooks/trigger-dev-coolify-spike.md), etc.)
 
 Video-AI workflow (condensate): prepare (formats, script) in video-ai-preparation → build or reuse components (remotion-lib) → compose scene (apps/remotion) → review → render. Full reference: [video-lifecycle](reference/video-lifecycle.md).
 

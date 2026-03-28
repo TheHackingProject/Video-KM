@@ -260,7 +260,7 @@ Config.setConcurrency(4);
 ## Docker / self-host (Remotion Studio)
 
 - **Dockerfile**: [`apps/remotion/Dockerfile`](../../../apps/remotion/Dockerfile); build context = monorepo root.
-- **Runtime**: **Remotion Studio** (`remotionb studio --ipv4 --port 3000`) for internal preview — not the same as headless **render** workers (see future `video-ai-rendering` runbook if added).
+- **Runtime**: **Remotion Studio** (`remotionb studio --ipv4 --port 3000`) for internal preview — not the same as headless **render** workers; see [video-ai-rendering](video-ai-rendering.md).
 - **Build step in image**: `turbo run build --filter=remotion` runs `remotionb bundle` into `apps/remotion/build/` to validate the bundle before serving Studio.
 - **Resources**: allocate enough **RAM/CPU**; first Studio response can exceed 60s (webpack).
 - **Full stack deploy**: [runbooks/deploy-selfhost-api-frontend](deploy-selfhost-api-frontend.md).

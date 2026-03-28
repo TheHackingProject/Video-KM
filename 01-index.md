@@ -66,6 +66,8 @@ Exploratory notes, evaluations, and POCs. **Not canonical**; see [reference/tool
 - [**bun-biome**](./runbooks/bun-biome.md) – Bun, Biome (lint/format), CLI gotcha
 - [**storybook**](./runbooks/storybook.md) – Storybook, component library documentation
 - [**remotion**](./runbooks/remotion.md) – Remotion Studio, video generation, compositions
+- [**video-ai-rendering**](./runbooks/video-ai-rendering.md) – Render local, runtime worker, lien Trigger.dev
+- [**trigger-dev-coolify-spike**](./runbooks/trigger-dev-coolify-spike.md) – Spike self-host Trigger.dev v4 sur Coolify
 - [**video-ai-development**](./runbooks/video-ai-development.md) – Video-AI Development Runbook (purpose, workflow, conventions, quality)
 - [**api**](./runbooks/api.md) – Generic backend API (`apps/api`) with Hono/Bun
 - [**frontend**](./runbooks/frontend.md) – Generic frontend (`apps/frontend`) with Vite/React

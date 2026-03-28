@@ -208,9 +208,10 @@ Logs structurés, webhook fin de render, **replay** dashboard avec payload modif
 
 ## Prochaines étapes (repo)
 
-1. Rédiger [`video-ai-rendering.md`](../runbooks/video-ai-rendering.md) (runbook rendu local / chemins) — toujours prérequis métier.
-2. Mettre à jour [`02-video-ai-roadmap`](../02-video-ai-roadmap.md) (cases pré-v2 : décision + spike).
-3. Promouvoir après spike une fiche stable **`reference/tools/trigger-dev.md`** (si le kit `reference/tools` est la cible) ou ADR formel dans le dépôt si vous ajoutez un dossier `adr/`.
+1. ~~Rédiger [`video-ai-rendering.md`](../runbooks/video-ai-rendering.md)~~ — **fait** ; itérer après choix runtime final.
+2. ~~Mettre à jour [`02-video-ai-roadmap`](../02-video-ai-roadmap.md)~~ — **fait** (pré-v2 + POC stub). Poursuivre quand render réel + Coolify ops seront validés.
+3. Runbook spike : [`trigger-dev-coolify-spike.md`](../runbooks/trigger-dev-coolify-spike.md) — **fait** (procédure) ; **exécution** infra sur VPS restante.
+4. Promouvoir après spike validé une fiche **`reference/tools/trigger-dev.md`** (optionnel) ou ADR.
 
 ---
 
