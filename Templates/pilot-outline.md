@@ -9,7 +9,7 @@ tags:
   - thp
   - template
 created: 2026-03-12
-updated: 2026-03-27
+updated: 2026-03-28
 related:
   - "[[video-ai-preparation/video-ai-preparation]]"
   - "[[reference/solarpunk-theme-decisions]]"
@@ -185,6 +185,24 @@ From [Component shortlist](../video-ai-preparation/video-ai-preparation.md#compo
 
 ---
 
+## Static UI gate (before Remotion) {#static-ui-gate-before-remotion}
+
+**But** : éviter le piège « on anime du texte dans Remotion sans avoir figé les briques statiques ». La DA et la lisibilité passent par **sélection ou création** dans `packages/ui` (puis animation dans `remotion-lib` ou composition), pas par plus de `Sequence` texte.
+
+**Règle** : avant le premier commit ciblant `apps/remotion` ou `packages/remotion-lib` pour ce pilote, chaque scène a une ligne ci-dessous.
+
+| # scène | Besoin visuel (une phrase) | Source | Action |
+|--------|----------------------------|--------|--------|
+| 1 | [e.g. titre hero + sous-titre] | `@repo/ui` — [export] | Réutiliser — story existante : [fichier `.stories.tsx`] |
+| 2 | [e.g. graphe local → remote] | `FlowChart` / schéma / autre | Réutiliser **ou** nouveau bloc UI + story **ou** asset diagramme (voir runbook §03b 3bis) |
+| … | … | … | … |
+
+**Colonne « Action »** — valeurs attendues : `Réutiliser` (préciser export + story si disponible) \| `Créer` (nouveau fichier `packages/ui` + `*.stories.tsx` avant Remotion) \| `N/A —` + **raison** (ex. clip audio-only ; à valider en §07).
+
+**Contrôle qualité** : au moins **une** ligne ne doit **pas** être « texte seul animé » (pas seulement un rôle texte du matrix sans support carte/schéma). Si tout est texte : une ligne d’exception en bas + revue process.
+
+---
+
 ## Ready for Remotion when
 
 - [ ] Script and scene breakdown are filled in and reviewed.
@@ -194,6 +212,7 @@ From [Component shortlist](../video-ai-preparation/video-ai-preparation.md#compo
 - [ ] **Cues visuels / Soul** : fichier `KM/Docs/research/<sujet>-vulgarisation-visuelle.md` consulté ou mis à jour.
 - [ ] **Polish visuel** : items pertinents cochés ou explicitement reportés avec raison.
 - [ ] Text role mapping table is complete and matches canonical skill/matrix.
+- [ ] **Static UI gate** : tableau rempli (toutes les scènes) ; toute ligne `Créer` a un chemin `packages/ui` + story prévu ou déjà mergé avant la composition.
 - [ ] Component list matches P0 (and any P1) from the shortlist; gaps are documented.
 - [ ] Target duration and format are consistent with [Formats](../video-ai-preparation/video-ai-preparation.md#video-formats).
 - [ ] [Checklist visuelle THP Solarpunk](thp-solarpunk-visual-checklist.md) passée (ou équivalent documenté dans l’outline).

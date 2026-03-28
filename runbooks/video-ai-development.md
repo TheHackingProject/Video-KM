@@ -10,7 +10,7 @@ tags:
   - development
   - workflow
 created: 2026-03-12
-updated: 2026-03-27
+updated: 2026-03-28
 related:
   - "[[00-architecture]]"
   - "[[reference/video-lifecycle]]"
@@ -95,10 +95,13 @@ Do not duplicate full Remotion command reference here; link to the Remotion runb
    - **Si inchangé** : poursuivre les modifications prévues.  
    Détail et tableau des blocs obligatoires : [video-ai-preparation — Template sync before script edits](../video-ai-preparation/video-ai-preparation.md#template-sync-before-script-edits).
 
-2. **Composants statiques (UI + Storybook)**  
-   - Créer dans `packages/ui/src/` les composants **statiques** nécessaires (ex. TitleCard, SectionIntro, ConceptSlide, CodeBlockStatic ou briques réutilisables).  
+2. **Composants statiques (UI + Storybook) — sans cette étape, le clip reste « tout texte »**  
+   - **Anti-pattern** : ouvrir `apps/remotion` et empiler titres / paragraphes animés sans avoir **choisi** les briques visuelles (cartes, schémas, callouts, listes structurées, etc.). Les timings Remotion ne remplacent pas une **primitive statique** ou un **artefact schéma** ; le résultat reste plat pédagogiquement.  
+   - **Avant tout fichier sous `packages/remotion-lib` ou une composition** : remplir dans l’outline pilote la table **Static UI gate** ([Templates/pilot-outline.md](../Templates/pilot-outline.md#static-ui-gate-before-remotion)) — par scène : réutilisation (`@repo/ui` existant + story déjà là) **ou** nouveau composant **ou** exception une ligne (report §07).  
+   - **Format 1 (concept court)** : viser **au moins une scène** où le héros visuel n’est **pas** du texte seul (schéma, `FlowChart` / carte nœud, illustration structurée, etc.) ; si tout est texte, documenter l’écart pour revue process.  
+   - Créer dans `packages/ui/src/` les composants **statiques** manquants (ex. TitleCard, SectionIntro, ConceptSlide, CodeBlockStatic ou briques réutilisables).  
    - Pour Format 2 (code demo) avec **terminal** : prévoir un bloc code/terminal statique (ex. CodeBlockStatic avec style terminal) ; les steps « commande + sortie » sont gérés en scène par CodeAlongStep en remotion-lib.  
-   - Ajouter les stories colocated (`*.stories.tsx`) et valider dans Storybook (`bun run storybook` — **port 6006**).  
+   - Ajouter les stories colocated (`*.stories.tsx`) pour **chaque nouveau** fichier sous `packages/ui` et valider dans Storybook (`bun run storybook` — **port 6006**). Si **aucun** composant nouveau : noter dans l’outline la liste des exports `@repo/ui` réutilisés (preuve de sélection, pas un oubli).  
    - Règle : pas de `useCurrentFrame` ni de timing Remotion dans `packages/ui` ; voir [00-architecture](00-architecture.md#ui-vs-remotion).
 
 3. **Composants animés (remotion-lib)**  
