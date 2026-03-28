@@ -11,7 +11,7 @@ tags:
   - v1
   - v2
 created: 2026-03-25
-updated: 2026-03-29
+updated: 2026-03-30
 related:
   - "[[01-index]]"
   - "[[reference/video-ai-orchestrator-decision]]"
@@ -27,7 +27,7 @@ related:
 
 **Emplacement** : racine `KM/Docs`, fichier **`02-…`** — suite logique de [`01-index`](01-index.md) pour **où en est le plan** sans ouvrir l’index.
 
-**Objectif** : vue **dev** complète — **cases à cocher**, **suites de versions**, **ordre de priorité** aligné sur les décisions **Trigger.dev v4** ([orchestrateur](./reference/video-ai-orchestrator-decision.md)) et **Mastra / OpenClaw** ([couches supérieures](./reference/video-ai-upper-layers-mastra-openclaw.md), [mental model](./reference/video-ai-upper-layers-mastra-openclaw.md#mental-model-orchestrateur-agents)).  
+**Objectif** : vue **dev** complète — **cases à cocher**, **suites de versions**, **ordre de priorité** aligné sur les décisions **Trigger.dev v4** ([orchestrateur](./reference/video-ai-orchestrator-decision.md)) et **Mastra / OpenClaw** ([couches supérieures](./reference/video-ai-upper-layers-mastra-openclaw.md), [mental model](./reference/video-ai-upper-layers-mastra-openclaw.md#mental-model-orchestrateur-agents), [escalade agentique](./reference/video-ai-upper-layers-mastra-openclaw.md#progressive-agent-capabilities)).  
 **À mettre à jour** après chaque jalon : cocher/décocher, bump `updated`.
 
 ## Légende
@@ -62,7 +62,7 @@ Un runbook ou un POC peut être **niveau 1–2 livré** alors que le **niveau 3*
 | [video-lifecycle](./reference/video-lifecycle.md) | **Séquence** canonique + [§ Platform roadmap v1.1](./reference/video-lifecycle.md#platform-roadmap-v11-feedback). |
 | [workflow-tools-synthesis](./research/workflow-tools-synthesis.md) | **Inngest / Trigger.dev / Mastra / OpenClaw** — rôles, **ordre d’intégration** (§3). |
 | [video-ai-orchestrator-decision](./reference/video-ai-orchestrator-decision.md) | **Décision** : **Trigger.dev v4** vs Inngest + spike **Coolify** (réseau Docker, registry). |
-| [video-ai-upper-layers-mastra-openclaw](./reference/video-ai-upper-layers-mastra-openclaw.md) | **Mastra** (LLM dans tasks Trigger) + **OpenClaw** (poste auteur), HITL, ordre v1.1 → v2. **Mental model** Trigger ↔ agents ↔ Video-AI : [§ dédié](./reference/video-ai-upper-layers-mastra-openclaw.md#mental-model-orchestrateur-agents). |
+| [video-ai-upper-layers-mastra-openclaw](./reference/video-ai-upper-layers-mastra-openclaw.md) | **Mastra** (LLM dans tasks Trigger) + **OpenClaw** (poste auteur), HITL, ordre v1.1 → v2. **Mental model** : [§ dédié](./reference/video-ai-upper-layers-mastra-openclaw.md#mental-model-orchestrateur-agents). **Escalade des droits agent** (doctrine, pas avancement) : [§ 2026](./reference/video-ai-upper-layers-mastra-openclaw.md#progressive-agent-capabilities). |
 | [video-ai-preparation](./video-ai-preparation/video-ai-preparation.md) | Formats, template pilot, **avant** code. |
 | [serie-01-git-github](./video-ai-preparation/serie-01-git-github.md) | **Ordre** des clips série 01 + liens outlines. |
 | [video-ai-development](./runbooks/video-ai-development.md) | Workflow quotidien, Studio, qualité. |
@@ -81,6 +81,8 @@ Un runbook ou un POC peut être **niveau 1–2 livré** alors que le **niveau 3*
 | **Pré-v2** | Runbook rendu distant + **POC** orchestrateur | **Sans couche agentique** ; **Trigger est déjà utile sans IA** pour verrouiller les **workflows durables** (enchaînement d’étapes, retries, observabilité) — ce n’est pas « seulement » de la doc d’infra. [Décision Trigger v4](./reference/video-ai-orchestrator-decision.md) ; runbook rendering livré ; POC orchestration minimal (deps, tasks **stub** + API) ; **niveau 3** (rendu worker **validé hors stub**) **encore à finaliser**. |
 | **v2** | Boucle feedback → IA → re-render | **Règle** : **Mastra = étape** (`task` → agent), **jamais** parallèle. **OpenClaw** : poste auteur (pas prod / pas config Trigger — [§ C](./reference/video-ai-upper-layers-mastra-openclaw.md#c-openclaw--poste-auteur)). **Doc** : [couches supérieures](./reference/video-ai-upper-layers-mastra-openclaw.md) (HITL) ; **zéro impl** pipeline feedback→IA. |
 | **v3** | Régénération guidée | Vision uniquement. |
+
+**Doctrine agentique (pas un doublon de ce tableau)** : cette page = **avancement** (phases, priorités, cases). L’**escalade des droits** agent (read-only → diff → writer), le **refus du big-bang prod** Trigger + Mastra + écriture repo, et le palier **Trigger seul sans agent autonome** sont détaillés dans [couches supérieures — § Escalade des capacités agent (2026)](./reference/video-ai-upper-layers-mastra-openclaw.md#progressive-agent-capabilities) ; **ne pas fusionner** les deux documents — la roadmap **renvoie** vers la doctrine sans la recopier.
 
 ---
 
@@ -228,8 +230,11 @@ Aligné sur [serie-01-git-github](./video-ai-preparation/serie-01-git-github.md)
 
 ## v2 — suite prévue (boucle feedback + IA)
 
+*Impl agentique* : **paliers** read-only → diff → writer ; **pas** de big-bang prod — [§ Escalade des capacités agent (2026)](./reference/video-ai-upper-layers-mastra-openclaw.md#progressive-agent-capabilities).
+
 **Réf. architecture couches** : [video-ai-upper-layers-mastra-openclaw](./reference/video-ai-upper-layers-mastra-openclaw.md) — **Règle** : Mastra = **étape** (`task` Trigger → agent), **jamais** orchestrateur parallèle. OpenClaw poste auteur ; HITL ; POC en 5 étapes. **Mental model** : [§ dédié](./reference/video-ai-upper-layers-mastra-openclaw.md#mental-model-orchestrateur-agents).
 
+- [ ] Respecter l’**escalade des droits** agent ([doctrine § progressive](./reference/video-ai-upper-layers-mastra-openclaw.md#progressive-agent-capabilities)) — pas de livraison **big-bang** Trigger + Mastra + écriture repo
 - [ ] Ingestion feedback stable (prérequis v1.1)
 - [ ] Orchestrateur (celui choisi en pré-v2) : file d’événements « feedback reçu / vidéo à rafraîchir »
 - [ ] **Mastra** (ou équivalent) : **étape Trigger uniquement** — `task` → agent ; **pas** second orchestrateur ([synthèse](./research/workflow-tools-synthesis.md) · [couches supérieures](./reference/video-ai-upper-layers-mastra-openclaw.md))

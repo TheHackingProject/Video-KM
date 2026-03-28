@@ -12,7 +12,7 @@ tags:
   - architecture
   - hitl
 created: 2026-03-27
-updated: 2026-03-29
+updated: 2026-03-30
 related:
   - "[[reference/video-ai-orchestrator-decision]]"
   - "[[02-video-ai-roadmap]]"
@@ -81,6 +81,28 @@ Le **cœur** Video-AI, aujourd’hui : rendu Remotion, collecte de **feedback**,
 - Concevoir dès maintenant le **binôme** Trigger ↔ couche IA (même si l’IA arrive plus tard) : une task = frontière claire **input / output / retries** ; l’agent vit **à l’intérieur** de cette frontière.
 - **Faible épaisseur** au début : stub = OK pour valider infra Trigger ; prochain palier valeur = **feedback**, puis task d’analyse **read-only**, puis Mastra si la complexité le justifie.
 - Un **agent dev sur repo** (style Cursor / OpenClaw comme couloir) = **distinct** ou étape ultérieure — ne pas mélanger « pipeline vidéo » et « agent qui réécrit tout le front » sans garde-fous.
+
+<a id="progressive-agent-capabilities"></a>
+
+### Escalade des capacités agent (2026)
+
+**Doctrine d’implémentation** — à distinguer de la [roadmap](../02-video-ai-roadmap.md) (vue **d’avancement** : cette page porte la **règle d’escalade**, pas les cases à cocher).
+
+- **Validé en principe** : **Trigger.dev** comme ossature — workflows durables, retries, observabilité, jobs longue durée.
+- **Non validé en prod** : montée **d’un seul bloc** — Trigger + Mastra + **writer** sur le dépôt.
+- **Mastra tôt, sans ambiguïté** : Mastra peut être présent **tôt en design ou en dépendance**, **mais sans droits d’écriture repo** tant que le périmètre n’est pas prêt — évite la lecture « on branche déjà un writer » alors que la cible d’abord est read-only ou diff.
+
+**Échelle d’activation** :
+
+1. **Trigger seul (pas d’agent autonome)** — orchestration utile **sans** couche agentique : **stub ou rendu minimal réel** (les deux sont possibles à ce palier). Ne pas confondre « pas d’IA » avec « orchestration inutile ».
+2. **Mastra read-only** — analyse, scoring, propositions typées ; **pas** d’écriture repo.
+3. **Write-to-diff** — patchs, PR, branche dédiée.
+4. **Writer limité** — garde-fous, tests, review (humaine ou pipeline).
+5. **OpenClaw** — optionnel, atelier local, pas cœur prod — [§ C OpenClaw](#c-openclaw--poste-auteur).
+
+**Phrase clé** : la décision structurante est **quand l’agent obtient le droit d’agir sur le dépôt**, pas le choix « Trigger ou Mastra ».
+
+**Cohérence pré-v2** : le **palier 1** correspond au **pré-v2** actuel ; les **paliers 2+** s’alignent sur **v1.1** puis **v2**. Tout **spike** read-only hors feuille de route doit être **borné** explicitement en doc.
 
 ### En résumé
 
@@ -259,6 +281,11 @@ apps/api/src/          # Hono uniquement ; pas de src/trigger
 - Outils : `read_file` large ; `write_file` limité aux zones repo autorisées ; **pas** `.env.production`.
 - **Revue obligatoire** avant commit généré, changement **`apps/trigger/trigger.config.ts`**, nouveaux types dans `contracts`.
 - Risque **prompt injection** via contenu fichier : ne pas ingérer du feedback utilisateur brut sans garde-fous.
+
+#### Sécurité / permissions — rappel (poste auteur)
+
+- **Pas** d’accès direct à la **prod** depuis le poste auteur (OpenClaw).
+- **Pas** de modification des **workflows Trigger** — configuration, déploiement d’orchestration — depuis le poste auteur.
 
 ---
 
