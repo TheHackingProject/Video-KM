@@ -9,7 +9,7 @@ tags:
   - runbooks
   - architecture
 created: 2026-03-10
-updated: 2026-03-27
+updated: 2026-03-30
 related:
   - "[[meta/thp-video-generation-skill]]"
   - "[[00-architecture]]"
@@ -26,6 +26,7 @@ related:
   - "[[runbooks/bun-biome]]"
   - "[[runbooks/storybook]]"
   - "[[runbooks/remotion]]"
+  - "[[runbooks/testing-video-ai]]"
 ---
 
 # 01 – Documentation Index
@@ -72,6 +73,7 @@ Exploratory notes, evaluations, and POCs. **Not canonical**; see [reference/tool
 - [**trigger-dev-coolify-spike**](./runbooks/trigger-dev-coolify-spike.md) – Spike self-host Trigger.dev v4 sur Coolify
 - [**video-ai-development**](./runbooks/video-ai-development.md) – Video-AI Development Runbook (purpose, workflow, conventions, quality)
 - [**api**](./runbooks/api.md) – Generic backend API (`apps/api`) with Hono/Bun
+- [**testing-video-ai**](./runbooks/testing-video-ai.md) – Tests par palier (roadmap, escalade agentique, `bun run test`)
 - [**frontend**](./runbooks/frontend.md) – Generic frontend (`apps/frontend`) with Vite/React
 - [**postgres-local**](./runbooks/postgres-local.md) – Local PostgreSQL + Drizzle migrations/seed/reset
 - [**deploy-selfhost-api-frontend**](./runbooks/deploy-selfhost-api-frontend.md) – Coolify/VPS: Docker images per app (api, frontend, storybook, remotion), Postgres, build context, troubleshooting

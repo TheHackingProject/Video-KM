@@ -20,6 +20,7 @@ related:
   - "[[reference/video-lifecycle]]"
   - "[[research/workflow-tools-synthesis]]"
   - "[[runbooks/video-ai-development]]"
+  - "[[runbooks/testing-video-ai]]"
   - "[[video-ai-preparation/serie-01-git-github]]"
 ---
 
@@ -225,6 +226,7 @@ Aligné sur [serie-01-git-github](./video-ai-preparation/serie-01-git-github.md)
 - [x] **Décision orchestrateur** : [video-ai-orchestrator-decision](./reference/video-ai-orchestrator-decision.md) (**Trigger.dev v4**, pas Inngest)
 - [x] **Décision couches IA (doc)** : [video-ai-upper-layers-mastra-openclaw](./reference/video-ai-upper-layers-mastra-openclaw.md) — **impl Mastra/OpenClaw = v2**, pas pré-v2
 - [x] **Pas** de Mastra dans le POC orchestration (convention respectée dans le code livré)
+- [x] **Tests palier 1** : `bun run test` à la racine (Turbo) — contrats Zod, API `render-pipeline` (mock Trigger), ids tasks — [testing-video-ai](./runbooks/testing-video-ai.md)
 
 ---
 
