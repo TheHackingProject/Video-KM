@@ -10,7 +10,7 @@ tags:
   - coolify
   - docker
 created: 2026-03-27
-updated: 2026-03-27
+updated: 2026-03-28
 related:
   - "[[reference/video-ai-orchestrator-decision]]"
   - "[[runbooks/deploy-selfhost-api-frontend]]"
@@ -35,11 +35,11 @@ Objectif : déployer la **plateforme** Trigger.dev v4 (**self-hostable**, avec *
 
 ## Prérequis
 
-- Instance **self-hostable** Trigger v4 (Compose upstream) accessible (URL webapp) **ou** projet cloud si spike temporaire — la cible Video-AI reste **self-hostable** avec limitations vs cloud.
-- Variables pour **l’API** Video-AI : `TRIGGER_SECRET_KEY`, **`TRIGGER_API_URL`** (URL du webapp Trigger), et pour le **workspace tasks** : `TRIGGER_PROJECT_REF` dans `apps/trigger`.
+- Instance **self-hostable** Trigger v4 (Compose upstream) accessible — **obligatoire** pour Video-AI ; **pas** de projet Trigger.dev Cloud dans le périmètre produit.
+- Variables pour **l’API** Video-AI : **`TRIGGER_SECRET_KEY`** et **`TRIGGER_API_URL`** (tous deux **requis** pour `POST /jobs/render-pipeline`), et pour le **workspace tasks** : `TRIGGER_PROJECT_REF` dans `apps/trigger`.
 - Coolify avec accès Docker sur le VPS.
 - Repo Video-AI ; pour le dev local : **Node.js** pour la CLI `npx trigger.dev@latest` (la CLI n’est pas officiellement sur Bun — voir [guide Bun Trigger](https://trigger.dev/docs/guides/frameworks/bun)).
-- CLI : toujours **`login -a` / `--api-url`** vers **votre** instance pour éviter le cloud par défaut — [doc self-host Docker § CLI](https://trigger.dev/docs/self-hosting/docker#cli-usage).
+- CLI : toujours **`login -a` / `--api-url`** vers **notre** instance self-host — [doc self-host Docker § CLI](https://trigger.dev/docs/self-hosting/docker#cli-usage). Ne pas utiliser le cloud Trigger pour ce repo.
 
 ---
 

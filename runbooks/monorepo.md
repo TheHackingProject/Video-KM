@@ -94,7 +94,7 @@ bun run bootstrap:agents
 - **Develop API**: `bun run dev --filter=api`
 - **Develop frontend**: `bun run dev --filter=frontend`
 - **Develop Remotion**: `bun run dev --filter=remotion`
-- **Develop Trigger tasks only**: `bun run trigger:dev` (needs Node for `npx`; set `TRIGGER_*` env — see [api](api.md))
+- **Develop Trigger tasks only**: `bun run trigger:dev` (needs Node for `npx`; `login -a` toward **self-host** only; `TRIGGER_*` — see [api](api.md))
 - **Build one package**: `turbo build --filter=docs`
 - **Run all in dev**: `turbo dev`
 

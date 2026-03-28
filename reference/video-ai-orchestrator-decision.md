@@ -12,7 +12,7 @@ tags:
   - adr
   - coolify
 created: 2026-03-27
-updated: 2026-03-27
+updated: 2026-03-28
 related:
   - "[[reference/video-ai-upper-layers-mastra-openclaw]]"
   - "[[02-video-ai-roadmap]]"
@@ -97,6 +97,8 @@ Les deux ont des **précédents** ; Trigger.dev cite explicitement **FFmpeg / vi
 ---
 
 ## Décision : Trigger.dev v4
+
+**Politique produit (Video-AI)** : exécution **uniquement** sur **notre** plateforme Trigger **self-host** (Compose upstream). **Pas d’usage de Trigger.dev Cloud** ; l’API impose **`TRIGGER_API_URL`** + **`TRIGGER_SECRET_KEY`** pour les jobs — voir [runbooks/api](../runbooks/api.md).
 
 ### Justification (points clés)
 

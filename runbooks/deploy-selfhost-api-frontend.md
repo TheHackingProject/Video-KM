@@ -12,7 +12,7 @@ tags:
   - vps
   - docker
 created: 2026-03-20
-updated: 2026-03-27
+updated: 2026-03-28
 related:
   - "[[runbooks/api]]"
   - "[[runbooks/frontend]]"
@@ -57,7 +57,7 @@ Each app is a **separate Coolify application** — same Git repo and branch, **d
 3. **Base Directory**: leave **blank** (same as you would for a Storybook-only or Remotion-only deploy).
 4. Dockerfile: `apps/api/Dockerfile`.
 5. Set **environment variables** (secrets): `DATABASE_URL`, `CORS_ORIGIN` (public frontend origin when it exists; for API-only testing without a browser UI you can point at a placeholder origin until the real app is deployed), `PORT` if not `8787`.
-6. Optional: `TRIGGER_SECRET_KEY`, **`TRIGGER_API_URL`** (self-hostable instance), `TRIGGER_PROJECT_REF` (for task deploy from dev machine) if you use `POST /jobs/render-pipeline` — see [api](api.md). The **Trigger.dev platform** is **not** this Dockerfile: deploy upstream Compose per [infra/trigger-hosting](../../../infra/trigger-hosting/README.md).
+6. If you use `POST /jobs/render-pipeline`: **`TRIGGER_SECRET_KEY`** and **`TRIGGER_API_URL`** are **required** (sovereign self-host only — no Trigger Cloud); `TRIGGER_PROJECT_REF` for task deploy from dev/CI — see [api](api.md). The **Trigger.dev platform** is **not** this Dockerfile: deploy upstream Compose per [infra/trigger-hosting](../../../infra/trigger-hosting/README.md).
 7. Attach **PostgreSQL** on the same internal network (or use an external DB URL).
 
 Storybook-only and Remotion-only: same steps, only the Dockerfile path and port row change (see table above and § “Ports to expose”).
@@ -132,7 +132,7 @@ For **each** application:
 
 | Service | Variables |
 |---------|-----------|
-| **API** | `DATABASE_URL`, `PORT` (default `8787`), `CORS_ORIGIN` (public frontend origin), `NODE_ENV=production` ; optional `TRIGGER_SECRET_KEY`, **`TRIGGER_API_URL`** if enqueueing runs to a **self-hostable** Trigger instance |
+| **API** | `DATABASE_URL`, `PORT` (default `8787`), `CORS_ORIGIN` (public frontend origin), `NODE_ENV=production` ; for jobs endpoint: **`TRIGGER_SECRET_KEY`** + **`TRIGGER_API_URL`** (both required, self-host only) |
 | **Frontend** | Build arg `VITE_API_BASE_URL` (public API URL) — set in Coolify build arguments |
 | **Storybook** | None required for static build |
 | **Remotion** | Optional; `NODE_ENV=development` in image for Studio |

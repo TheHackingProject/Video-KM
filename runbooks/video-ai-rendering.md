@@ -11,7 +11,7 @@ tags:
   - video-ai
   - trigger-dev
 created: 2026-03-27
-updated: 2026-03-27
+updated: 2026-03-28
 related:
   - "[[runbooks/remotion]]"
   - "[[runbooks/deploy-selfhost-api-frontend]]"
@@ -22,7 +22,7 @@ related:
 
 # Runbook – Video-AI rendering
 
-Procédure canonique pour **produire un fichier vidéo** (ou une still) à partir des compositions Remotion du monorepo, **en local** d’abord, puis **où faire tourner le render** pour un pipeline orchestré (Trigger.dev, CI, cloud).
+Procédure canonique pour **produire un fichier vidéo** (ou une still) à partir des compositions Remotion du monorepo, **en local** d’abord, puis **où faire tourner le render** pour un pipeline orchestré (**Trigger.dev self-host**, CI, ou cible média type cloud ex. Lambda — **sans** Trigger.dev Cloud pour l’orchestration Video-AI).
 
 **Prérequis** : [remotion](remotion.md) (Studio, structure `apps/remotion`), [monorepo](monorepo.md) (`bun install` à la racine).
 
@@ -121,14 +121,14 @@ bunx remotion render MyComp out/smoke.mp4 --codec=h264 --overwrite
 
 - Tasks : **`apps/trigger/src/trigger/`** (workspace / package tasks) — pipeline `prepare` → `render` (stub ou réel) → `notify`. L’API déclenche via `tasks.trigger` sans embarquer ce code — voir [api](api.md).
 - Déclenchement HTTP : `POST /jobs/render-pipeline` — voir [api](api.md).
-- Secrets : `TRIGGER_SECRET_KEY`, `TRIGGER_PROJECT_REF` — ne pas committer.
+- Secrets : **`TRIGGER_SECRET_KEY`**, **`TRIGGER_API_URL`** (obligatoires côté API pour les jobs), `TRIGGER_PROJECT_REF` (workspace tasks) — ne pas committer ; **pas de Trigger.dev Cloud** (instance self-host uniquement).
 
 ---
 
 ## 6. Rollback / annulation
 
 - Render local : supprimer les fichiers sous `out/` ; pas d’effet de bord serveur.
-- Run Trigger : annulation depuis le **dashboard** Trigger.dev (run en cours).
+- Run Trigger : annulation depuis le **dashboard** de **notre** instance self-host (run en cours).
 
 ---
 

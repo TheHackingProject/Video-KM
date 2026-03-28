@@ -11,7 +11,7 @@ tags:
   - v1
   - v2
 created: 2026-03-25
-updated: 2026-03-27
+updated: 2026-03-28
 related:
   - "[[01-index]]"
   - "[[reference/video-ai-orchestrator-decision]]"
@@ -196,6 +196,8 @@ Aligné sur [serie-01-git-github](./video-ai-preparation/serie-01-git-github.md)
 ---
 
 ## Pré-v2 — suite prévue (rendu & orchestration)
+
+**Politique** : orchestration Trigger **souveraine** — instance **self-host** uniquement ; **pas** de Trigger.dev Cloud (voir [api](./runbooks/api.md), [infra/trigger-hosting](../../infra/trigger-hosting/README.md)).
 
 *Aligné sur* [workflow-tools-synthesis §3](./research/workflow-tools-synthesis.md#3-ordre-dintégration-recommandé) · orchestrateur **acté** : [video-ai-orchestrator-decision](./reference/video-ai-orchestrator-decision.md).
 
