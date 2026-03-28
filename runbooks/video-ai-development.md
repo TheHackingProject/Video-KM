@@ -10,7 +10,7 @@ tags:
   - development
   - workflow
 created: 2026-03-12
-updated: 2026-03-28
+updated: 2026-03-29
 related:
   - "[[00-architecture]]"
   - "[[reference/video-lifecycle]]"
@@ -40,7 +40,7 @@ For full scope and audience, see [reference/video-lifecycle](reference/video-lif
 
 ## 02 – Key context
 
-- **Video lifecycle**: From idea to prod and back: idea → script → composition → review → render → THP integration → feedback → iteration. Full detail (steps, who does what, where in repo): [reference/video-lifecycle](reference/video-lifecycle.md).
+- **Video lifecycle**: From idea to prod and back: idea → script → composition → review → render → THP integration → feedback → iteration. Full detail (steps, who does what, where in repo): [reference/video-lifecycle](reference/video-lifecycle.md). Modular visual map (author / execution / product): [Architecture and flows (visual index)](reference/video-lifecycle.md#architecture-and-flows-visual-index).
 - **Preparation (write before code)**: Formats and pilot outlines live in [video-ai-preparation](video-ai-preparation/video-ai-preparation.md).
 - **Monorepo**: Turborepo; apps live under `apps/` (e.g. `apps/remotion`), shared packages under `packages/` (e.g. `packages/remotion-lib`, `packages/ui`).
 - **Remotion**: Used to author video compositions. Compositions are registered in `apps/remotion/src/remotion/Root.tsx` and live under `apps/remotion/src/remotion/compositions/`. Rendered outputs are consumed by the THP app.
@@ -51,6 +51,8 @@ For full scope and audience, see [reference/video-lifecycle](reference/video-lif
 ## 03 – Development workflow
 
 **Goal**: Add or edit a THP course video.
+
+**Visual map (what, not how)** — Three intentions — author workflow, render execution, product cycle — live in [reference/video-lifecycle — Architecture and flows (visual index)](reference/video-lifecycle.md#architecture-and-flows-visual-index). This runbook (especially **§03b** below) is the **operational** source: commands, order of work, and checklists.
 
 Before building new components or compositions, define formats and component plans in [video-ai-preparation](video-ai-preparation/video-ai-preparation.md#video-formats) and [component shortlist](video-ai-preparation/video-ai-preparation.md#component-shortlist).
 

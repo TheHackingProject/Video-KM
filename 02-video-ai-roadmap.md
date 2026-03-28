@@ -11,7 +11,7 @@ tags:
   - v1
   - v2
 created: 2026-03-25
-updated: 2026-03-28
+updated: 2026-03-30
 related:
   - "[[01-index]]"
   - "[[reference/video-ai-orchestrator-decision]]"
@@ -60,7 +60,7 @@ Un runbook ou un POC peut être **niveau 1–2 livré** alors que le **niveau 3*
 | Document | Rôle |
 |----------|------|
 | [video-ai-vision](./explanation/video-ai-vision.md) | **Pourquoi** et trajectoire **v1 / v2 / v3**. |
-| [video-lifecycle](./reference/video-lifecycle.md) | **Séquence** canonique + [§ Platform roadmap v1.1](./reference/video-lifecycle.md#platform-roadmap-v11-feedback). |
+| [video-lifecycle](./reference/video-lifecycle.md) | **Séquence** canonique ; [index visuel modulaire](./reference/video-lifecycle.md#architecture-and-flows-visual-index) (auteur / exécution / produit) ; [§ Platform roadmap v1.1](./reference/video-lifecycle.md#platform-roadmap-v11-feedback). |
 | [workflow-tools-synthesis](./research/workflow-tools-synthesis.md) | **Inngest / Trigger.dev / Mastra / OpenClaw** — rôles, **ordre d’intégration** (§3). |
 | [video-ai-orchestrator-decision](./reference/video-ai-orchestrator-decision.md) | **Décision** : **Trigger.dev v4** vs Inngest + spike **Coolify** (réseau Docker, registry). |
 | [video-ai-upper-layers-mastra-openclaw](./reference/video-ai-upper-layers-mastra-openclaw.md) | **Mastra** (LLM dans tasks Trigger) + **OpenClaw** (poste auteur), HITL, ordre v1.1 → v2. **Mental model** : [§ dédié](./reference/video-ai-upper-layers-mastra-openclaw.md#mental-model-orchestrateur-agents). **Escalade des droits agent** (doctrine, pas avancement) : [§ 2026](./reference/video-ai-upper-layers-mastra-openclaw.md#progressive-agent-capabilities). |
@@ -115,6 +115,17 @@ flowchart TB
 ```
 
 *En parallèle du chemin critique* : **CI** monorepo (dès que possible) ; runbook **OpenClaw** (poste auteur local, jamais socle prod central).
+
+---
+
+## Documentation — flux visuel et navigation (2026) {#doc-flux-visuel-navigation-2026}
+
+**Progression** : **Mermaid global modulaire d’abord** — carte canonique dans [video-lifecycle — Architecture and flows (visual index)](./reference/video-lifecycle.md#architecture-and-flows-visual-index), renvois depuis les runbooks ([video-ai-development](./runbooks/video-ai-development.md)) — puis **front Vite / React Router** seulement si un besoin **réel** de navigation documentaire (parcours lifecycle, runbooks, états) apparaît. La doc Markdown + Mermaid reste la source de vérité ; une app de lecture éventuelle **ne la remplace pas**.
+
+- **Priorité 1 — Mermaid** : index à trois intentions (auteur / exécution / produit) ; alignement équipe et agents **sans** recopier les procédures opérationnelles.
+- **Priorité 2 — Vite (optionnel)** : après stabilisation du modèle visuel dans la doc ; périmètre **minimal** (navigation + pages de lecture) ; **pas** une réécriture du produit THP. Si une app existe : [video-lifecycle — index visuel](./reference/video-lifecycle.md#architecture-and-flows-visual-index) reste la **carte canonique** ; l’app = confort de navigation, pas nouvelle source de vérité sur le flux.
+- **Rôles distincts** : **Storybook** = composants UI réutilisables (`@repo/ui`) ; **Trigger** = orchestration de rendu ; ni l’un ni l’autre ne joue le rôle d’un portail documentaire global.
+- **Anti-pattern** : lancer **Mermaid + doc-app Vite** comme **un seul** chantier prioritaire (double charge, dette maintenance).
 
 ---
 

@@ -10,13 +10,14 @@ tags:
   - lifecycle
   - workflow
 created: 2026-03-12
-updated: 2026-03-25
+updated: 2026-03-31
 related:
   - "[[02-video-ai-roadmap]]"
   - "[[explanation/video-ai-vision]]"
   - "[[runbooks/video-ai-development]]"
   - "[[runbooks/remotion]]"
   - "[[00-architecture]]"
+  - "[[reference/trigger-prepare-render-fields-inventory]]"
 ---
 
 # Video Lifecycle
@@ -39,31 +40,59 @@ Reference: full lifecycle of a course video from idea to production and exploita
 - **Types of videos**: Concept explanations, code demos, recaps (web dev courses).
 - **Where used**: Videos are consumed by the THP learning platform; this repo focuses on authoring and rendering the assets.
 
-## Lifecycle overview
+## Architecture and flows (visual index) {#architecture-and-flows-visual-index}
+
+**Visual index only — not an operational runbook.** *How* to execute: [video-ai-development §03b](../runbooks/video-ai-development.md). *What* each layer does: [trigger inventory](trigger-prepare-render-fields-inventory.md), [roadmap](../02-video-ai-roadmap.md), [thp-video-generation skill](../../../packages/skills/thp-video-generation/SKILL.md), [pilot outline template](../Templates/pilot-outline.md).
+
+**Hard limit:** at most **three** edges between the subgraphs below — do not add a fourth without redesigning the diagram (anti-spaghetti). Cross-zone edge labels stay **neutral** (CLI, orchestrated pipeline, or future paths) so the sketch ages well.
 
 ```mermaid
-flowchart LR
-  subgraph ideation [Ideation]
-    I1[Idea]
-    I2[Script]
+flowchart TB
+  subgraph productCycle [Product cycle]
+    prodIdea[Idea]
+    prodOutline["Script and outline"]
+    prodIntegrate["THP integration"]
+    prodFeedback[Feedback]
+    prodIterate[Iteration]
+    prodIdea --> prodOutline
+    prodOutline --> prodIntegrate
+    prodIntegrate --> prodFeedback
+    prodFeedback --> prodIterate
+    prodIterate -.->|prioritize| prodIdea
   end
-  subgraph production [Production]
-    P1[Composition]
-    P2[Review]
-    P3[Render]
+
+  subgraph authorFlow [Author workflow]
+    authPrep["Prep pilot outline"]
+    authStatic["Static UI and Storybook"]
+    authLib[remotion-lib]
+    authComp["Composition and Studio"]
+    authReview["Local review PR"]
+    authPrep --> authStatic
+    authStatic --> authLib
+    authLib --> authComp
+    authComp --> authReview
   end
-  subgraph platform [Platform]
-    T1[THP integration]
-    T2[Feedback]
-    T3[Iteration]
+
+  subgraph execFlow [Render execution]
+    execRP[render-pipeline]
+    execP[prepare-render]
+    execR[render-video]
+    execArt[Artifact]
+    execRP --> execP
+    execP --> execR
+    execR --> execArt
   end
-  I1 --> I2 --> P1 --> P2 --> P3 --> T1 --> T2 --> T3
-  T3 -.->|"prioritize"| I2
+
+  prodOutline -.->|drives| authPrep
+  authComp -.->|hands off to render| execRP
+  execArt -.->|handoff| prodIntegrate
 ```
+
+*Secondary note — optional doc navigation app (e.g. Vite): this page stays the canonical map; any app is reading convenience only — [roadmap § doc / navigation](../02-video-ai-roadmap.md#doc-flux-visuel-navigation-2026).*
 
 ## Workflow summary
 
-In practice: **idea** and **script** are prepared in [video-ai-preparation](../video-ai-preparation/video-ai-preparation.md) (formats, shortlist, pilot outline). From the script you derive which **components** to build or reuse (`packages/remotion-lib`), then you assemble the **scene** in `apps/remotion`. After review and render, THP integration and feedback feed **iteration** back to script or composition. On each iteration that touches the script, **re-check** the canonical [pilot-outline template](../Templates/pilot-outline.md) and update the pilot copy so it does not drift from new checklist or metadata requirements.
+In practice: **idea** and **script** are prepared in [video-ai-preparation](../video-ai-preparation/video-ai-preparation.md) (formats, shortlist, pilot outline). From the script you derive which **static** pieces to reuse or add (`packages/ui`, Storybook), then **animated** blocks (`packages/remotion-lib`), then the **scene** in `apps/remotion`. After review and render (CLI, or orchestrated pipeline — see [visual index](#architecture-and-flows-visual-index) and [trigger inventory](trigger-prepare-render-fields-inventory.md)), THP integration and feedback feed **iteration** back to script or composition. On each iteration that touches the script, **re-check** the canonical [pilot-outline template](../Templates/pilot-outline.md) and update the pilot copy so it does not drift from new checklist or metadata requirements.
 
 ## Steps
 
@@ -93,10 +122,12 @@ In practice: **idea** and **script** are prepared in [video-ai-preparation](../v
 |-------|----------|--------|
 | Idea / Script / Format design | `KM/Docs/video-ai-preparation/` | [video-ai-preparation.md](../video-ai-preparation/video-ai-preparation.md) (formats, shortlist, pilot outline). Template: [Templates/pilot-outline.md](../Templates/pilot-outline.md); copy per pilot. Write before code. |
 | Script | Outside repo or in `KM/` (e.g. course content) | Scripts can live in THP/course docs or in a copy of the pilot-outline template (from `Templates/`) in video-ai-preparation or elsewhere. |
+| Static UI | `packages/ui/` · `apps/storybook/` | Reusable static components and Storybook (`bun run storybook`); no Remotion timing in `packages/ui`. |
 | Composition | `apps/remotion/src/remotion/compositions/` | One or more compositions per video/lesson; register in `Root.tsx`. |
 | Primitives/blocks | `packages/remotion-lib/src/` | Reusable building blocks used by compositions. |
 | Review | PRs, branch workflow | Same as rest of repo; branch per feature/video, PR with code + pedagogical check. |
-| Render | CLI today; future runbook `video-ai-rendering.md` | `remotion render` from apps/remotion; batch/ops TBD. |
+| Render orchestration | `apps/trigger/` | Durable render pipeline tasks — [trigger-prepare-render-fields-inventory](trigger-prepare-render-fields-inventory.md). |
+| Render | CLI and runbook | [video-ai-rendering.md](../runbooks/video-ai-rendering.md); `remotion render` from `apps/remotion`. |
 
 ## See also
 

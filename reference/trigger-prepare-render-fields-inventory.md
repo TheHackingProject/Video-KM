@@ -8,7 +8,7 @@ tags:
   - orchestration
   - contracts
 created: 2026-03-27
-updated: 2026-03-28
+updated: 2026-03-29
 related:
   - "[[runbooks/video-ai-rendering]]"
   - "[[runbooks/api]]"
@@ -107,6 +107,12 @@ Pour **chaque** nouvelle composition (pas seulement un pilote donné) :
 3. **Catalogue web** (si l’épisode est exposé) : `slug` + `compositionId` dans [`packages/db/src/seed.ts`](../../../packages/db/src/seed.ts) et [`sceneRegistry`](../../../apps/frontend/src/sceneRegistry.tsx).
 
 Exemples d’outlines : [pilot-05-merge-outline](../video-ai-preparation/pilot-05-merge-outline.md), [pilot-06-pull-request-outline](../video-ai-preparation/pilot-06-pull-request-outline.md).
+
+---
+
+## Voir aussi
+
+- [video-lifecycle — Architecture and flows (visual index)](video-lifecycle.md#architecture-and-flows-visual-index) — où cette orchestration se place dans le flux global (auteur / exécution / produit).
 
 ---
 
