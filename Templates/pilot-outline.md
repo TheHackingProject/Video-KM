@@ -9,7 +9,7 @@ tags:
   - thp
   - template
 created: 2026-03-12
-updated: 2026-03-20
+updated: 2026-03-27
 related:
   - "[[video-ai-preparation/video-ai-preparation]]"
   - "[[reference/solarpunk-theme-decisions]]"
@@ -24,6 +24,8 @@ related:
 Template for the first (and subsequent) pilot videos. **Copy or rename this file per pilot** (e.g. into `video-ai-preparation/pilot-01-http-intro-outline.md` or keep in a working folder). Fill it in with a real THP course extract **before** writing any Remotion composition. See [Formats](../video-ai-preparation/video-ai-preparation.md#video-formats) and [Component shortlist](../video-ai-preparation/video-ai-preparation.md#component-shortlist) for context.
 
 **Identité visuelle THP** : toutes les vidéos suivent le kit **Solarpunk dark** ([décisions](../reference/solarpunk-theme-decisions.md)). Avant livraison, parcourir [checklist visuelle Solarpunk](thp-solarpunk-visual-checklist.md).
+
+**Montée en gamme visuelle** : au-delà du texte animé, ce template impose une **intention schématique** (graphe + révélation + polish) pour les formats courts — voir [thp-video-generation skill](../../../packages/skills/thp-video-generation/SKILL.md) (*Schématiser l’idée*).
 
 ### Avec un agent Cursor (ou équivalent)
 
@@ -51,6 +53,17 @@ Pour que la procédure **remonte** et soit appliquée quand c’est pertinent :
 | **Target duration** | [e.g. 45 s \| 3 min] — from [Formats](../video-ai-preparation/video-ai-preparation.md#video-formats) |
 | **Source** | [THP module/lesson name or link to course content] |
 | **Paired video** | [If Code demo: link to Concept intro on same topic. If Concept intro: optional "follow-up" Code demo.] |
+
+---
+
+## Format 1 vs Format 2+ — graphe et storyboard
+
+| Règle | Détail |
+|-------|--------|
+| **Format 1** (concept court, typ. 30–60 s) | **Graphe conceptuel** + **Storyboard de révélation** ci-dessous sont **obligatoires** avant code Remotion pour l’idée principale (sauf exception documentée en §07). |
+| **Format 2+** (code demo guidé, long, multi-chapitres) | Remplir graphe + storyboard **si le sujet le justifie**. Sinon : sous chaque section concernée, une ligne **N/A —** + **justification en une phrase** (pas de checklist lourde sans gain visuel). |
+
+**Principe** : éviter l’« usine à cases » — peu d’items, **lisibles**, appliqués là où la valeur est claire.
 
 ---
 
@@ -92,6 +105,60 @@ One row per scene. Map each scene to a purpose and to components from [Component
 
 ---
 
+## Message visuel dominant et hero object (par scène)
+
+**Règle** : **une scène = un message visuel dominant.** Si la scène inclut un graphe, **le graphe porte le sens principal** — pas une illustration décorative d’une phrase.
+
+| # | Message visuel dominant (une phrase) | Hero (objet principal) | Secondaire (support, ex. titre, sous-texte) |
+|---|--------------------------------------|------------------------|---------------------------------------------|
+| 1 | [e.g. marque la leçon en titre glitch] | GlitchText titre | TextReveal sous-titre |
+| 2 | … | … | … |
+
+---
+
+## Graphe conceptuel (avant Remotion)
+
+*(Format 1 : **obligatoire**. Format 2+ : si pertinent ; sinon **N/A —** + justification.)*
+
+**Nœuds** (viser 3–7) : libellé court + forme ou icône envisagée.
+
+- [e.g. **Commit** — icône ▸]
+- …
+
+**Arêtes** (graphe orienté) :
+
+| Source | Cible | Relation (ex. sert à, ne doit jamais, dérive de) |
+|--------|-------|--------------------------------------------------|
+| [nœud A] | [nœud B] | [libellé] |
+
+---
+
+## Storyboard de révélation du schéma
+
+*(Format 1 : **obligatoire** lorsque le graphe porte la leçon. Format 2+ : N/A possible avec justification.)*
+
+Pour chaque beat visuel majeur du schéma : **quoi** apparaît **quand**, aligné sur la VO. Colonnes **Entrée / hold / sortie** optionnelles mais recommandées pour 1–2 beats clés (rythme premium).
+
+| Beat | Début (frame ou s) | Fin (frame ou s) | Élément révélé (nœud / trait / libellé flèche) | Lien VO (phrase ou timestamp script) | Entrée / hold / sortie (optionnel) |
+|------|--------------------|------------------|-----------------------------------------------|----------------------------------------|-------------------------------------|
+| 1 | | | | | |
+
+**Idées de polish** (réf. skill) : flèche en **deux temps** (trait puis libellé) ; **nœud actif** (bordure / scale / ombre) sync VO ; en fin de section, graphe qui **se replie ou décale** plutôt que cut brutal.
+
+---
+
+## Polish visuel (checklist courte)
+
+Cocher ce qui s’applique à ce pilote (pas besoin de tout remplir si la vidéo est minimaliste).
+
+- [ ] **Stagger** : décalage de quelques frames entre éléments d’un même groupe si la scène est dense.
+- [ ] **Élément actif** aligné sur la phrase VO (surbrillance, pulse léger, bordure — tokens `solarTheme`).
+- [ ] **Transition de section** : le schéma ne disparaît pas brutalement si un replis / slide est faisable.
+- [ ] **Respiration** : pour les beats critiques, durées **entrée → hold → sortie** notées (ici ou dans `*-content.ts`).
+- [ ] **Cartes nœud** : au plus **deux niveaux** d’information par carte (titre + sous-texte bref).
+
+---
+
 ## Cues visuels / Soul (vulgarisation)
 
 Avant ou en parallèle du script : consulter le fichier **research** du sujet (voir [Soul — recherche visuelle](../research/soul-recherche-visuelle.md)). Pour **chaque scène**, noter **1–3 bullets** : métaphore, prop, schéma prioritaire — ce qui doit être compris **sans** lire tout le texte.
@@ -121,7 +188,11 @@ From [Component shortlist](../video-ai-preparation/video-ai-preparation.md#compo
 ## Ready for Remotion when
 
 - [ ] Script and scene breakdown are filled in and reviewed.
-- [ ] **Cues visuels / Soul** : au moins une scène avec héros non-texte (schéma, terminal bref, prop) pour les formats courts ; fichier `KM/Docs/research/<sujet>-vulgarisation-visuelle.md` consulté ou mis à jour.
+- [ ] **Format 1** : **Graphe conceptuel** + **Storyboard de révélation** remplis (ou exception documentée pour §07). **Format 2+** : N/A justifié si sections non applicables.
+- [ ] **Message dominant + hero / secondaire** : une ligne par scène (ou justification si scène purement titre).
+- [ ] Au moins **une scène** où le **schéma (ou prop non-texte) est le héros** pour les formats courts — pas seulement « gros Typewriter + petit schéma ».
+- [ ] **Cues visuels / Soul** : fichier `KM/Docs/research/<sujet>-vulgarisation-visuelle.md` consulté ou mis à jour.
+- [ ] **Polish visuel** : items pertinents cochés ou explicitement reportés avec raison.
 - [ ] Text role mapping table is complete and matches canonical skill/matrix.
 - [ ] Component list matches P0 (and any P1) from the shortlist; gaps are documented.
 - [ ] Target duration and format are consistent with [Formats](../video-ai-preparation/video-ai-preparation.md#video-formats).

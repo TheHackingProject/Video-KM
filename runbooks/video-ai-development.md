@@ -10,7 +10,7 @@ tags:
   - development
   - workflow
 created: 2026-03-12
-updated: 2026-03-23
+updated: 2026-03-27
 related:
   - "[[00-architecture]]"
   - "[[reference/video-lifecycle]]"
@@ -84,12 +84,13 @@ Do not duplicate full Remotion command reference here; link to the Remotion runb
 1. **Préparation (write before code)**  
    - Définir ou réutiliser la série dans [video-ai-preparation](../video-ai-preparation/serie-01-git-github.md) (ou équivalent).  
    - Pour chaque vidéo : copier le [template pilot outline](../Templates/pilot-outline.md) dans `video-ai-preparation/`, remplir **métadonnées** (titre, format, durée, idée unique, **vidéo jumelle** si applicable), **script** (hook → concept → recap pour Format 1 ; intro → étapes → recap pour Format 2), **découpage de scènes** (durée + composants par scène), **composants requis**, checklist **Ready for Remotion** (y compris blocs agents — voir template).  
+   - **Schéma d’idée (template)** — **Format 1** : remplir **Graphe conceptuel** + **Storyboard de révélation** + table **message dominant / hero / secondaire** par scène ; **Format 2+** : idem **si** le sujet le justifie, sinon **N/A** + **une ligne** de justification (voir template § *Format 1 vs Format 2+*). Skill : [`packages/skills/thp-video-generation/SKILL.md`](../../../packages/skills/thp-video-generation/SKILL.md) (*Schématiser l’idée*).  
    - Référence formats et shortlist : [video-ai-preparation](../video-ai-preparation/video-ai-preparation.md). Pour le **ton et le style** des scripts (tutoiement, direct, communauté THP), voir [reference/thp-tone-and-theme](reference/thp-tone-and-theme.md).
 
 1bis. **Itération — synchroniser le template avant le script**  
    Avant de **modifier le script**, le **découpage de scènes** ou le **code Remotion** dans une boucle de retours (V0.x, révisions pédago, etc.) :  
    - Ouvrir le fichier canonique [Templates/pilot-outline.md](../Templates/pilot-outline.md) (champ `updated` du frontmatter + corps).  
-   - Comparer avec la copie pilote dans `KM/Docs/video-ai-preparation/` (`git log` / `git diff` sur le template depuis la dernière synchro de ce pilot, ou revue structurelle : métadonnées **Paired video**, table **Components needed**, checklist **Ready for Remotion when**, bloc agents).  
+   - Comparer avec la copie pilote dans `KM/Docs/video-ai-preparation/` (`git log` / `git diff` sur le template depuis la dernière synchro de ce pilot, ou revue structurelle : métadonnées **Paired video**, **Graphe conceptuel** / **Storyboard de révélation** / **hero object**, table **Components needed**, checklist **Ready for Remotion when**, bloc agents).  
    - **Si le template a changé** : mettre à jour d’abord la copie pilote (sections / cases / consignes manquantes), **puis** refaire l’itération (script → scènes → Remotion) à partir du document à jour.  
    - **Si inchangé** : poursuivre les modifications prévues.  
    Détail et tableau des blocs obligatoires : [video-ai-preparation — Template sync before script edits](../video-ai-preparation/video-ai-preparation.md#template-sync-before-script-edits).
@@ -187,6 +188,7 @@ Rappels de gouvernance :
   - Pacing and clarity are suitable for the target lesson.  
   - Audio (if any) is clear and consistent.  
   - Video is tested in the THP app (or equivalent consumer) before release.
+  - **Format 1** : l’outline pilote contient **graphe conceptuel** + **storyboard de révélation** + **hero / secondaire** par scène (voir [Templates/pilot-outline.md](../Templates/pilot-outline.md)) ; au moins une scène où le **schéma ou prop non-texte** est le héros — sauf exception notée pour [§07](#07--amélioration-du-process).
 
 - **PR review for new videos/components**  
   - **Code review**: Same as for other repo changes (lint, types, structure).  

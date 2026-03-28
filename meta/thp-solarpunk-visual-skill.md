@@ -8,7 +8,7 @@ tags:
   - skill
   - solarpunk
 created: 2026-03-19
-updated: 2026-03-19
+updated: 2026-03-27
 related:
   - "[[reference/solarpunk-theme-decisions]]"
 ---
@@ -34,6 +34,14 @@ Lors de l’implémentation ou la revue **UI / Remotion / Storybook** THP — ch
 ## Rules (summary)
 
 - Dark only ; `--error` réservé aux erreurs ; WCAG prioritaire ; motion organique ; SVG THP préférés ; ton [thp-tone-and-theme](../reference/thp-tone-and-theme.md).
+
+## Schémas et graphes (vidéo)
+
+- **Lisibilité 1080p** : libellés de nœuds et flèches assez grands ; espacement entre cartes ; contraste texte / fond (`solarTheme`).
+- **États** : distinguer visuellement **nœud actif** (focus VO) vs **repos** (bordure, glow léger, scale modéré — tokens du kit, pas de couleur hors charte).
+- **Interdits / risques** : utiliser la sémantique **erreur** (`--error`) uniquement pour ce qui est réellement « ne pas faire », pas comme accent décoratif ([solarpunk-theme-decisions](../reference/solarpunk-theme-decisions.md)).
+- **Fond** : dégradé ou grille **discrète** ; ne pas rivaliser avec le graphe pour l’attention.
+- Alignement procédural : [Templates/pilot-outline.md](../Templates/pilot-outline.md) (graphe, hero, polish) + [thp-video-generation skill](thp-video-generation-skill.md) (*Schématiser l’idée*).
 
 ## Templates
 

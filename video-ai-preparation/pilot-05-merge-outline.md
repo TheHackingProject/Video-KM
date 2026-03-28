@@ -23,6 +23,7 @@ related:
   - "[[meta/thp-solarpunk-visual-skill]]"
   - "[[runbooks/video-ai-development]]"
   - "[[reference/trigger-prepare-render-fields-inventory]]"
+  - "[[Templates/pilot-outline]]"
 ---
 
 # Pilot 05 – Merge : réunir les lignes
@@ -39,7 +40,7 @@ Outline complet pour la vidéo « Merge » de la [Série 01](serie-01-git-github
 
 ## Implémentation (code)
 
-- **Contenu** : `apps/remotion/src/remotion/compositions/serie-01/pilot05-content.ts` — CPS, pauses et `startFrame` par bloc.
+- **Contenu** : `apps/remotion/src/remotion/compositions/serie-01/pilot05-content.ts` — CPS, pauses et `startFrame` par bloc ; `MERGE_FLOW_FROM_LOCAL` calé pour que le **FlowChart** apparaisse tôt en scène 4 (héros visuel).
 - **Composition** : `Pilot05Merge.tsx` — id Remotion `Pilot05Merge`, **1350 frames** (45 s @ 30 fps), 1920×1080, enregistrée dans `Root.tsx`.
 - **Taxonomie texte THP** : alignée sur pilot 04 — `GlitchText`, `TextReveal`, `Typewriter`, **`FlowChart`** 3 nœuds (branche cible, travail à intégrer, après merge).
 - **Catalogue web** : entrée seed `serie-01-merge` + `sceneRegistry` (`Pilot05Merge`) pour cohérence avec les autres épisodes série 01 exposés au catalogue.
@@ -79,6 +80,62 @@ Outline complet pour la vidéo « Merge » de la [Série 01](serie-01-git-github
 | **Paired video** | Série 01 – vidéo 4 (Branch) en amont ; vidéo 6 (Pull request) en aval. |
 | **Public** | Débutants THP ; prérequis : branches (vidéo 4). |
 | **Idée unique** | Le merge ramène les commits d’une branche dans une branche cible pour unifier l’historique. |
+
+**Format** : **Format 1** — graphe conceptuel + storyboard de révélation **obligatoires** (voir sections ci-dessous, alignées sur [Templates/pilot-outline.md](../Templates/pilot-outline.md)).
+
+---
+
+## Message visuel dominant et hero object (par scène)
+
+| # | Message visuel dominant | Hero (principal) | Secondaire (support) |
+|---|-------------------------|------------------|----------------------|
+| 1 | Annoncer la notion « Merge » comme réunion des lignes | `GlitchText` titre | `TextReveal` sous-titre |
+| 2 | Situer : tu as une branche, tu veux réintégrer | `Typewriter` hook | Fond / particules |
+| 3 | Idée : fusion = ajouter sans effacer | `TextReveal` titre concept | `Typewriter` corps |
+| 4 | **Le merge vu comme chaîne main → branche → historique unifié** | **`FlowChart` 3 nœuds** (révélation progressive) | Titres + `Typewriter` court (contexte) |
+| 5 | Une phrase à retenir | `Typewriter` recap | — |
+| 6 | Enchaînement vers Pull request | `TextReveal` CTA | `Typewriter` sous-CTA |
+
+---
+
+## Graphe conceptuel (avant Remotion)
+
+**Nœuds**
+
+- **main** — branche cible (stable).
+- **Branche** — travail isolé à intégrer.
+- **Après merge** — historique unifié sur la cible.
+
+**Arêtes** (ordre de lecture pédagogique)
+
+| Source | Cible | Relation |
+|--------|-------|----------|
+| main | Branche | reçoit le travail de |
+| Branche | Après merge | une fois fusionnée, devient |
+| (implicite) | main | la cible **contient** l’historique unifié après merge |
+
+---
+
+## Storyboard de révélation du schéma (scène 4, frames locales @ 30 fps)
+
+Scène 4 globale : **360 frames** (12 s). Réf. code : `MERGE_FLOW_FROM_LOCAL`, `MERGE_FLOWCHART_START_FRAME`, `MERGE_FLOW_NODE_DELAY` dans `pilot05-content.ts` (ajustés pour que le **schéma monte avant** la fin du corps — héros visuel).
+
+| Beat | Début (local) | Fin (local) | Élément révélé | Lien VO | Entrée / hold / sortie |
+|------|---------------|-------------|----------------|---------|------------------------|
+| Titre scène | 0 | ~28 | `TextReveal` « La branche cible grandit » | Première phrase du concept schéma | reveal → hold lecture |
+| Corps | ~28 | ~200 | `Typewriter` explication | « Après un merge réussi… » | type → hold |
+| Entrée schéma | ~110 | ~126 | `FadeIn` + socle `FlowChart` | Dès que l’idée « unifier » est posée | fade-in ~16 f |
+| Nœuds | ~114 | ~350 | Ressorts `FlowChart` (main → Branche → Après merge) | En parallèle / juste après le corps | stagger via `nodeDelay` |
+| Hold final | ~320 | 360 | Graphe + texte lisibles | Fin de phrase / respiration avant cut | hold |
+
+---
+
+## Polish visuel (checklist courte)
+
+- [x] **Stagger** : `FlowChart` avec `nodeDelay` entre nœuds.
+- [x] **Schéma tôt dans la scène 4** : `MERGE_FLOW_FROM_LOCAL` réduit vs pilot 04 équivalent pour donner plus de temps « héros » au graphe (voir `pilot05-content.ts`).
+- [x] **FadeIn** sur le bloc diagramme.
+- [ ] **Studio** : vérifier hold final avant cut scène 4 ; checklist Solarpunk complète.
 
 ---
 
@@ -161,9 +218,12 @@ Après un merge réussi sur *main*, ta ligne stable **contient aussi** les commi
 ## Ready for Remotion when
 
 - [x] Script et scene breakdown remplis et relus (ce document).
+- [x] **Format 1** : graphe conceptuel + storyboard de révélation + table hero/secondaire (sections ci-dessus).
+- [x] Scène 4 : **FlowChart** = héros (pas décoratif).
 - [x] Text role mapping et composants alignés matrix / shortlist.
 - [x] Durée cible et format conformes aux [Formats](video-ai-preparation.md#video-formats).
-- [ ] [Checklist visuelle THP Solarpunk](../Templates/thp-solarpunk-visual-checklist.md) passée après rendu Studio.
+- [x] Polish visuel : items applicables cochés ou reportés.
+- [ ] [Checklist visuelle THP Solarpunk](../Templates/thp-solarpunk-visual-checklist.md) passée après rendu Studio (incl. § **Schémas**).
 - [ ] **Agent** : skills **thp-video-generation**, **thp-solarpunk-visual** et **remotion-best-practices** ; phrase type [§08](../runbooks/video-ai-development.md#08--skills-utiles-au-workflow-vidéo).
 
 **Suite** : composition `Pilot05Merge` + `pilot05-content.ts` ; pas de nouveau composant `packages/remotion-lib` requis.

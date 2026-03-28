@@ -9,7 +9,7 @@ tags:
   - solarpunk
   - qa
 created: 2026-03-19
-updated: 2026-03-20
+updated: 2026-03-27
 related:
   - "[[reference/solarpunk-theme-decisions]]"
   - "[[runbooks/video-ai-development]]"
@@ -45,6 +45,13 @@ Pour que la charte **et les rules Remotion** remontent dans le contexte de l’a
 
 - [ ] Mouvement **organique** (éviter le glitch agressif type cyberpunk sauf intention documentée).
 - [ ] Réutilisation des **patterns partagés** (gradients, opacité particules, `SceneHeader`, springs) cohérents avec les autres vidéos / `DemoShowcase`.
+
+## Schémas et graphes (si la vidéo en contient)
+
+- [ ] **Lisibilité** : texte des nœuds / légendes lisible en **1080p** (taille, contraste, pas trop de lignes par carte — max **deux niveaux** d’info par nœud).
+- [ ] **Actif vs repos** : l’élément **synchronisé à la VO** se distingue clairement (bordure, glow léger, scale modéré) sans casser la charte.
+- [ ] **Fond** : repères ou grille **discrets** ; le graphe reste le **point focal** quand il est le héros de la scène ([pilot outline — hero](pilot-outline.md)).
+- [ ] **`error` / corail** : réservé aux messages **d’interdiction ou de risque** pédagogique — pas d’accent décoratif.
 
 ## Iconographie
 
