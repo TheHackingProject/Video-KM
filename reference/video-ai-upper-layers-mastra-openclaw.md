@@ -12,7 +12,7 @@ tags:
   - architecture
   - hitl
 created: 2026-03-27
-updated: 2026-03-27
+updated: 2026-03-29
 related:
   - "[[reference/video-ai-orchestrator-decision]]"
   - "[[02-video-ai-roadmap]]"
@@ -36,10 +36,57 @@ related:
 
 Mastra et OpenClaw ont des rôles **orthogonaux** :
 
-- **Mastra** : bibliothèque appelée **depuis** une task Trigger — mémoire, tool-calling structuré, **HITL** possible via mécanismes Trigger (ex. tokens d’attente) — **sans** orchestrer les renders ni pousser seule en prod.
+- **Mastra** : bibliothèque appelée **depuis** une task Trigger — **étape** du graphe uniquement, **jamais** orchestrateur parallèle ni alternative à Trigger — mémoire, tool-calling structuré, **HITL** possible via mécanismes Trigger (ex. tokens d’attente) — **sans** orchestrer les renders ni pousser seule en prod.
 - **OpenClaw** : **poste auteur/dev**, périmètre d’accès **explicite**, **sans** chemin d’écriture vers le pipeline de **production**.
 
 **Valeur Mastra** : surtout **après v1.1** (feedback API + données réelles à analyser). Avant cela, privilégier mocks minimaux ou appel LLM direct si besoin de prototyper.
+
+---
+
+<a id="mental-model-orchestrateur-agents"></a>
+
+## Mental model : orchestrateur, agents, et périmètre Video-AI
+
+*RFC produit — cadrage lecture ; complète la synthèse exécutive sans la remplacer.*
+
+### Rôles : Trigger vs Mastra / agents
+
+**Trigger.dev** = orchestrateur / scheduler (événements, retries, durée, observabilité) — esprit proche **Temporal-like**, en **TypeScript** natif.
+
+**Mastra / agents** = couche de travail **cognitif** dans une **étape** (génération, structuration, tools), **invoquée depuis une task** Trigger — **pas** à la place de Trigger.
+
+Sans couche « agent », Trigger sert déjà à des pipelines « bêtes » (webhooks, cron, ETL, render, notifications) : ce n’est **pas** vide, c’est une **autre** valeur métier que « dev agent qui commit ».
+
+**Emboîtement** : 1 task = 1 workflow qui peut appeler **1+** agents, même si on code par couches (stub → lecture seule → diff → écriture derrière review).
+
+### Video-AI n’est pas « dev agent repo-first »
+
+Un agent dev qui touche à `src/`, Git, PR, etc. est orienté **auto-dev sur monorepo**. Ce n’est **pas** la priorité produit actuelle de Video-AI.
+
+Le **cœur** Video-AI, aujourd’hui : rendu Remotion, collecte de **feedback**, re-render, **human-in-the-loop** — avec Mastra pour **analyser** le feedback et proposer des changements **structurés**, pas forcément un « Cursor autonome sur tout le monorepo » en v1.
+
+### Analogie « orchestrateur sans runners »
+
+- Produit **auto-dev sur repo** → sans agent cognitif, Trigger est surtout une **coquille** côté valeur « dev qui écrit le code ».
+- **Video-AI pré-v2** → les « runners » actuels sont surtout **prepare / render (stub) / notify** ; la valeur immédiate = **fiabiliser** render et infra Trigger, pas encore l’**agent scripteur**.
+
+### Mapping roadmap (sans incohérence)
+
+1. **Trigger seul (pré-v2 actuel)** : valider fondamentaux (événements, observabilité, sécu/self-host, contrats `POST /jobs/…`) avec tasks **stub / non-LLM** — volontaire.
+2. **Données de feedback (v1.1)** : la valeur cognitive devient pertinente ; ajouter LLM direct dans une task ou Mastra, d’abord **lecture / analyse** (peu ou pas d’écriture repo).
+3. **Modification de contenu** : diff / PR / branche, ou patch validé — là **Trigger + agent** forment un **binôme** pour toucher au repo ou aux paramètres de render.
+
+### Reco pragmatique (Video-AI)
+
+- Concevoir dès maintenant le **binôme** Trigger ↔ couche IA (même si l’IA arrive plus tard) : une task = frontière claire **input / output / retries** ; l’agent vit **à l’intérieur** de cette frontière.
+- **Faible épaisseur** au début : stub = OK pour valider infra Trigger ; prochain palier valeur = **feedback**, puis task d’analyse **read-only**, puis Mastra si la complexité le justifie.
+- Un **agent dev sur repo** (style Cursor / OpenClaw comme couloir) = **distinct** ou étape ultérieure — ne pas mélanger « pipeline vidéo » et « agent qui réécrit tout le front » sans garde-fous.
+
+### En résumé
+
+**Trigger sans IA** verrouille déjà les **workflows durables** (retries, observabilité, enchaînement) — ce n’est pas « seulement » de la coquille infra. **Trigger + agents** = système **emboîté** quand on ajoute la couche cognitive dans une **task**. Video-AI = **pipeline vidéo orchestré** ; l’**IA enrichit les tasks**, elle ne **remplace** pas Trigger.
+
+**Règle équipe (Mastra)** : **étape** du graphe Trigger (`task` → agent), **jamais** orchestrateur parallèle.
 
 ---
 
@@ -80,6 +127,8 @@ Mastra et OpenClaw ont des rôles **orthogonaux** :
 **Règle** : Mastra = **agents + tools** uniquement. Pas de workflow Mastra qui **déclenche** Trigger.
 
 **Sens unique** : `Trigger task` → `mastra.getAgent(...).generate(...)` — **pas** l’inverse.
+
+La doc Trigger sur les **AI agents** décrit des **étapes agentiques exécutées dans** un workflow durable Trigger — le socle reste **Trigger** (planification, durée, retries) ; Mastra ne joue **pas** le rôle d’orchestrateur parallèle.
 
 ### Garde-fous HITL et idempotence
 
@@ -183,6 +232,8 @@ apps/api/src/          # Hono uniquement ; pas de src/trigger
 
 ## C. OpenClaw — poste auteur
 
+**Périmètre** : **poste auteur local** avec surface d’action **limitée** et **explicite**. OpenClaw **n’a pas** d’accès direct à l’environnement **prod** ni à la **configuration des workflows Trigger** (`trigger.config`, secrets orchestration prod) — ce n’est **pas** un socle central d’orchestration à côté de Trigger. Les guides sécurité pour agents à fort périmètre (shell, réseau, skills) imposent ce **cloisonnement** ; sinon la surface de risque explose.
+
 ### Cas d’usage raisonnables
 
 | Cas | Description |
@@ -195,6 +246,7 @@ apps/api/src/          # Hono uniquement ; pas de src/trigger
 
 ### Lignes rouges
 
+- **Garde-fou** : **pas** d’accès direct à la **prod** ni à la **configuration des workflows Trigger** (`trigger.config`, secrets d’orchestration prod) — répété ici pour lecture rapide (voir § **Périmètre** ci-dessus).
 - Ne **pas** déclencher render **prod** ni appeler API prod avec token.
 - Ne **pas** exposer `DATABASE_URL` prod, `TRIGGER_SECRET_KEY`, clés LLM prod.
 - Pas de **commit/push** vers `main` sans revue humaine.

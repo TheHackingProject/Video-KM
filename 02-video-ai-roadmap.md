@@ -11,7 +11,7 @@ tags:
   - v1
   - v2
 created: 2026-03-25
-updated: 2026-03-28
+updated: 2026-03-29
 related:
   - "[[01-index]]"
   - "[[reference/video-ai-orchestrator-decision]]"
@@ -27,7 +27,7 @@ related:
 
 **Emplacement** : racine `KM/Docs`, fichier **`02-…`** — suite logique de [`01-index`](01-index.md) pour **où en est le plan** sans ouvrir l’index.
 
-**Objectif** : vue **dev** complète — **cases à cocher**, **suites de versions**, **ordre de priorité** aligné sur les décisions **Trigger.dev v4** ([orchestrateur](./reference/video-ai-orchestrator-decision.md)) et **Mastra / OpenClaw** ([couches supérieures](./reference/video-ai-upper-layers-mastra-openclaw.md)).  
+**Objectif** : vue **dev** complète — **cases à cocher**, **suites de versions**, **ordre de priorité** aligné sur les décisions **Trigger.dev v4** ([orchestrateur](./reference/video-ai-orchestrator-decision.md)) et **Mastra / OpenClaw** ([couches supérieures](./reference/video-ai-upper-layers-mastra-openclaw.md), [mental model](./reference/video-ai-upper-layers-mastra-openclaw.md#mental-model-orchestrateur-agents)).  
 **À mettre à jour** après chaque jalon : cocher/décocher, bump `updated`.
 
 ## Légende
@@ -40,6 +40,18 @@ related:
 
 *Les chemins sont relatifs à la racine du monorepo `Video-AI/` sauf mention `KM/Docs/`.*
 
+### Niveaux de maturité (lire les statuts)
+
+Pour éviter qu’un « livré » signifie à la fois **doc** et **prod validée**, distinguer :
+
+| Niveau | Signification (exemples) |
+|--------|---------------------------|
+| **1 — Infra / doc** | Runbooks, ADR, workspace `apps/trigger`, doc self-host Coolify, contrats API. |
+| **2 — Orchestration** | Tasks Trigger enchaînées, `POST /jobs/render-pipeline`, retries / observabilité — y compris chaîne avec **stub** à une étape. |
+| **3 — Rendu worker validé hors stub** | Chrome + FFmpeg (ou équivalent) exécutent un **vrai** rendu (pas seulement log / placeholder) ; l’**environnement** exact (image worker, prod, etc.) est figé dans le runbook — ce niveau est **indépendant** du libellé « local » vs « distant ». |
+
+Un runbook ou un POC peut être **niveau 1–2 livré** alors que le **niveau 3** est encore **partiel** : le dire explicitement dans la synthèse et les cases.
+
 ---
 
 ## Cartographie doc (ne pas dupliquer ailleurs)
@@ -50,7 +62,7 @@ related:
 | [video-lifecycle](./reference/video-lifecycle.md) | **Séquence** canonique + [§ Platform roadmap v1.1](./reference/video-lifecycle.md#platform-roadmap-v11-feedback). |
 | [workflow-tools-synthesis](./research/workflow-tools-synthesis.md) | **Inngest / Trigger.dev / Mastra / OpenClaw** — rôles, **ordre d’intégration** (§3). |
 | [video-ai-orchestrator-decision](./reference/video-ai-orchestrator-decision.md) | **Décision** : **Trigger.dev v4** vs Inngest + spike **Coolify** (réseau Docker, registry). |
-| [video-ai-upper-layers-mastra-openclaw](./reference/video-ai-upper-layers-mastra-openclaw.md) | **Mastra** (LLM dans tasks Trigger) + **OpenClaw** (poste auteur), HITL, ordre v1.1 → v2. |
+| [video-ai-upper-layers-mastra-openclaw](./reference/video-ai-upper-layers-mastra-openclaw.md) | **Mastra** (LLM dans tasks Trigger) + **OpenClaw** (poste auteur), HITL, ordre v1.1 → v2. **Mental model** Trigger ↔ agents ↔ Video-AI : [§ dédié](./reference/video-ai-upper-layers-mastra-openclaw.md#mental-model-orchestrateur-agents). |
 | [video-ai-preparation](./video-ai-preparation/video-ai-preparation.md) | Formats, template pilot, **avant** code. |
 | [serie-01-git-github](./video-ai-preparation/serie-01-git-github.md) | **Ordre** des clips série 01 + liens outlines. |
 | [video-ai-development](./runbooks/video-ai-development.md) | Workflow quotidien, Studio, qualité. |
@@ -64,10 +76,10 @@ related:
 
 | Phase | Cible | Statut dev (résumé) |
 |-------|--------|---------------------|
-| **v1** | Vidéos Remotion, équipe autonome, rendu manuel/CLI, monorepo stable | **~75–85 %** — cœur livré ; série 01 incomplète ; runbook **rendering** absent ; **pas de CI** sur le monorepo racine. |
+| **v1** | Vidéos Remotion, équipe autonome, rendu manuel/CLI, monorepo stable | **~75–85 %** — cœur livré ; série 01 incomplète ; runbook [video-ai-rendering](./runbooks/video-ai-rendering.md) **livré** (niveau 1 doc + pratique local/CLI) ; **rendu worker distant** = sujet **pré-v2** ; **pas de CI** sur le monorepo racine. |
 | **v1.1** | Catalogue + **feedback** (threads, commentaires timecodés) | **Schéma DB + API lecture vidéos** ; **pas** d’API commentaires ni UI feedback. |
-| **Pré-v2** | Runbook rendu distant + **POC** orchestrateur | **Décision** : [Trigger.dev v4](./reference/video-ai-orchestrator-decision.md) — pas encore de deps ni POC ; pas de `video-ai-rendering.md`. |
-| **v2** | Boucle feedback → IA → re-render | **Architecture doc** : [couches supérieures](./reference/video-ai-upper-layers-mastra-openclaw.md) (Mastra **dans** Trigger, HITL, OpenClaw local) ; **zéro impl** pipeline. |
+| **Pré-v2** | Runbook rendu distant + **POC** orchestrateur | **Sans couche agentique** ; **Trigger est déjà utile sans IA** pour verrouiller les **workflows durables** (enchaînement d’étapes, retries, observabilité) — ce n’est pas « seulement » de la doc d’infra. [Décision Trigger v4](./reference/video-ai-orchestrator-decision.md) ; runbook rendering livré ; POC orchestration minimal (deps, tasks **stub** + API) ; **niveau 3** (rendu worker **validé hors stub**) **encore à finaliser**. |
+| **v2** | Boucle feedback → IA → re-render | **Règle** : **Mastra = étape** (`task` → agent), **jamais** parallèle. **OpenClaw** : poste auteur (pas prod / pas config Trigger — [§ C](./reference/video-ai-upper-layers-mastra-openclaw.md#c-openclaw--poste-auteur)). **Doc** : [couches supérieures](./reference/video-ai-upper-layers-mastra-openclaw.md) (HITL) ; **zéro impl** pipeline feedback→IA. |
 | **v3** | Régénération guidée | Vision uniquement. |
 
 ---
@@ -82,9 +94,9 @@ related:
 | **2** | **Runbook** [`video-ai-rendering.md`](./runbooks/video-ai-rendering.md) | Contrat d’équipe sur `remotion render` (local → artefact → stockage) ; **prérequis honnête** avant pré-v2. |
 | **3** | **CI minimale** (racine monorepo) | Optionnel en parallèle du 1–2 ; sécurise les PR avant d’ajouter Trigger. |
 | **4** | **v1.1 feedback** (API + contrats + UI + auth/modération) | Données réelles de feedback → base pour toute analyse LLM ; **Mastra peu pertinent avant** (cf. [couches supérieures](./reference/video-ai-upper-layers-mastra-openclaw.md#e-ordre-dintroduction)). |
-| **5** | **Pré-v2 — Trigger.dev v4** | Spike **Coolify** (`DOCKER_RUNNER_NETWORKS`, registry, ports) puis deps, task stub, **render** dans worker (Chrome/FFmpeg) — [décision](./reference/video-ai-orchestrator-decision.md). **Pas de Mastra** au POC orchestration. |
-| **6** | **Runbook OpenClaw** [`openclaw-permissions.md`](./runbooks/openclaw-permissions.md) | Formaliser permissions poste auteur ; peut démarrer **en parallèle** des phases 1–4 (hors prod). |
-| **7** | **v2** | Task pipeline feedback → (LLM direct puis **Mastra** si besoin mémoire/multi-agents) → **HITL** Trigger → re-render — [plan POC 5 étapes](./reference/video-ai-upper-layers-mastra-openclaw.md#e-ordre-dintroduction). |
+| **5** | **Pré-v2 — Trigger.dev v4** | **Trigger self-host** : workflows durables utiles **sans IA** ; chemin de rendu jusqu’au **niveau 3** (validé **hors stub**). Spike **Coolify** (`DOCKER_RUNNER_NETWORKS`, registry, ports) puis deps, chaîne tasks — [décision](./reference/video-ai-orchestrator-decision.md). **Pas de Mastra** au POC orchestration. |
+| **6** | **Runbook OpenClaw** [`openclaw-permissions.md`](./runbooks/openclaw-permissions.md) | **Poste auteur local**, périmètre limité — **pas** d’accès direct **prod** ni à la **configuration des workflows Trigger** ; formaliser permissions ; peut démarrer **en parallèle** des phases 1–4. |
+| **7** | **v2** | Task pipeline feedback → (LLM direct puis **Mastra** **dans** une task Trigger si besoin mémoire/multi-agents) → **HITL** Trigger → re-render — [plan POC 5 étapes](./reference/video-ai-upper-layers-mastra-openclaw.md#e-ordre-dintroduction). |
 
 **Chemin critique** (simplifié) :
 
@@ -99,7 +111,7 @@ flowchart TB
   pedago --> rendering --> feedback --> trigger --> ia
 ```
 
-*En parallèle du chemin critique* : **CI** monorepo (dès que possible) ; runbook **OpenClaw** (poste auteur).
+*En parallèle du chemin critique* : **CI** monorepo (dès que possible) ; runbook **OpenClaw** (poste auteur local, jamais socle prod central).
 
 ---
 
@@ -199,12 +211,15 @@ Aligné sur [serie-01-git-github](./video-ai-preparation/serie-01-git-github.md)
 
 **Politique** : orchestration Trigger **souveraine** — instance **self-host** uniquement ; **pas** de Trigger.dev Cloud (voir [api](./runbooks/api.md), [infra/trigger-hosting](../../infra/trigger-hosting/README.md)).
 
+**Objectif pré-v2** : fiabiliser **l’orchestration** et le **chemin de rendu** (niveaux 1–2 puis 3), **sans couche agentique active**. **Trigger est déjà utile sans IA** pour verrouiller les **workflows durables** (retries, observabilité, enchaînement des étapes) — pas « seulement » de l’infra documentée, et pas « inutile » en attendant Mastra.
+
 *Aligné sur* [workflow-tools-synthesis §3](./research/workflow-tools-synthesis.md#3-ordre-dintégration-recommandé) · orchestrateur **acté** : [video-ai-orchestrator-decision](./reference/video-ai-orchestrator-decision.md).
 
-- [x] **Runbook** [video-ai-rendering](./runbooks/video-ai-rendering.md) : rendu local + § runtime (worker / Lambda / CI)
+- [x] **Runbook** [video-ai-rendering](./runbooks/video-ai-rendering.md) : rendu local + § runtime (worker / Lambda / CI) — **niveau 1**
 - [ ] **Design** rendu distant (choix final Lambda vs worker Docker) — à figer dans le runbook ou ADR après spike image
 - [x] **Doc spike Coolify** : [trigger-dev-coolify-spike](./runbooks/trigger-dev-coolify-spike.md) — **infra** self-host (réseau `DOCKER_RUNNER_NETWORKS`, registry) : *à valider sur VPS*
-- [x] **Code POC minimal** : `@trigger.dev/sdk` + `tasks.trigger` dans `apps/api` ; tasks dans **`apps/trigger`** (`prepare-render` → `render-video` **stub** → `notify-render`), `POST /jobs/render-pipeline` — voir [api](./runbooks/api.md) ; **render réel** (Chrome + FFmpeg) + prod Coolify : *suite*
+- [x] **Orchestration code (niveau 2)** : `@trigger.dev/sdk` + `tasks.trigger` dans `apps/api` ; tasks dans **`apps/trigger`** (`prepare-render` → `render-video` **stub** → `notify-render`), `POST /jobs/render-pipeline` — voir [api](./runbooks/api.md)
+- [ ] **Rendu worker validé hors stub (niveau 3)** : `render-video` exécute un vrai rendu (Chrome + FFmpeg ou équivalent) — environnement (image worker, Coolify, etc.) figé au runbook ; *pas confondu avec le stub livré au niveau 2*
 - [x] **Décision orchestrateur** : [video-ai-orchestrator-decision](./reference/video-ai-orchestrator-decision.md) (**Trigger.dev v4**, pas Inngest)
 - [x] **Décision couches IA (doc)** : [video-ai-upper-layers-mastra-openclaw](./reference/video-ai-upper-layers-mastra-openclaw.md) — **impl Mastra/OpenClaw = v2**, pas pré-v2
 - [x] **Pas** de Mastra dans le POC orchestration (convention respectée dans le code livré)
@@ -213,13 +228,13 @@ Aligné sur [serie-01-git-github](./video-ai-preparation/serie-01-git-github.md)
 
 ## v2 — suite prévue (boucle feedback + IA)
 
-**Réf. architecture couches** : [video-ai-upper-layers-mastra-openclaw](./reference/video-ai-upper-layers-mastra-openclaw.md) (Mastra dans Trigger, OpenClaw local, HITL, POC en 5 étapes).
+**Réf. architecture couches** : [video-ai-upper-layers-mastra-openclaw](./reference/video-ai-upper-layers-mastra-openclaw.md) — **Règle** : Mastra = **étape** (`task` Trigger → agent), **jamais** orchestrateur parallèle. OpenClaw poste auteur ; HITL ; POC en 5 étapes. **Mental model** : [§ dédié](./reference/video-ai-upper-layers-mastra-openclaw.md#mental-model-orchestrateur-agents).
 
 - [ ] Ingestion feedback stable (prérequis v1.1)
 - [ ] Orchestrateur (celui choisi en pré-v2) : file d’événements « feedback reçu / vidéo à rafraîchir »
-- [ ] **Mastra** (ou équivalent) comme **étape** du graphe : priorisation, suggestions de script / scène — pas comme second orchestrateur ([synthèse](./research/workflow-tools-synthesis.md) · [couches supérieures](./reference/video-ai-upper-layers-mastra-openclaw.md))
+- [ ] **Mastra** (ou équivalent) : **étape Trigger uniquement** — `task` → agent ; **pas** second orchestrateur ([synthèse](./research/workflow-tools-synthesis.md) · [couches supérieures](./reference/video-ai-upper-layers-mastra-openclaw.md))
 - [ ] Re-rendu déclenché depuis le workflow + traçabilité (qui a validé quoi)
-- [ ] **OpenClaw** : optionnel, poste auteur — jamais socle du pipeline central ; runbook dédié [openclaw-permissions.md](./runbooks/openclaw-permissions.md) *(à créer — gabarit dans [§ C couches supérieures](./reference/video-ai-upper-layers-mastra-openclaw.md#c-openclaw--poste-auteur))*
+- [ ] **OpenClaw** : optionnel, **poste auteur local**, périmètre limité — **pas** d’accès direct **prod** ni à la **configuration des workflows Trigger** ; jamais socle du pipeline central ; runbook [openclaw-permissions.md](./runbooks/openclaw-permissions.md) *(à créer — gabarit dans [§ C couches supérieures](./reference/video-ai-upper-layers-mastra-openclaw.md#c-openclaw--poste-auteur))*
 
 ---
 

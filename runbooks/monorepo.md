@@ -81,6 +81,7 @@ bun run bootstrap:agents
 | Script      | Command               | Purpose                                  |
 |-------------|------------------------|------------------------------------------|
 | Bootstrap agents | `bun run bootstrap:agents` | Init `packages/skills/Remotion`, link `.cursor/skills/*` |
+| Env (first clone) | `bun run env:init` | Copy [`.env.example`](../../../.env.example) → `.env` at repo root if missing (never commit `.env`) |
 | Build       | `bun run build`        | Build all apps/packages (Turbo)          |
 | Dev         | `bun run dev`          | Start dev servers (Turbo) — includes **`apps/trigger`** (`npx trigger.dev dev`) alongside api, frontend, remotion, storybook |
 | Trigger tasks only | `bun run trigger:dev` | Turbo `dev` **filter=trigger** only (workspace tasks CLI) |
@@ -98,12 +99,21 @@ bun run bootstrap:agents
 - **Build one package**: `turbo build --filter=docs`
 - **Run all in dev**: `turbo dev`
 
+## Environment (`.env`)
+
+- **Template** : [`.env.example`](../../../.env.example) at monorepo root — lists `DATABASE_URL`, API, frontend, and **Trigger self-host** variables (`TRIGGER_API_URL`, `TRIGGER_SECRET_KEY`, `TRIGGER_PROJECT_REF`).
+- **Local file** : `cp .env.example .env` or `bun run env:init` from repo root. **Do not commit** `.env` (see root `.gitignore`).
+- **Bun** loads `.env` from the **current working directory** when you run `bun run …` from the root, so a single root `.env` is enough for `bun run dev` (Turbo).
+- **API only** from `apps/api/` : copy [`apps/api/.env.example`](../../../apps/api/.env.example) to `apps/api/.env`, or symlink `../../.env`.
+- Full variable reference : [api](api.md) (Trigger), [postgres-local](postgres-local.md) (DB).
+
 ## Environment conventions (shared)
 
 - `DATABASE_URL`: PostgreSQL connection string (local/dev/prod).
 - `PORT`: API port (default: `8787`).
 - `CORS_ORIGIN`: allowed frontend origin (default: `http://localhost:5173`).
 - `VITE_API_BASE_URL`: frontend API base URL.
+- `TRIGGER_*`: see [api](api.md) — self-host only.
 
 ## Turbo configuration (`turbo.json`)
 

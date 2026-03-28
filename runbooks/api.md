@@ -35,7 +35,7 @@ Implémentation : **`tasks.trigger()`** avec **import de types uniquement** depu
 
 ## Local run
 
-From repo root:
+From repo root, use a **`.env`** file (see [`.env.example`](../../../.env.example) and `bun run env:init`) or inline:
 
 ```bash
 DATABASE_URL="postgres://video_ai:video_ai@localhost:5432/video_ai_dev" \
