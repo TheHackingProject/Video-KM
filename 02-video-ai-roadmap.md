@@ -11,7 +11,7 @@ tags:
   - v1
   - v2
 created: 2026-03-25
-updated: 2026-03-31
+updated: 2026-03-27
 related:
   - "[[01-index]]"
   - "[[reference/video-ai-orchestrator-decision]]"
@@ -154,7 +154,7 @@ flowchart TB
 ### Direction artistique & clip étalon (gageure visuelle)
 
 - [x] **DA THP — synthèse** (~1 page, **4** règles non négociables + liens canoniques + inventaire + étalon) — [da-thp-synthese](./reference/da-thp-synthese.md) ; cadre : [§ DA → étalon → Trigger → Mastra](#da-etalon-orchestration-ia).
-- [x] **Clip étalon** : référence actuelle = **DemoShowcaseSolarpunk** (composition `DemoShowcaseSolarpunk`) — voir [da-thp-synthese — Reference clip](./reference/da-thp-synthese.md#reference-clip-current) ; étalon **pédagogique** dédié (B2) si le showcase ne suffit pas à cristalliser le format cours.
+- [x] **Clip étalon** : **motion** = **DemoShowcaseSolarpunk** (`DemoShowcaseSolarpunk`) — [da-thp-synthese — Reference clip](./reference/da-thp-synthese.md#reference-clip-current). **Pédagogique sur leçon réelle** : **Pilot 01 V1** (refonte structurée, durée unifiée `PILOT01_DURATION_FRAMES`, outline [§ V1](./video-ai-preparation/pilot-01-prerequis-outline.md#version-v1--refonte-visuelle-étalon-pédagogique-série-01)) ; composition **B2** séparée seulement si un autre mini-cours est nécessaire au-delà de ce pilote.
 
 ### Monorepo, tooling, déploiement doc
 
@@ -207,7 +207,7 @@ Aligné sur [serie-01-git-github](./video-ai-preparation/serie-01-git-github.md)
 
 | # | Clip | Outline KM | Composition Remotion | Fichiers repères |
 |---|------|------------|----------------------|------------------|
-| 1 | Pré-requis | [x] `pilot-01-prerequis-outline.md` | [x] `Pilot01Prerequis` | `serie-01/Pilot01Prerequis.tsx` |
+| 1 | Pré-requis | [x] `pilot-01-prerequis-outline.md` (**V1** refonte visuelle, breakdown 3690 f — [outline § V1](./video-ai-preparation/pilot-01-prerequis-outline.md#version-v1--refonte-visuelle-étalon-pédagogique-série-01)) | [x] `Pilot01Prerequis` | `pilot01-content.ts`, `Pilot01Prerequis.tsx` ; `PILOT01_DURATION_FRAMES` → `Root.tsx` + `sceneRegistry` |
 | 2 | Git vs GitHub | [x] `pilot-02-git-vs-github-outline.md` | [x] `Pilot02GitVsGithub` | `Pilot02GitVsGithub.tsx` |
 | 3 | Commit | [x] `pilot-03-commit-outline.md` | [x] `Pilot03Commit` | `Pilot03Commit.tsx` |
 | 4 | Branch | [x] `pilot-04-branch-outline.md` | [x] `Pilot04Branch` | `Pilot04Branch.tsx` |
