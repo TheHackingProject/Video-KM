@@ -10,7 +10,7 @@ tags:
   - terminal
   - serie-01
 created: 2026-03-18
-updated: 2026-03-20
+updated: 2026-03-31
 related:
   - "[[video-ai-preparation/video-ai-preparation]]"
   - "[[video-ai-preparation/serie-01-git-github]]"
@@ -20,6 +20,7 @@ related:
   - "[[Templates/thp-solarpunk-visual-checklist]]"
   - "[[meta/thp-video-generation-skill]]"
   - "[[meta/thp-solarpunk-visual-skill]]"
+  - "[[reference/da-thp-synthese]]"
 ---
 
 # Pilot 01 – Pré-requis : terminal et bases
@@ -38,7 +39,7 @@ Outline complet pour la vidéo « Pré-requis » de la [Série 01](serie-01-git-
 
 **Fichiers** : contenu centralisé dans `apps/remotion/src/remotion/compositions/serie-01/pilot01-content.ts` ; composition `Pilot01Prerequis.tsx`.
 
-**DoD** : lecture Studio **3600 frames** ; checklist visuelle THP passée ; pas d’usage décoratif de `--error`.
+**DoD** : lecture Studio **`PILOT01_DURATION_FRAMES` (3690 @ 30 fps depuis V1)** ; checklist visuelle THP passée ; pas d’usage décoratif de `--error`.
 
 ---
 
@@ -60,6 +61,26 @@ Outline complet pour la vidéo « Pré-requis » de la [Série 01](serie-01-git-
 
 ---
 
+## Version V1 — refonte visuelle (étalon pédagogique Série 01)
+
+**Objectif** : faire du pilote 01 un **point de référence** pour la suite de la série (hero / secondaire, schémas, rythme) — distinct de l’**étalon motion** [`DemoShowcaseSolarpunk`](../../../packages/ui/src/DemoShowcaseSolarpunk.tsx) ; voir [da-thp-synthese — deux niveaux](../reference/da-thp-synthese.md#reference-clip-current).
+
+**Phase 0 — critères de fin (cadrage)** :
+
+- Même **pédagogie** (ouvrir terminal, `pwd`, `ls`) ; texte à l’écran **allégé** sur l’objectif d’intro (`TextReveal` au lieu d’un second typewriter long).
+- **Durée** traitée comme contrainte de design : intro **+3 s** pour loger le parcours visuel sans saturer.
+- **Storybook** : pas de chantier tant qu’aucun composant statique nouveau n’est requis.
+
+**Implémentation (repo)** :
+
+- Intro : **`FlowChart`** horizontal (Ouvrir → pwd → ls) + accroche **`Typewriter`** + objectif **`TextReveal`** (`pilot01-content.ts` : `INTRO_JOURNEY_*`, `INTRO_OBJECTIVE_REVEAL_DURATION`, scène intro **17 s**).
+- Step 1 : **`Serie01SceneShell`** `layout="stack"` + **`FlowChart`** bas de scène (Terminal → pwd/ls → Git) à partir de la frame **420** locale.
+- Steps 2–3 : **grille 2 colonnes** — narration à gauche, colonne droite = **mini `FlowChart`** vertical (commande → effet) + **`Terminal`** (`maxWidth` terminal resserré pour lisibilité).
+
+**DoD** : `PILOT01_DURATION_FRAMES` = **3690** @ 30 fps (`Root.tsx`, `sceneRegistry`) ; checklist [thp-solarpunk-visual-checklist](../Templates/thp-solarpunk-visual-checklist.md) ; lecture Studio bout en bout.
+
+---
+
 ## Cartographie taxonomie §04 (par scène)
 
 Chaque bloc texte visible -> **rôle** et **composant** (source canonique: `packages/skills/thp-video-generation/references/library-matrix.md`). Le **Terminal** reste la source des lignes CLI (pas de `Typewriter` sur les lignes commande/sortie).
@@ -68,12 +89,17 @@ Chaque bloc texte visible -> **rôle** et **composant** (source canonique: `pack
 |---|-------------|----------------|----------|-----------|
 | 1 | Titre | `TITLE` | Hero intro | `GlitchText` |
 | 1 | Titre | `SUBTITLE` | Sous-titre intro | `TextReveal` |
-| 2 | Intro | accroche + objectif | Narration | `Typewriter` ×2 |
+| 2 | Intro | parcours 3 nœuds | Structure / fil | `FlowChart` (Ouvrir → pwd → ls) |
+| 2 | Intro | accroche | Narration | `Typewriter` |
+| 2 | Intro | objectif | Promesse / sous-texte | `TextReveal` |
 | 3 | Step 1 | analogie, code | Narration + code statique | `Typewriter`, `CodeBlockStatic` |
 | 3 | Step 1 | ligne OS Mac/Linux/Windows | Repère pratique emphase | `WordByWord` (`highlightColor=success`) |
+| 3 | Step 1 | arc bas de scène | Concept | `FlowChart` (Terminal → pwd/ls → Git) |
 | 4 | Step 2 | paragraphes `pwd` | Narration | `Typewriter` ×2 |
+| 4 | Step 2 | schéma commande | Concept | `FlowChart` (pwd → chemin) |
 | 4 | Step 2 | terminal | CLI | `Terminal` |
 | 5 | Step 3 | paragraphes `ls` | Narration | `Typewriter` ×2 |
+| 5 | Step 3 | schéma commande | Concept | `FlowChart` (ls → liste) |
 | 5 | Step 3 | terminal | CLI | `Terminal` |
 | 6 | Recap | ligne 1 | Narration | `Typewriter` |
 | 6 | Recap | ligne 2 (une phrase clef) | Emphase (≤1 phrase / scène) | `WordByWord` |
@@ -91,7 +117,7 @@ Chaque bloc texte visible -> **rôle** et **composant** (source canonique: `pack
 
 ## Amélioration continue — rythme & animation (post-V0.5)
 
-Objectif : réduire les **temps morts visuels** (« plein écran figé ») tout en gardant la durée cible **3600 f**.
+Objectif : réduire les **temps morts visuels** (« plein écran figé »). **V1** : durée totale **3690 f** (+90 f intro) pour schémas intro — rester sobre sur les ajouts.
 
 | Apprentissage | Application concrète (Pilot 01 et suivants) |
 |---------------|---------------------------------------------|
@@ -114,7 +140,7 @@ Objectif : réduire les **temps morts visuels** (« plein écran figé ») tout 
 | **Title** | Pré-requis : terminal et bases |
 | **Format** | Code demo guided (Format 2) |
 | **Target duration** | **~2 min (120 s)** cible pédagogique ; fourchette Format 2 : 2–5 min si besoin de rallonge |
-| **FPS (composition)** | 30 → **3600 frames** pour 120 s |
+| **FPS (composition)** | 30 → **3690 frames** (V1, ~123 s) ; export `PILOT01_DURATION_FRAMES` dans `pilot01-content.ts` |
 | **Source** | THP – pré-requis module Git |
 | **Paired video** | Série 01 – vidéo 2 (Git vs GitHub) en aval. |
 | **Public** | Débutants THP ; pas de prérequis technique. |
@@ -223,14 +249,14 @@ Une ligne = une **séquence** Remotion (`Series.Sequence` ou `Sequence from={…
 | # | Purpose | Durée (s) | Frames | `from` cumulé (frame) | Contenu écran (résumé) |
 |---|---------|-----------|--------|------------------------|-------------------------|
 | 1 | Titre et contexte | 5 | 150 | 0 | TitleCard ; sous-titre « 2 commandes pour suivre Git ». |
-| 2 | Intro + objectif | 14 | 420 | 150 | Accroche + objectif ; mots-clés échelonnés (pas deux longs paragraphes). |
-| 3 | Step 1 – Ouvrir le terminal | 32 | 960 | 570 | Analogie courte ; pills Mac / Linux / Windows en **parallèle** de la VO. |
-| 4 | Step 2 – `pwd` | 26 | 780 | 1530 | FR + `pwd` ; terminal ; **hold ~5–6 s** sur le chemin. |
-| 5 | Step 3 – `ls` / `dir` | 26 | 780 | 2310 | `ls` + liste ; `dir` ; **hold ~5–6 s** sur la liste. |
-| 6 | Recap | 12 | 360 | 3090 | 3 puces ou mini flux ; une phrase VO max. |
-| 7 | Fin / CTA | 5 | 150 | 3450 | « À suivre : Git vs GitHub ». |
+| 2 | Intro + objectif | 17 | 510 | 150 | **V1** : `FlowChart` parcours + accroche typewriter + objectif `TextReveal`. |
+| 3 | Step 1 – Ouvrir le terminal | 32 | 960 | 660 | Analogie ; pills OS ; `FlowChart` bas de scène (`Serie01SceneShell` stack). |
+| 4 | Step 2 – `pwd` | 26 | 780 | 1620 | Grille 2 col. : narration + schéma pwd + terminal ; hold sur le chemin. |
+| 5 | Step 3 – `ls` / `dir` | 26 | 780 | 2400 | Grille 2 col. : narration + schéma ls + terminal ; hold sur la liste. |
+| 6 | Recap | 12 | 360 | 3180 | Typewriter + `WordByWord` + `FlowChart` (inchangé V1). |
+| 7 | Fin / CTA | 5 | 150 | 3540 | « À suivre : Git vs GitHub ». |
 
-**Total** : 5 + 14 + 32 + 26 + 26 + 12 + 5 = **120 s** = **3600 frames**.
+**Total** : 5 + 17 + 32 + 26 + 26 + 12 + 5 = **123 s** = **3690 frames** (`PILOT01_DURATION_FRAMES`).
 
 ### Sous-beats (exemple, scène 4 – `pwd`, 26 s ≈ 780 f)
 
@@ -264,7 +290,7 @@ Inspiration concrète dans le repo : [`packages/ui/src/DemoShowcaseSolarpunk.tsx
 
 ### Checklist implémentation Remotion
 
-- [ ] `Series` ou `Sequence` avec durées = tableau ci-dessus (**3600 frames** total @ 30 fps).
+- [x] `Series` ou `Sequence` avec durées = tableau ci-dessus (**3690 frames** total @ 30 fps, V1).
 - [ ] `premountFor` sur chaque enfant de timeline qui charge du texte ou du terminal.
 - [ ] `useCurrentFrame()` **local à chaque `Sequence`** pour les offsets d’animation (comme commentaire dans le showcase).
 - [ ] Après chaque sortie terminal importante : **≥ 15–30 frames** de « hold » lisible avant la transition suivante.
@@ -284,7 +310,7 @@ D’après le [Component shortlist](video-ai-preparation.md#component-shortlist)
 | Terminal | 4, 5 | Lignes + delays ; typewriter ; réutiliser le pattern `terminalLines` du showcase. |
 | CodeBlockWithHighlight | (fallback) | Si Terminal indisponible : style terminal. |
 | ProgressBar | 3–5 | P1 fortement recommandé pour la clarté. |
-| FlowChart | 2 ou 6 | Optionnel : fil narratif en 3 nœuds. |
+| FlowChart | 2, 3, 4, 5, 6 | **V1** : intro (parcours), step1 (arc bas), steps 2–3 (mini schéma + terminal), recap. |
 | ParticleField | fond | Optionnel, discret. |
 | WordByWord / TextReveal | 2, 4, 5 | Une phrase clé par scène max. |
 
@@ -299,7 +325,7 @@ D’après le [Component shortlist](video-ai-preparation.md#component-shortlist)
 - [x] V0.8 : matrice consolidée (hero intro `GlitchText`, sous-titre intro `TextReveal`, ligne OS `WordByWord` vert, CLI `Terminal`) — lint + bundle OK.
 - [ ] Capture Studio : holds `pwd` / `ls` et lisibilité (mobile / scale terminal) — validation manuelle.
 
-**Implémentation** : Composition `Pilot01Prerequis` dans `apps/remotion/src/remotion/compositions/serie-01/`, enregistrée dans `Root.tsx` (id `Pilot01Prerequis`, **3600 frames**, 30 fps, 1920×1080).
+**Implémentation** : Composition `Pilot01Prerequis` dans `apps/remotion/src/remotion/compositions/serie-01/`, enregistrée dans `Root.tsx` (id `Pilot01Prerequis`, **`PILOT01_DURATION_FRAMES` = 3690**, 30 fps, 1920×1080) ; `apps/frontend/src/sceneRegistry.tsx` aligné.
 
 **Historique** :
 
@@ -311,12 +337,13 @@ D’après le [Component shortlist](video-ai-preparation.md#component-shortlist)
 - **2026-03-21** : **Bases reproductibles THP** — taxonomie texte (§04 runbook), règle **sous-Sequence / contenu persistant**, catalogue **démos Remotion** + **transitions** sous `solarTheme` ([solarpunk-theme-decisions](../reference/solarpunk-theme-decisions.md) décision #11, § *Catalogue démo & motion*) ; retour process [§07 Retour 3](../runbooks/video-ai-development.md#07--amélioration-du-process). Section [Version V0.6](#version-v06-timeline-texte-reproductibilité-thp) dans ce outline.
 - **2026-03-20 (itération harmonisation)** : **V0.7** — [Version V0.7](#version-v07-harmonisation-série-01--04--chrome) ; cartographie §04 ; `Serie01SceneShell` + `FadeSlide` ; curseurs typewriter masqués en prod ; recap **WordByWord** ligne 2 uniquement.
 - **2026-03-20 (cycle long consolidation)** : **V0.8** — source unique skill/matrix ; intro hero en `GlitchText`, sous-titre en `TextReveal`, ligne OS en `WordByWord` vert ; still checks render OK sur frames clés.
+- **2026-03-31** : **V1** — refonte visuelle étalon pédagogique : intro `FlowChart` + objectif `TextReveal` ; step1 `Serie01SceneShell` stack + `FlowChart` bas ; steps 2–3 layout grille + mini schémas ; durée **3690** f ; `PILOT01_DURATION_FRAMES` partagé Root / frontend.
 
 ---
 
 ## Review et rendu (après implémentation)
 
-- **Vérification** : Remotion Studio (`bun run dev --filter=remotion`), composition « Pilot01Prerequis », lecture bout en bout ; durée **3600 frames**, lisibilité texte/terminal, **pauses** courtes après sorties.
+- **Vérification** : Remotion Studio (`bun run dev --filter=remotion`), composition « Pilot01Prerequis », lecture bout en bout ; durée **3690 frames** (V1), lisibilité texte/terminal/schémas, **pauses** courtes après sorties.
 - **Checklist qualité** : [runbook §06](../runbooks/video-ai-development.md) — rythme, pas de surcharge cognitive.
 - **Rendu** : [runbooks/remotion](../runbooks/remotion.md) pour `remotion render`.
 
